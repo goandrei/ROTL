@@ -1,10 +1,7 @@
-//srry nu are dependente la ce a facut Andrei :)
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import javax.swing.ImageIcon;
 import javafx.application.*;
 import javafx.stage.*;
 import javafx.geometry.*;
@@ -27,7 +24,7 @@ import javafx.util.Pair;
 
 public class Menu extends Application {
 
-    private static final String menuImageSrc = "img\\deadpool.png";
+    private static final String menuImageSrc = "img\\BG2.png";
     private static final Pair<Integer, Integer> paneDimensions =
             new Pair<Integer, Integer>(1080, 620);
     private static final String titleName = "Return of the\nLegends";
@@ -56,8 +53,8 @@ public class Menu extends Application {
 
         try (InputStream is = Files.newInputStream(Paths.get(menuImageSrc))) {
             ImageView img = new ImageView(new Image(is));
-            img.setFitWidth(paneDimensions.getKey());
-            img.setFitHeight(paneDimensions.getValue());
+            img.setFitWidth(root.getLayoutX());
+            img.setFitHeight(root.getLayoutY());
             root.getChildren().add(img);
         } catch (IOException e) {
             System.out.println("Couldn't load image...");
@@ -68,15 +65,17 @@ public class Menu extends Application {
         title.setTranslateY(titlePosition.getValue());
 
         MenuBox vbox = new MenuBox(
-                new MenuItem("PLAY"),
-                new MenuItem("INSTRUCTIONS"),
-                new MenuItem("OPTIONS"),
-                new MenuItem("CREDITS"),
-                new MenuItem("EXIT"));
+                new MenuItem("PLAY", root),
+                new MenuItem("INSTRUCTIONS", root),
+                new MenuItem("OPTIONS", root),
+                new MenuItem("CREDITS", root),
+                new MenuItem("EXIT", root));
         vbox.setTranslateX(menuPosition.getKey());
         vbox.setTranslateY(menuPosition.getValue());
 
         root.getChildren().addAll(title, vbox);
+        root.setMaxSize(paneDimensions.getKey()*1.2, paneDimensions.getValue()*1.2);
+        root.setMinSize(paneDimensions.getKey()*0.8, paneDimensions.getValue()*0.8);
 
         return root;
 
@@ -99,8 +98,9 @@ public class Menu extends Application {
 //			bg.setFill(null);
 
             Text text = new Text(name);
-            text.setFill(Color.DEEPSKYBLUE);
+            text.setFill(Color.LIGHTGOLDENRODYELLOW);
             text.setFont(Font.font("Neuropol", FontWeight.BOLD, titleFontSize));
+            text.setTranslateX(titlePosition.getKey());
 
             setAlignment(Pos.CENTER);
 //			getChildren().addAll(bg,text);
@@ -127,7 +127,7 @@ public class Menu extends Application {
     }
 
     private static class MenuItem extends StackPane {
-        public MenuItem(String name) {
+        public MenuItem(String name, Pane root) {
             LinearGradient gradient = new LinearGradient(0, 0, 1, 0,
                     true, CycleMethod.NO_CYCLE, new Stop[]{
                     new Stop(0, Color.DEEPSKYBLUE),
@@ -150,7 +150,6 @@ public class Menu extends Application {
             setOnMouseEntered(event -> {
                 bg.setFill(gradient);
                 text.setFill(Color.WHITE);
-
             });
 
             setOnMouseExited(event -> {
@@ -159,11 +158,6 @@ public class Menu extends Application {
             });
             setOnMousePressed(event -> {
                 bg.setFill(Color.DARKBLUE);
-
-            });
-
-            setOnMouseReleased(event -> {
-                bg.setFill(gradient);
                 if (name == "EXIT") {
                     setVisible(false);
                     // finally, call this to really exit.
@@ -171,6 +165,19 @@ public class Menu extends Application {
                     // also, this is what swing does for JFrame.EXIT_ON_CLOSE
                     System.exit(0);
                 }
+                if (name == "INSTRUCTIONS") {
+                	Options instr = new Options(root);
+                }
+                if (name == "OPTIONS") {
+                	Options op = new Options(root);
+                }
+                if (name == "CREDITS") {
+                	Options credits = new Options(root);
+                }
+            });
+
+            setOnMouseReleased(event -> {
+                bg.setFill(gradient);
             });
         }
     }
