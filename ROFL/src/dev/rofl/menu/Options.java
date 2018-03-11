@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Vector;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -14,9 +15,15 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class Options implements MenuOption {
-    
+	
+	static final String menuSectionImageSrc = "img\\BGoption.jpg";
+	private static final Integer contentFontSize = 30;
+	private static String content1 = "";
+	private static String content2 = "";
+	private static Integer step = 1;
+	
 	@Override
-	public void createBackButton(Pane root, ImageView img) {
+	public Text createBackButton(Pane root) {
     	
     	LinearGradient gradient = new LinearGradient(0, 0, 1, 0,
                 true, CycleMethod.NO_CYCLE, new Stop[]{
@@ -47,22 +54,69 @@ public class Options implements MenuOption {
         text.setOnMousePressed(event -> {
         	text.setFont(Font.font("Neuropol", FontWeight.BOLD, backButtonFontSize*1.1));
         });
-
-        text.setOnMouseReleased(event -> {
-        	text.setFill(gradient);
-            root.getChildren().removeAll(text, img);
-        });
+        
+        return text;
     }
-
-	public Options(Pane root) {
+	
+	@Override
+	public Text createTitle(Pane root) {
 		
-        try (InputStream is = Files.newInputStream(Paths.get(menuImageSrc))) {
+		Text text = new Text("O P T I O N S ");
+        text.setFill(Color.DEEPSKYBLUE);
+        text.setFont(Font.font("Neuropol", FontWeight.EXTRA_BOLD, titleFontSize));
+        text.setTranslateX(350);
+        text.setTranslateY(50);
+        root.getChildren().add(text);
+        
+        return text;
+	}
+	
+	@Override
+	public Vector <Object> createContent(Pane root) {
+		
+		Text text1 = new Text(content1);
+		Text text2 = new Text(content2);
+        text1.setFill(Color.LIGHTGOLDENRODYELLOW);
+        text1.setFont(Font.font("Neuropol X", FontWeight.NORMAL, contentFontSize));
+        text1.setTranslateX(100);
+        text1.setTranslateY(100);
+        text1.setVisible(true);
+        root.getChildren().add(text1);
+        
+        text2.setFill(Color.LIGHTGOLDENRODYELLOW);
+        text2.setFont(Font.font("Neuropol X", FontWeight.NORMAL, contentFontSize));
+        text2.setTranslateX(100);
+        text2.setTranslateY(100);
+        text2.setVisible(false);
+        root.getChildren().add(text2);
+        step++;
+        
+        Vector <Object> objVector = new Vector <Object>(2);
+        objVector.add(text1);
+        objVector.add(text2);
+        
+        return objVector;
+	}
+
+	public Options(Pane root) { //nextImageSrc
+		
+		step = 1;
+        try (InputStream is = Files.newInputStream(Paths.get(menuSectionImageSrc))) {
             ImageView img = new ImageView(new Image(is));
-            img.setFitWidth(root.getMaxWidth() + 75);
+            img.setFitWidth(root.getMaxWidth()+75);
             img.setFitHeight(root.getMaxHeight());
             root.getChildren().add(img);
             
-            createBackButton(root, img);
+            Text back = createBackButton(root);
+            
+            Text title = createTitle(root);
+            
+            Vector <Object> content = createContent(root);
+            
+            back.setOnMouseReleased(event -> {
+                root.getChildren().removeAll(img, back, title, (Text)content.get(0),
+                		(Text)content.get(1));
+            });
             
         } catch (IOException e) {
             System.out.println("Couldn't load image...");

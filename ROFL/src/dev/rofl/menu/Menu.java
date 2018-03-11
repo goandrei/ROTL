@@ -166,13 +166,13 @@ public class Menu extends Application {
                     System.exit(0);
                 }
                 if (name == "INSTRUCTIONS") {
-                	Options instr = new Options(root);
+                	Instructions instr = new Instructions(root);
                 }
                 if (name == "OPTIONS") {
                 	Options op = new Options(root);
                 }
                 if (name == "CREDITS") {
-                	Options credits = new Options(root);
+                	Credits credits = new Credits(root);
                 }
             });
 
