@@ -1,4 +1,4 @@
-package dev.rotl.display;
+package rotl.display;
 
 import java.awt.Canvas;
 import java.awt.Dimension;

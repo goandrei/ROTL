@@ -1,4 +1,4 @@
-package dev.rotl.states;
+package rotl.states;
 
 import java.awt.Graphics;
 

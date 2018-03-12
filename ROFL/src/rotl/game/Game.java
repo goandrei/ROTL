@@ -1,12 +1,12 @@
-package dev.rotl.game;
+package rotl.game;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
-import dev.rotl.display.Display;
-import dev.rotl.managers.StateManager;
-import dev.rotl.states.GameState;
-import dev.rotl.states.State;
+import rotl.display.Display;
+import rotl.managers.StateManager;
+import rotl.states.GameState;
+import rotl.states.State;
 
 public class Game implements Runnable{
 	
