@@ -1,12 +1,12 @@
-package dev.rofl.game;
+package rotl.game;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
-import dev.rofl.display.Display;
-import dev.rofl.managers.StateManager;
-import dev.rofl.states.IntroState;
-import dev.rofl.states.State;
+import rotl.display.Display;
+import rotl.managers.StateManager;
+import rotl.states.GameState;
+import rotl.states.State;
 
 public class Game implements Runnable{
 	
@@ -32,7 +32,7 @@ public class Game implements Runnable{
 			
 		this.title = title;
 		display = new Display(title);
-		introState = new IntroState();
+		introState = new GameState();
 		stateManager = new StateManager(introState);
 	}
 	
@@ -67,8 +67,7 @@ public class Game implements Runnable{
 			stateManager.getActualState().update();
 	}
 	
-	private void render() {
-			
+	private void render() {			
 		bufferStrategy = display.getCanvas().getBufferStrategy();
 		if(bufferStrategy == null){
 			display.getCanvas().createBufferStrategy(3);
@@ -112,7 +111,7 @@ public class Game implements Runnable{
 			
 			//if time >= 1s,then we reset the values
 			if(time >= 1000000000){
-				System.out.println("FPS: " + ticks);
+				//System.out.println("FPS: " + ticks);
 				ticks = 0;
 				time = 0;
 			}

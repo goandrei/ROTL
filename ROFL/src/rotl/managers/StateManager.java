@@ -1,6 +1,6 @@
-package dev.rofl.managers;
+package rotl.managers;
 
-import dev.rofl.states.State;
+import rotl.states.State;
 
 public class StateManager {
 	
