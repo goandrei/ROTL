@@ -1,6 +1,6 @@
-package dev.rofl.launcher;
+package dev.rotl.launcher;
 
-import dev.rofl.game.Game;
+import dev.rotl.game.Game;
 
 public class Launcher {
 

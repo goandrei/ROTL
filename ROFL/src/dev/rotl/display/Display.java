@@ -1,4 +1,4 @@
-package dev.rofl.display;
+package dev.rotl.display;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
@@ -30,10 +30,10 @@ public class Display {
 		frame.setSize(screenWidth,screenHeight);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frame.setUndecorated(true);
+		//frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//frame.setUndecorated(true);
 		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
+		//frame.setVisible(true);
 		
 		canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(screenWidth,screenHeight));

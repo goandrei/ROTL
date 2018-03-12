@@ -1,3 +1,4 @@
+package dev.rotl.menu;
 import java.util.Vector;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
