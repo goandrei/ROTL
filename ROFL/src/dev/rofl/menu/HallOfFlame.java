@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -15,28 +17,36 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-public class Options implements MenuOption {
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Scanner;
 
-    static final String menuSectionImageSrc = "img\\BGoption.jpg";
+import javafx.util.Pair;
+
+import static java.lang.Math.*;
+
+public class HallOfFlame implements MenuOption {
+
+    static final String menuSectionImageSrc = "img\\BGHallOfFlame.jpg";
     private static final Integer contentFontSize = 30;
-    private static Options single_instance = null;
-    private static String content1 = "";
-    private static String content2 = "";
-    private static Integer step = 1;
+    private static HallOfFlame single_instance = null;
+    private static Vector<Pair<String, Integer>> history =
+            new Vector<Pair<String, Integer>>();
 
-    private Options() {
+    private Scanner scanner;
+
+    private HallOfFlame() {
     }
 
-    public static Options getOptions() {
+    public static HallOfFlame getHallOfFlame() {
         if (single_instance == null)
-            single_instance = new Options();
+            single_instance = new HallOfFlame();
 
         return single_instance;
     }
 
-    public void setOptions(Pane root) {
+    public void setHallOfFlame(Pane root) {
 
-        step = 1;
         try (InputStream is = Files.newInputStream(Paths.get(menuSectionImageSrc))) {
             ImageView img = new ImageView(new Image(is));
             img.setFitWidth(root.getMaxWidth() + 75);
@@ -57,6 +67,31 @@ public class Options implements MenuOption {
         } catch (IOException e) {
             System.out.println("Couldn't load image...");
         }
+    }
+
+    private void readHistory() {
+
+        String s = null;
+        try {
+            scanner = new Scanner(new File("dep\\HallOfFlames.txt"));
+            while (scanner.hasNextLine()) {
+                s = scanner.nextLine();
+
+                Pair<String, Integer> aux =
+                        new Pair<String, Integer>(s.substring(0, s.indexOf('#') - 1),
+                                Integer.parseInt(s.substring(s.indexOf('#') + 1,
+                                        s.lastIndexOf('#'))));
+                history.add(aux);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void processingHistory() {
+
+        Comparator<Pair<String, Integer>> comparator = new PairComparator();
+        Collections.sort(history, comparator);
     }
 
     @Override
@@ -98,11 +133,11 @@ public class Options implements MenuOption {
     @Override
     public Text createTitle(Pane root) {
 
-        Text text = new Text("O P T I O N S ");
+        Text text = new Text("H A L L   O f   F L A M E S ");
         text.setFill(Color.DEEPSKYBLUE);
         text.setFont(Font.font("Neuropol", FontWeight.EXTRA_BOLD, titleFontSize));
-        text.setTranslateX(350);
-        text.setTranslateY(50);
+        text.setTranslateX(300);
+        text.setTranslateY(75);
         root.getChildren().add(text);
 
         return text;
@@ -111,27 +146,52 @@ public class Options implements MenuOption {
     @Override
     public Vector<Object> createContent(Pane root) {
 
+        readHistory();
+
+        processingHistory();
+
+        String content1 = new String("");
+        String content2 = new String("");
+
+        for (Integer i = 0; i < min(history.size(), 10); ++i) {
+
+            Pair<String, Integer> aux = history.get(i);
+            content1 += i + 1;
+            content1 += ".  ";
+            content1 += aux.getKey();
+            content1 += '\n';
+
+            content2 += aux.getValue();
+            content2 += '\n';
+        }
+
+
         Text text1 = new Text(content1);
-        Text text2 = new Text(content2);
         text1.setFill(Color.LIGHTGOLDENRODYELLOW);
-        text1.setFont(Font.font("Neuropol X", FontWeight.NORMAL, contentFontSize));
-        text1.setTranslateX(100);
-        text1.setTranslateY(100);
+        text1.setFont(Font.font("Neuropol X", FontWeight.NORMAL, contentFontSize * 1.2));
+        text1.setTranslateX(150);
+        text1.setTranslateY(200);
         text1.setVisible(true);
         root.getChildren().add(text1);
 
+        Text text2 = new Text(content2);
         text2.setFill(Color.LIGHTGOLDENRODYELLOW);
-        text2.setFont(Font.font("Neuropol X", FontWeight.NORMAL, contentFontSize));
-        text2.setTranslateX(100);
-        text2.setTranslateY(100);
-        text2.setVisible(false);
+        text2.setFont(Font.font("Neuropol X", FontWeight.NORMAL, contentFontSize * 1.2));
+        text2.setTranslateX(750);
+        text2.setTranslateY(200);
+        text2.setVisible(true);
         root.getChildren().add(text2);
-        step++;
 
         Vector<Object> objVector = new Vector<Object>(2);
         objVector.add(text1);
         objVector.add(text2);
 
         return objVector;
+    }
+}
+
+class PairComparator implements Comparator<Pair<String, Integer>> {
+    public int compare(Pair<String, Integer> o1, Pair<String, Integer> o2) {
+        return -(o1.getValue().compareTo(o2.getValue()));
     }
 }

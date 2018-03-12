@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 import javafx.application.*;
 import javafx.stage.*;
 import javafx.geometry.*;
@@ -38,7 +39,7 @@ public class Menu extends Application {
     private static final Pair<Integer, Integer> menuPosition =
             new Pair<Integer, Integer>(100, 300);
     private static final Pair<Integer, Integer> menuItemDimensions =
-            new Pair<Integer, Integer>(210, 35);
+            new Pair<Integer, Integer>(250, 35);
     private static final Integer menuItemFontSize = 20;
 
     public static void main(String[] args) {
@@ -66,6 +67,7 @@ public class Menu extends Application {
 
         MenuBox vbox = new MenuBox(
                 new MenuItem("PLAY", root),
+                new MenuItem("HALL OF FLAME", root),
                 new MenuItem("INSTRUCTIONS", root),
                 new MenuItem("OPTIONS", root),
                 new MenuItem("CREDITS", root),
@@ -74,8 +76,8 @@ public class Menu extends Application {
         vbox.setTranslateY(menuPosition.getValue());
 
         root.getChildren().addAll(title, vbox);
-        root.setMaxSize(paneDimensions.getKey()*1.2, paneDimensions.getValue()*1.2);
-        root.setMinSize(paneDimensions.getKey()*0.8, paneDimensions.getValue()*0.8);
+        root.setMaxSize(paneDimensions.getKey() * 1.2, paneDimensions.getValue() * 1.2);
+        root.setMinSize(paneDimensions.getKey() * 0.8, paneDimensions.getValue() * 0.8);
 
         return root;
 
@@ -144,9 +146,9 @@ public class Menu extends Application {
             Text text = new Text(name);
             text.setFill(Color.DARKGREY);
             text.setFont(Font.font("Neuropol", FontWeight.SEMI_BOLD, menuItemFontSize));
-
             setAlignment(Pos.CENTER);
             getChildren().addAll(bg, text);
+
             setOnMouseEntered(event -> {
                 bg.setFill(gradient);
                 text.setFill(Color.WHITE);
@@ -156,8 +158,14 @@ public class Menu extends Application {
                 bg.setFill(Color.BLACK);
                 text.setFill(Color.DARKGREY);
             });
+
             setOnMousePressed(event -> {
                 bg.setFill(Color.DARKBLUE);
+            });
+
+            setOnMouseReleased(event -> {
+                bg.setFill(gradient);
+
                 if (name == "EXIT") {
                     setVisible(false);
                     // finally, call this to really exit.
@@ -165,19 +173,22 @@ public class Menu extends Application {
                     // also, this is what swing does for JFrame.EXIT_ON_CLOSE
                     System.exit(0);
                 }
+                if (name == "HALL OF FLAME") {
+                    HallOfFlame hof = HallOfFlame.getHallOfFlame();
+                    hof.setHallOfFlame(root);
+                }
                 if (name == "INSTRUCTIONS") {
-                	Instructions instr = new Instructions(root);
+                    Instructions instr = Instructions.getInstructions();
+                    instr.setInstructions(root);
                 }
                 if (name == "OPTIONS") {
-                	Options op = new Options(root);
+                    Options op = Options.getOptions();
+                    op.setOptions(root);
                 }
                 if (name == "CREDITS") {
-                	Credits credits = new Credits(root);
+                    Credits credits = Credits.getCredits();
+                    credits.setCredits(root);
                 }
-            });
-
-            setOnMouseReleased(event -> {
-                bg.setFill(gradient);
             });
         }
     }
