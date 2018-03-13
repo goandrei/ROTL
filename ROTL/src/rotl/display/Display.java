@@ -6,8 +6,8 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
-public class Display {
-	
+public class Display {	
+	//test
 	private JFrame frame;
 	private Canvas canvas;
 	
