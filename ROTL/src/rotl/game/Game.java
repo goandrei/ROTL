@@ -5,7 +5,7 @@ import java.awt.image.BufferStrategy;
 
 import rotl.display.Display;
 import rotl.managers.StateManager;
-import rotl.states.GameState;
+import rotl.states.IntroState;
 import rotl.states.State;
 
 public class Game implements Runnable{
@@ -32,7 +32,7 @@ public class Game implements Runnable{
 			
 		this.title = title;
 		display = new Display(title);
-		introState = new GameState();
+		introState = new IntroState();
 		stateManager = new StateManager(introState);
 	}
 	

@@ -1,4 +1,5 @@
 package rotl.menu;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -68,7 +69,7 @@ public class Menu extends Application {
 
         MenuBox vbox = new MenuBox(
                 new MenuItem("PLAY", root),
-                new MenuItem("HALL OF FLAME", root),
+                new MenuItem("HALL OF Fame", root),
                 new MenuItem("INSTRUCTIONS", root),
                 new MenuItem("OPTIONS", root),
                 new MenuItem("CREDITS", root),
@@ -174,9 +175,9 @@ public class Menu extends Application {
                     // also, this is what swing does for JFrame.EXIT_ON_CLOSE
                     System.exit(0);
                 }
-                if (name == "HALL OF FLAME") {
-                    HallOfFlame hof = HallOfFlame.getHallOfFlame();
-                    hof.setHallOfFlame(root);
+                if (name == "HALL OF Fame") {
+                    HallOfFame hof = HallOfFame.getHallOfFame();
+                    hof.setHallOfFame(root);
                 }
                 if (name == "INSTRUCTIONS") {
                     Instructions instr = Instructions.getInstructions();
