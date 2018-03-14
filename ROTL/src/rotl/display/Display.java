@@ -26,12 +26,13 @@ public class Display {
 		screenWidth  = (int)screenMaxResolution.getWidth();
 		screenHeight = (int)screenMaxResolution.getHeight();
 		
+		
 		frame = new JFrame(title);
 		frame.setSize(screenWidth,screenHeight);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frame.setUndecorated(true);
+		frame.setUndecorated(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
@@ -43,6 +44,16 @@ public class Display {
 		
 		frame.add(canvas);
 		frame.pack();
+		
+	}
+	
+	//GETers
+	public int getWidth() {
+		return screenWidth;
+	}
+	
+	public int getHeight() {
+		return screenHeight;
 	}
 	
 	public Canvas getCanvas(){
