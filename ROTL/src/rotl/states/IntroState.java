@@ -8,7 +8,6 @@ import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import rotl.display.Display;
@@ -19,7 +18,7 @@ public class IntroState extends State {
 	private Display display;
 	private Graphics g;
 	private BufferStrategy bufferStrategy;
-	private Component image;
+	private Image image;
 	
 	
 	public IntroState(Display display, Graphics graphics, BufferStrategy bufferStrategy ) {
