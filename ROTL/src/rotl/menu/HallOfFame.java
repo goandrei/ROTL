@@ -29,7 +29,7 @@ import static java.lang.Math.*;
 
 public class HallOfFame implements MenuOption {
 
-    static final String menuSectionImageSrc = "..\\resources\\images\\BGHallOfFlame.jpg";
+    static final String menuSectionImageSrc = "..\\resources\\images\\BGHallOfFame.jpg";
     private static final Integer contentFontSize = 30;
     private static HallOfFame single_instance = null;
     private static Vector<Pair<String, Integer>> history =
