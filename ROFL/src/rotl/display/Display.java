@@ -33,7 +33,7 @@ public class Display {
 		//frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		//frame.setUndecorated(true);
 		frame.setLocationRelativeTo(null);
-		//frame.setVisible(true);
+		frame.setVisible(true);
 		
 		canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(screenWidth,screenHeight));

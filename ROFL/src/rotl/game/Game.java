@@ -1,6 +1,7 @@
 package rotl.game;
 
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 
 import rotl.display.Display;
@@ -11,8 +12,8 @@ import rotl.states.State;
 public class Game implements Runnable{
 	
 	private String title;
-	private int screenHeight;
-	private int screenWidth;
+	private int screenHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	private int screenWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	
 	private boolean running = false;
 
@@ -32,7 +33,7 @@ public class Game implements Runnable{
 			
 		this.title = title;
 		display = new Display(title);
-		introState = new GameState();
+		introState = new GameState(screenWidth, screenHeight);
 		stateManager = new StateManager(introState);
 	}
 	
