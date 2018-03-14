@@ -12,6 +12,7 @@ public class ImagePanel extends JPanel {
 	Image image;
 	Graphics g;
 	private BufferStrategy bufferStrategy;
+	
 	public ImagePanel(Graphics graphics, BufferStrategy bufferStrategy) {
 		image = Toolkit.getDefaultToolkit().createImage("/ROTL/resources/images/punchline_intro_final.gif");
 		this.g = graphics;
