@@ -8,6 +8,7 @@ public class Assets {
 	
 	public static BufferedImage[] outsideTiles;
 	public static BufferedImage[] introFrames;
+	public static BufferedImage cursor;
 	private final int TILE_WIDTH  = 64;
 	private final int TILE_HEIGHT = 32;
 	
@@ -18,6 +19,8 @@ public class Assets {
 		//load the outside tiles
 		lines = 32;
 		columns = 10;
+		
+		cursor = ImageLoader.loadImage("/images/cursor_final.png");
 		
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/iso-64x64-outside.png"));
 		outsideTiles = new BufferedImage[lines * columns + 1];

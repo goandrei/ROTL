@@ -35,13 +35,15 @@ public class Game implements Runnable {
 	public Game(String title){
 
 		this.title = title;
+		
+		assets = new Assets();
+		assets.init();
+
 		display = new Display(title);
 		
 		screenHeight = display.getHeight();
 		screenWidth = display.getWidth();
 		
-		assets = new Assets();
-		assets.init();
 		//introState = new IntroState(assets);
 		introState = new IntroState();
 		stateManager = new StateManager(introState);

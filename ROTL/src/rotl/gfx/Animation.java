@@ -19,7 +19,6 @@ public class Animation {
 	public void start() {
 		started = true;
 		last = System.currentTimeMillis();
-		System.out.print(last);
 	}
 	
 	public boolean hasStarted() {

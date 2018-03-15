@@ -1,9 +1,13 @@
 package rotl.display;
 
 import java.awt.Canvas;
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class Display {	
@@ -27,6 +31,11 @@ public class Display {
 		screenHeight = (int)screenMaxResolution.getHeight();
 
 		frame = new JFrame(title);
+		Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/cursor_final.png"));
+	    Point hotspot = new Point(0,0);
+	    Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(image, hotspot, "pencil");
+	    frame.setCursor(cursor);
+
 		frame.setSize(screenWidth,screenHeight);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);

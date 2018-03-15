@@ -27,7 +27,7 @@ import javafx.util.Pair;
 
 public class Menu extends Application {
 
-    private static final String menuImageSrc = "..\\resources\\images\\BG2.png";
+    private static final String menuImageSrc = "/images/BG2.png";
     private static final Pair<Integer, Integer> paneDimensions =
             new Pair<Integer, Integer>(1080, 620);
     private static final String titleName = "Return of the\nLegends";
