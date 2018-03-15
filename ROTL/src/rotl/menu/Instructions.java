@@ -19,8 +19,8 @@ import javafx.scene.text.Text;
 
 public class Instructions implements MenuOption {
 
-    private static final String menuSectionImageSrc = "img\\BGinstruction.jpg",
-            nextImageSrc = "img\\Next.png";
+    private static final String menuSectionImageSrc = "..\\resources\\images\\BGinstruction.jpg",
+            nextImageSrc = "..\\resources\\images\\Next.png";
     private static final Integer contentFontSize = 30;
     private static Instructions single_instance = null;
     private static String content1 = "\tJocul se bazeaza pe ideea de wave;\r\n" +

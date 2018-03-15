@@ -19,7 +19,7 @@ import javafx.scene.text.Text;
 
 public class Options implements MenuOption {
 
-    static final String menuSectionImageSrc = "img\\BGoption.jpg";
+    static final String menuSectionImageSrc = "..\\resources\\images\\BGoption.jpg";
     private static final Integer contentFontSize = 30;
     private static Options single_instance = null;
     private static String content1 = "";

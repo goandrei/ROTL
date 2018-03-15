@@ -19,8 +19,8 @@ import javafx.scene.text.Text;
 
 public class Credits implements MenuOption {
 
-    private static final String menuSectionImageSrc = "img\\BGcredits.jpg",
-            nextImageSrc = "img\\Next.png", logoSrc = "img\\tb_logo.png";
+    private static final String menuSectionImageSrc = "..\\resources\\images\\BGcredits.jpg",
+            nextImageSrc = "..\\resources\\images\\Next.png", logoSrc = "..\\resources\\images\\tb_logo.png";
     private static final Integer contentFontSize = 30;
     private static Credits single_instance = null;
     private static String content = "Team : - Bogdan Anghelache\n"

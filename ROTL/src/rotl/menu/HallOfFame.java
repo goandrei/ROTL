@@ -29,7 +29,7 @@ import static java.lang.Math.*;
 
 public class HallOfFame implements MenuOption {
 
-    static final String menuSectionImageSrc = "img\\BGHallOfFame.jpg";
+    static final String menuSectionImageSrc = "..\\resources\\images\\BGHallOfFame.jpg";
     private static final Integer contentFontSize = 30;
     private static HallOfFame single_instance = null;
     private static Vector<Pair<String, Integer>> history =
@@ -75,7 +75,7 @@ public class HallOfFame implements MenuOption {
 
         String s = null;
         try {
-            scanner = new Scanner(new File("dep\\HallOfFames.txt"));
+            scanner = new Scanner(new File("..\\resources\\files\\HallOfFames.txt"));
             while (scanner.hasNextLine()) {
                 s = scanner.nextLine();
 
@@ -86,6 +86,7 @@ public class HallOfFame implements MenuOption {
                 history.add(aux);
             }
         } catch (FileNotFoundException e) {
+        	System.out.println("Couldn't load text ...");
             e.printStackTrace();
         }
     }
