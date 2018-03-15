@@ -15,7 +15,7 @@ public class IntroState extends State {
 	private Assets assets;
 	private boolean isRunning = false;
 	private int frames = 19;
-	private Integer[] delays = {50, 100, 100, 100, 50, 100, 100, 100, 100, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
+	private Integer[] delays = {500, 500, 500, 100, 50, 100, 100, 100, 100, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50};
 	
 	private Animation animation;
 	
