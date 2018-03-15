@@ -40,7 +40,7 @@ public class Display {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frame.setUndecorated(true);
+		frame.setUndecorated(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
