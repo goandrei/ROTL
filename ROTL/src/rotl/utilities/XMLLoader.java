@@ -34,7 +34,6 @@ public class XMLLoader {
 	             
 	             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 	                Element eElement = (Element) nNode; 
-	                System.out.print(Base64.getDecoder().decode(eElement.getElementsByTagName("data").item(0).getTextContent()));
 	                String parts[] = (eElement.getElementsByTagName("data").item(0).getTextContent()).split(",");
 	                
 	                for(int j = 0;j < MAP_HEIGHT; ++j) {

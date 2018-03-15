@@ -25,14 +25,13 @@ public class Display {
 		Dimension screenMaxResolution = Toolkit.getDefaultToolkit().getScreenSize();
 		screenWidth  = (int)screenMaxResolution.getWidth();
 		screenHeight = (int)screenMaxResolution.getHeight();
-		
-		
+
 		frame = new JFrame(title);
 		frame.setSize(screenWidth,screenHeight);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frame.setUndecorated(false);
+		frame.setUndecorated(true);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
@@ -46,7 +45,7 @@ public class Display {
 		frame.pack();
 		
 	}
-	
+		
 	//GETers
 	public int getWidth() {
 		return screenWidth;

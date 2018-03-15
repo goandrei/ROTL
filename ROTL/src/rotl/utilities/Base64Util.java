@@ -14,7 +14,7 @@ public class Base64Util {
 
 	private java.util.Base64 x;
 	
-	public void unzip() throws Base64DecodingException{
+	public void unzip(){/*
         String encoded = "PUT BASE 64ENCODED GZIPPED STRING HERE";
         byte[] compressed = Base64.decode(encoded);
         String data = new String(compressed);
@@ -45,7 +45,7 @@ public class Base64Util {
             }
         } catch(IOException e) {
             throw new RuntimeException("Failed to unzip content", e);
-        }
+        }*/
     }
 	
     public boolean isZipped(final byte[] compressed) {

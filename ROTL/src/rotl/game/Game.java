@@ -1,10 +1,11 @@
 package rotl.game;
 
+import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 
 import rotl.display.Display;
+import rotl.gfx.Assets;
 import rotl.managers.StateManager;
 import rotl.states.IntroState;
 import rotl.states.State;
@@ -28,27 +29,22 @@ public class Game implements Runnable {
 	private BufferStrategy bufferStrategy;
 
 	private Graphics g;
+	
+	private Assets assets;
 
 	public Game(String title){
 
-
-
 		this.title = title;
 		display = new Display(title);
-		introState = new IntroState(display, g, bufferStrategy);
+		
+		screenHeight = display.getHeight();
+		screenWidth = display.getWidth();
+		
+		assets = new Assets();
+		assets.init();
+		//introState = new IntroState(assets);
+		introState = new IntroState();
 		stateManager = new StateManager(introState);
-
-		bufferStrategy = display.getCanvas().getBufferStrategy();
-		if (bufferStrategy == null) {
-			display.getCanvas().createBufferStrategy(3);
-			return;
-		}
-
-		this.screenHeight = display.getHeight();
-		this.screenWidth  = display.getWidth();
-
-		g = bufferStrategy.getDrawGraphics();
-		g.clearRect(0, 0, screenWidth, screenHeight);
 	}
 
 	public synchronized void start() {
@@ -91,8 +87,6 @@ public class Game implements Runnable {
 		}
 
 		g = bufferStrategy.getDrawGraphics();
-		g.clearRect(0, 0, screenWidth, screenHeight);
-
 		if (stateManager.getActualState() != null)
 			stateManager.getActualState().render(g);
 
@@ -102,11 +96,7 @@ public class Game implements Runnable {
 
 	@Override
 	public void run() {
-
-		introState.render(g);
-		//here we set the state to gameState
-
-		/*
+		
 		int fps = 60;
 		long last = System.nanoTime();
 		double frameTime = 1000000000 / fps;
@@ -115,14 +105,12 @@ public class Game implements Runnable {
 		int ticks = 0;
 
 		while (running) {
-
 			long now = System.nanoTime();
 			delta += (now - last) / frameTime;
 			time += now - last;
 			last = now;
 
-			// if delta >= 1,then the frame exceeded the frameTime and we can update/render
-			// another frame
+			// if delta >= 1,then the frame exceeded the frameTime and we can update/render another frame
 			if (delta >= 1) {
 				update();
 				render();
@@ -139,6 +127,5 @@ public class Game implements Runnable {
 		}
 
 		stop();
-		*/
 	}
 }
