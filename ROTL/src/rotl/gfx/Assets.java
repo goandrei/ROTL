@@ -33,7 +33,7 @@ public class Assets {
 		
 		lines = 19;
 		
-		introFrames = new BufferedImage[lines];
+		introFrames = new BufferedImage[lines + 1];
 		
 		for(int i = 1;i <= lines; ++i) {
 			introFrames[i - 1] = ImageLoader.loadImage("/images/frame" + i + ".png");

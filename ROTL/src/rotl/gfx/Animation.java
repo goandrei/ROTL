@@ -6,7 +6,7 @@ public class Animation {
 	
 	private BufferedImage[] frames;
 	private Integer[] delays;
-	private int index = 0;
+	private int index = 1;
 	private long last;
 	private long now;
 	private boolean started = false;
@@ -29,12 +29,15 @@ public class Animation {
 		
 		now = System.currentTimeMillis();
 
-		if((now - last) >= delays[Math.min(index, 18)]) {
+		if((now - last) >= delays[index]) {
 			++index;
 			last = now;
 		}
+
+		if(index == 20)
+			return null;
 		
-		return frames[Math.min(index, 18)];
+		return frames[index];
 	}
 
 }

@@ -1,10 +1,10 @@
 package rotl.states;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import rotl.gfx.Assets;
 import rotl.managers.TileManager;
+import rotl.utilities.Handler;
 import rotl.utilities.XMLLoader;
 
 public class GameState extends State{
@@ -17,7 +17,8 @@ public class GameState extends State{
 	Assets a = new Assets();
 
 	
-	public GameState(int width, int height){
+	public GameState(int width, int height, Handler handler){
+		super(handler);
 		
 		this.width = width;
 		this.height = height;

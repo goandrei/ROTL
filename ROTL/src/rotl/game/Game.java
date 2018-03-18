@@ -1,6 +1,5 @@
 package rotl.game;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
@@ -9,6 +8,7 @@ import rotl.gfx.Assets;
 import rotl.managers.StateManager;
 import rotl.states.IntroState;
 import rotl.states.State;
+import rotl.utilities.Handler;
 
 public class Game implements Runnable {
 
@@ -20,6 +20,8 @@ public class Game implements Runnable {
 
 	private Thread thread;
 
+	private Handler handler;
+	
 	private StateManager stateManager;
 
 	private State introState;
@@ -41,12 +43,15 @@ public class Game implements Runnable {
 
 		display = new Display(title);
 		
+		stateManager = new StateManager();
+		
+		handler = new Handler(stateManager, this);
+
+		introState = new IntroState(handler);
+		stateManager.setActualState(introState);
+
 		screenHeight = display.getHeight();
 		screenWidth = display.getWidth();
-		
-		//introState = new IntroState(assets);
-		introState = new IntroState();
-		stateManager = new StateManager(introState);
 	}
 
 	public synchronized void start() {
@@ -129,5 +134,9 @@ public class Game implements Runnable {
 		}
 
 		stop();
+	}
+	
+	public Display getDisplay() {
+		return display;
 	}
 }

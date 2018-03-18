@@ -6,10 +6,6 @@ public class StateManager {
 	
 	private State actualState;
 	
-	public StateManager(State actualState) {	
-		this.actualState = actualState;
-	}
-	
 	public State getActualState() {
 		return actualState;
 	}

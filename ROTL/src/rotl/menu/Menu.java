@@ -1,14 +1,19 @@
 package rotl.menu;
 
+import java.awt.Dimension;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import javafx.application.*;
-import javafx.stage.*;
-import javafx.geometry.*;
-import javafx.scene.*;
+import javax.swing.JFrame;
+
+import javafx.application.Application;
+import javafx.embed.swing.JFXPanel;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -22,31 +27,67 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.*;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Pair;
+import rotl.utilities.Handler;
+import rotl.utilities.ImageLoader;
 
 public class Menu extends Application {
 
-    private static final String menuImageSrc = "/images/BG2.png";
-    private static final Pair<Integer, Integer> paneDimensions =
-            new Pair<Integer, Integer>(1080, 620);
-    private static final String titleName = "Return of the\nLegends";
-    private static final String panelName = "Return of the Legends - Game";
-    private static final Pair<Integer, Integer> titlePosition =
-            new Pair<Integer, Integer>(50, 150);
-    private static final Integer titleFontSize = 50;
-    //	private static final Pair <Pair <Integer, Integer>, Integer> titleBoxDimensions =
-//			new Pair <Pair <Integer, Integer>, Integer>
-//			(new Pair<Integer, Integer> (475, 150), 2);
-    private static final Pair<Integer, Integer> menuPosition =
-            new Pair<Integer, Integer>(100, 300);
-    private static final Pair<Integer, Integer> menuItemDimensions =
-            new Pair<Integer, Integer>(250, 35);
+	//menu variables
     private static final Integer menuItemFontSize = 20;
+    private static final String menuImageSrc = "/images/BG2.PNG";
+    private static final Pair<Integer, Integer> menuPosition = new Pair<Integer, Integer>(100, 300);
+    private static final Pair<Integer, Integer> menuItemDimensions = new Pair<Integer, Integer>(250, 35);
+    
+    //title variables
+    private static final Integer titleFontSize = 50;
+    private static final String titleName = "Return of the\nLegends";
+    private static final Pair<Integer, Integer> titlePosition = new Pair<Integer, Integer>(50, 150);
+    
+    //panel variables
+    private static final String panelName = "Return of the Legends - Game";
+    private static final Pair<Integer, Integer> paneDimensions = new Pair<Integer, Integer>(1080, 620);
 
+    private static JFrame frame = new JFrame("titlu");
+    private static JFXPanel jfxPanel = new JFXPanel();
+    private Handler handler;
+    
+    public static Menu instance = null;
+    
     public static void main(String[] args) {
 
-        launch(args);
+    	//frame.add(jfxPanel);
+    	//frame.setSize(new Dimension(500, 500));
+        //launch(args);
+    }
+    
+    public Menu() {}
+    
+    public Menu(Handler handler) {
+    	this.handler = handler;
+    	init();
+    }
+    
+    public static Menu getInstance(Handler handler) {
+    	
+    	if(instance == null) {
+    		instance = new Menu(handler);
+    	}
+    	
+    	return null;
+    }
+    
+    public void init() {
+    	
+    	JFrame frame = handler.getGame().getDisplay().getFrame();
+    	frame.remove(handler.getGame().getDisplay().getCanvas());
+    	
+        Scene scene = new Scene(createContent());
+        jfxPanel.setScene(scene);
+        frame.add(jfxPanel);
+        frame.setVisible(true);
     }
 
     private Parent createContent() {
@@ -87,10 +128,12 @@ public class Menu extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Scene scene = new Scene(createContent());
-        primaryStage.setTitle(panelName);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        //Scene scene = new Scene(createContent());
+        //jfxPanel.setScene(scene);
+        //frame.setVisible(true);
+       // primaryStage.setTitle(panelName);
+        //primaryStage.setScene(scene);
+        //primaryStage.show();
     }
 
     private static class Title extends StackPane {

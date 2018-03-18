@@ -50,9 +50,7 @@ public class Display {
 		canvas.setMaximumSize(  new Dimension(screenWidth,screenHeight));
 		canvas.setFocusable(false);
 		
-		frame.add(canvas);
-		frame.pack();
-		
+		frame.add(canvas);		
 	}
 		
 	//GETers
