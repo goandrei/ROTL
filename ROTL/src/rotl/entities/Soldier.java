@@ -9,9 +9,10 @@ public abstract class Soldier implements GameEntity {
 	
 	protected int missRate;
 	protected int dodgeRate;
+	protected int criticalRate;
 	
 	/** Constructors **/
-	public Soldier(int _life, int _armor, int _attack, int _miss, int _dodge) {
+	public Soldier(int _life, int _armor, int _attack, int _miss, int _dodge, int _critical) {
 		
 		this.level = 1;
 		this.setLife(_life);
@@ -23,7 +24,7 @@ public abstract class Soldier implements GameEntity {
 	
 	public Soldier() {
 		
-		this(0, 0, 0, 0, 0);
+		this(0, 0, 0, 0, 0, 0);
 	}
 	
 	/** Level **/
@@ -99,6 +100,20 @@ public abstract class Soldier implements GameEntity {
 		_dodge = Integer.min(_dodge, 100);
 		this.dodgeRate = _dodge;
 	}
+	
+	/** Critical Rate **/
+	public int getCriticalRate() {
+		
+		return this.criticalRate;
+	}
+	
+	public void setCriticalRate(int _critical) {
+		
+		_critical = Integer.max(_critical, 0);
+		_critical = Integer.min(_critical, 100);
+		this.criticalRate = _critical;
+	}
+	
 	
 	@Override
 	public boolean isDead() {

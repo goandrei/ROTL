@@ -8,9 +8,23 @@ public class TestEntities {
 		
 		long startTime = System.currentTimeMillis();
 		
-		String path = "resources\\soldiers_info\\soldiers.xml";
+		String path = "resources\\entities_info\\towers.xml";
+		XMLParser.parseTowersInfo(path);
+		
+		TowerFactory tf = new TowerFactory();
+		
+		Tower t = tf.getTower();
+		
+		System.out.println(t.getArmor());
+		System.out.println(t.getAttack());
+		
+		//System.out.println(s1.getCriticalRate());
+		
+		//System.out.println(s1);
+		
+		/**String path = "resources\\soldiers_info\\soldiers.xml";
 		XMLParser.parseSoldiersInfo(path);
-	
+		/**
 		SoldierFactory sf = new SoldierFactory();
 		
 		Soldier s1 = sf.getSoldier(SoldierType.WARRIOR);
@@ -30,7 +44,7 @@ public class TestEntities {
 		else if (!s2.isDead())
 			System.out.println("S2 wins !");
 		else
-			System.out.print("It's equal");
+			System.out.println("It's equal");
 		
 		System.out.println("Battle results: ");
 		System.out.println("S1: ");
@@ -39,7 +53,7 @@ public class TestEntities {
 		System.out.println();
 		System.out.println("S2: ");
 		System.out.println("Life: " + s2.getLife());
-		System.out.println("Armor: " + s2.getArmor());
+		System.out.println("Armor: " + s2.getArmor());**/
 		
 		long endTime = System.currentTimeMillis();
 		

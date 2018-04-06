@@ -9,6 +9,7 @@
 				<gold> 200 </gold>
 				<miss> 30 </miss>
 				<dodge> 5 </dodge>
+				<critical> 1 </critical>
 			</buy>
 			<upgrade>
 				<!-- all of these are ratios -->
@@ -18,6 +19,7 @@
 				<gold> 1.1 </gold>
 				<miss> 0.9 </miss>
 				<dodge> 1.1 </dodge>
+				<critical> 1.1 </critical>
 			</upgrade>
 		</defender>
 		<fighter>
@@ -28,6 +30,7 @@
 				<gold> 300 </gold>
 				<miss> 30 </miss>
 				<dodge> 5 </dodge>
+				<critical> 1 </critical>
 			</buy>
 			<upgrade>
 				<!-- all of these are ratios -->
@@ -37,6 +40,7 @@
 				<gold> 1.1 </gold>
 				<miss> 0.9 </miss>
 				<dodge> 1.1 </dodge>
+				<critical> 1.1 </critical>
 			</upgrade>
 		</fighter>
 		<warrior>
@@ -47,6 +51,7 @@
 				<gold> 400 </gold>
 				<miss> 20 </miss>
 				<dodge> 5 </dodge>
+				<critical> 3 </critical>
 			</buy>
 			<upgrade>
 				<!-- all of these are ratios -->
@@ -56,6 +61,7 @@
 				<gold> 1.1 </gold>
 				<miss> 0.9 </miss>
 				<dodge> 1.1 </dodge>
+				<critical> 1.1 </critical>
 			</upgrade>
 		</warrior>
 	</types>

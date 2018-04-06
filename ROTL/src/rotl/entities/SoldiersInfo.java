@@ -141,6 +141,27 @@ public class SoldiersInfo {
 			return ERROR_CODE;
 		}
 		
+		/** Critical Rate **/
+		public int getBCritical() {
+			
+			Integer criticalRate = buy.get("critical");
+			
+			if (criticalRate != null)
+				return criticalRate;
+			
+			return ERROR_CODE;
+		}
+		
+		public double getUCritical() {
+			
+			Double criticalRate = upgrade.get("critical");
+			
+			if (criticalRate != null)
+				return criticalRate;
+			
+			return ERROR_CODE;
+		}
+		
 		/** Setters **/
 		
 		/** Life **/
@@ -225,6 +246,21 @@ public class SoldiersInfo {
 			dodgeRate = Double.min(dodgeRate, 100);
 			upgrade.put("dodge", dodgeRate);
 		}
+		
+		/** Critical Rate **/
+		public void setBCritical(int criticalRate) {
+			
+			criticalRate = Integer.max(criticalRate, 0);
+			criticalRate = Integer.min(criticalRate, 100);
+			buy.put("critical", criticalRate);
+		}
+		
+		public void setUCritical(double criticalRate) {
+			
+			criticalRate = Double.max(criticalRate, 0);
+			criticalRate = Double.min(criticalRate, 100);
+			upgrade.put("critical", criticalRate);
+		}
 	}
 	
 	private Map<SoldierType, S_Info> soldierInfo = new HashMap<>();
@@ -247,6 +283,7 @@ public class SoldiersInfo {
 	
 	public void addSoldierInfo(SoldierType type, S_Info info) {
 		
-		soldierInfo.put(type, info);
+		if (info != null)
+			soldierInfo.put(type, info);
 	}
 }

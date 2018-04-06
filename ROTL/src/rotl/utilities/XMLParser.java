@@ -8,6 +8,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import rotl.entities.SoldiersInfo;
+import rotl.entities.TowersInfo;
 import rotl.entities.SoldiersInfo.S_Info;
 import rotl.entities.SoldierType;
 
@@ -29,6 +30,7 @@ public class XMLParser {
 			int bgold = Integer.parseInt(buy.getElementsByTagName("gold").item(0).getTextContent().trim());
 			int bmiss = Integer.parseInt(buy.getElementsByTagName("miss").item(0).getTextContent().trim());
 			int bdodge = Integer.parseInt(buy.getElementsByTagName("dodge").item(0).getTextContent().trim());
+			int bcritical = Integer.parseInt(buy.getElementsByTagName("critical").item(0).getTextContent().trim());
 			
 			info.setBLife(blife);
 			info.setBArmor(barmor);
@@ -36,6 +38,7 @@ public class XMLParser {
 			info.setBGold(bgold);
 			info.setBMiss(bmiss);
 			info.setBDodge(bdodge);
+			info.setBCritical(bcritical);
 			
 			/** Upgrade **/
 			double ulife = Double.parseDouble(upgrade.getElementsByTagName("life").item(0).getTextContent().trim());
@@ -44,6 +47,7 @@ public class XMLParser {
 			double ugold = Double.parseDouble(upgrade.getElementsByTagName("gold").item(0).getTextContent().trim());
 			double umiss = Double.parseDouble(upgrade.getElementsByTagName("miss").item(0).getTextContent().trim());
 			double udodge = Double.parseDouble(upgrade.getElementsByTagName("dodge").item(0).getTextContent().trim());
+			double ucritical =  Double.parseDouble(upgrade.getElementsByTagName("critical").item(0).getTextContent().trim());
 			
 			info.setULife(ulife);
 			info.setUArmor(uarmor);
@@ -51,6 +55,7 @@ public class XMLParser {
 			info.setUGold(ugold);
 			info.setUMiss(umiss);
 			info.setUDodge(udodge);
+			info.setUCritical(ucritical);
 			
 		} catch (Exception ex) {
 			
@@ -129,6 +134,58 @@ public class XMLParser {
 		} catch (Exception ex) {
 			 
 			System.err.println("Soldiers XML parsing error !!!");
+			ex.printStackTrace();
+		}
+	}
+	
+	private static void addTowersInfo(Element node) {
+		
+		TowersInfo tInfo = TowersInfo.getInstance();
+		
+		try {
+			
+			Element buy = (Element) node.getElementsByTagName("buy").item(0);
+			Element upgrade = (Element) node.getElementsByTagName("upgrade").item(0);	
+			
+			int barmor = Integer.parseInt(buy.getElementsByTagName("armor").item(0).getTextContent().trim());
+			int battack = Integer.parseInt(buy.getElementsByTagName("attack").item(0).getTextContent().trim());
+			int bgold = Integer.parseInt(buy.getElementsByTagName("gold").item(0).getTextContent().trim());
+			
+			tInfo.setBArmor(barmor);
+			tInfo.setBAttack(battack);
+			tInfo.setBGold(bgold);
+			
+			double uarmor = Double.parseDouble(upgrade.getElementsByTagName("armor").item(0).getTextContent().trim());
+			double uattack = Double.parseDouble(upgrade.getElementsByTagName("attack").item(0).getTextContent().trim());
+			double ugold = Double.parseDouble(upgrade.getElementsByTagName("gold").item(0).getTextContent().trim());
+			
+			tInfo.setUArmor(uarmor);
+			tInfo.setUAttack(uattack);
+			tInfo.setUGold(ugold);
+			
+		} catch (Exception ex) {
+			
+			System.err.println("Wrong Towers XML format !!!");
+			ex.printStackTrace();
+		}
+	}
+	
+	public static void parseTowersInfo(String path) {
+		
+		try {
+			 
+			File inputFile = new File(path);
+	        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+	        Document doc = dBuilder.parse(inputFile);
+	        doc.getDocumentElement().normalize();
+	         
+	        Element root = doc.getDocumentElement();
+	        addTowersInfo(root);
+	         
+		} catch (Exception ex) {
+			 
+			System.err.println("Towers XML parsing error !!!");
 			ex.printStackTrace();
 		}
 	}

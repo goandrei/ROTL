@@ -4,14 +4,14 @@ import java.util.Random;
 
 public class Fighter extends Soldier {
 	
-	public Fighter(int _life, int _armor, int _attack, int _miss, int _dodge) {
+	public Fighter(int _life, int _armor, int _attack, int _miss, int _dodge, int _critical) {
 		
-		super(_life, _armor, _attack, _miss, _dodge);
+		super(_life, _armor, _attack, _miss, _dodge, _critical);
 	}
 	
 	public Fighter() {
 		
-		this(0, 0, 0, 0, 0);
+		this(0, 0, 0, 0, 0, 0);
 	}
 	
 	@Override
