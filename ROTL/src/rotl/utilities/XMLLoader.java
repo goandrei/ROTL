@@ -13,7 +13,7 @@ import org.w3c.dom.NodeList;
 
 public class XMLLoader {
 	
-	private final int MAP_WIDTH = 1000, MAP_HEIGHT = 1000, NO_OF_LAYERS = 5;
+	private final int MAP_WIDTH = 1000, MAP_HEIGHT = 1000, NO_OF_LAYERS = 3;
 	
 	public int[][][] loadXMLMaps(String path){
 		
@@ -29,7 +29,7 @@ public class XMLLoader {
 	         
 	         int length = nList.getLength();
 	         
-	         for(int i = 0;i < 1; ++i) {
+	         for(int i = 0;i < NO_OF_LAYERS; ++i) {
 	             Node nNode = nList.item(i);
 	             
 	             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -38,18 +38,7 @@ public class XMLLoader {
 	                
 	                for(int j = 0;j < MAP_HEIGHT; ++j) {
 	                	for(int k = 0;k < MAP_WIDTH; ++k) {
-	                		if((parts[j * MAP_WIDTH + k]).trim().equals("2147483825")) {
-	                			layers[j][k][i] = 175;
-	                		}else if((parts[j * MAP_WIDTH + k]).trim().equals("1073742020")) {
-	                			layers[j][k][i] = 171;
-	                		}else if((parts[j * MAP_WIDTH + k]).trim().equals("1073742004")) {
-	                			layers[j][k][i] = 170;
-	                		}else if(((parts[j * MAP_WIDTH + k]).trim()).length() > 3) {
-	                			layers[j][k][i] = 205;
-	                		}else {
-	                			layers[j][k][i] = Integer.parseInt((parts[j * MAP_WIDTH + k]).trim());
-	                		}
-	                		
+                			layers[j][k][i] = Integer.parseInt((parts[j * MAP_WIDTH + k]).trim());	                			                		
                 		}
 	                }
                 }
@@ -61,5 +50,9 @@ public class XMLLoader {
 	      }
 		
 		return layers;
+	}
+	
+	public int getNoOfLayers() {
+		return NO_OF_LAYERS;
 	}
 }

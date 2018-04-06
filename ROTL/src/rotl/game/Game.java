@@ -47,11 +47,12 @@ public class Game implements Runnable {
 		
 		handler = new Handler(stateManager, this);
 
-		introState = new IntroState(handler);
-		stateManager.setActualState(introState);
-
 		screenHeight = display.getHeight();
 		screenWidth = display.getWidth();
+
+		//introState = new GameState(screenWidth, screenHeight, handler);
+		introState = new IntroState(handler);
+		stateManager.setActualState(introState);
 	}
 
 	public synchronized void start() {
@@ -138,5 +139,13 @@ public class Game implements Runnable {
 	
 	public Display getDisplay() {
 		return display;
+	}
+	
+	public int getWidth() {
+		return screenWidth;
+	}
+	
+	public int getHeight() {
+		return screenHeight;
 	}
 }

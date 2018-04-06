@@ -7,6 +7,7 @@ public class Animation {
 	private BufferedImage[] frames;
 	private Integer[] delays;
 	private int index = 1;
+	private int limit;
 	private long last;
 	private long now;
 	private boolean started = false;
@@ -14,6 +15,8 @@ public class Animation {
 	public Animation(BufferedImage[] frames, Integer[] delays) {
 		this.frames = frames;
 		this.delays = delays;
+		
+		limit = delays.length;
 	}
 	
 	public void start() {
@@ -34,7 +37,7 @@ public class Animation {
 			last = now;
 		}
 
-		if(index == 20)
+		if(index == limit)
 			return null;
 		
 		return frames[index];

@@ -7,6 +7,7 @@ import rotl.utilities.ImageLoader;
 public class Assets {
 	
 	public static BufferedImage[] outsideTiles;
+	public static BufferedImage[] buildingTiles;
 	public static BufferedImage[] introFrames;
 	public static BufferedImage cursor;
 	private final int TILE_WIDTH  = 64;
@@ -38,5 +39,16 @@ public class Assets {
 		for(int i = 1;i <= lines; ++i) {
 			introFrames[i - 1] = ImageLoader.loadImage("/images/frame" + i + ".png");
 		}
+		
+		lines = 0;
+		columns = 16;
+		
+		buildingTiles = new BufferedImage[lines * columns + 1];
+		
+		for(int i = 0;i < lines; ++i) {
+			for(int j = 0; j < columns; ++j) {
+				buildingTiles[i * columns + j + 1] = sheet.crop(j * TILE_WIDTH,i * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+			}
+		}	
 	}
 }
