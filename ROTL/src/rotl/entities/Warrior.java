@@ -19,7 +19,7 @@ public class Warrior extends Soldier {
 		
 		if (!this.isDead()) {
 			
-			if (new Random().nextInt(101) <= this.dodgeRate)
+			if ((new Random().nextInt(100) + 1) <= this.dodgeRate)
 				return;
 				
 			int armorDamage = damage / 2;
@@ -54,10 +54,12 @@ public class Warrior extends Soldier {
 		
 		if (!this.isDead()) {
 			
-			if (new Random().nextInt(101) <= this.missRate)
+			if ((new Random().nextInt(100) + 1) <= this.missRate)
 				return 0;
 			
-			return this.attack;
+			int additionalDmg = (((new Random().nextInt(100) + 1) <= this.criticalRate) ? (this.attack / 2) : 0);
+			
+			return this.attack + additionalDmg;
 		}
 		
 		return 0;

@@ -20,6 +20,7 @@ public abstract class Soldier implements GameEntity {
 		this.setAttack(_attack);
 		this.setMissRate(_miss);
 		this.setDodgeRate(_dodge);
+		this.setCriticalRate(_critical);
 	}
 	
 	public Soldier() {
