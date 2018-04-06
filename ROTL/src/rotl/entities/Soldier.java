@@ -37,6 +37,7 @@ public abstract class Soldier implements GameEntity {
 	public void setLevel(int _level) {
 		
 		_level = Integer.max(_level, 1);
+		_level = Integer.min(_level, GameEntity.MAX_LEVEL);
 		this.level = _level;
 	}
 	
@@ -98,7 +99,7 @@ public abstract class Soldier implements GameEntity {
 	public void setDodgeRate(int _dodge) {
 		
 		_dodge = Integer.max(_dodge, 0);
-		_dodge = Integer.min(_dodge, 100);
+		_dodge = Integer.min(_dodge, 40);
 		this.dodgeRate = _dodge;
 	}
 	

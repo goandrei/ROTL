@@ -27,6 +27,7 @@ public class Tower implements GameEntity {
 	public void setLevel(int _level) {
 		
 		_level = Integer.max(_level, 1);
+		_level = Integer.min(_level, GameEntity.MAX_LEVEL);
 		this.level = _level;
 	}
 	

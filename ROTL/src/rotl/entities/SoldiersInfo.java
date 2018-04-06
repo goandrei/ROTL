@@ -18,84 +18,52 @@ public class SoldiersInfo {
 		public int getBLife() {
 			
 			Integer life = buy.get("life");
-			
-			if (life != null)
-				return life;
-			
-			return ERROR_CODE;
+			return ((life != null) ? life : ERROR_CODE);
 		}
 		
 		public double getULife() {
 			
 			Double life = upgrade.get("life");
-			
-			if (life != null)
-				return life;
-			
-			return ERROR_CODE;
+			return ((life != null) ? life : ERROR_CODE);
 		}
 		
 		/** Armor **/
 		public int getBArmor() {
 			
 			Integer armor = buy.get("armor");
-			
-			if (armor != null)
-				return armor;
-			
-			return ERROR_CODE;
+			return ((armor != null) ? armor : ERROR_CODE);
 		}
 		
 		public double getUArmor() {
 			
 			Double armor = upgrade.get("armor");
-			
-			if (armor != null)
-				return armor;
-			
-			return ERROR_CODE;
+			return ((armor != null) ? armor : ERROR_CODE);
 		}
 		
 		/** Attack **/
 		public int getBAttack() {
 			
 			Integer attack = buy.get("attack");
-			
-			if (attack != null)
-				return attack;
-			
-			return ERROR_CODE;
+			return ((attack != null) ? attack : ERROR_CODE);
 		}
 		
 		public double getUAttack() {
 			
 			Double attack = upgrade.get("attack");
-			
-			if (attack != null)
-				return attack;
-			
-			return ERROR_CODE;
+			return ((attack != null) ? attack : ERROR_CODE);
 		}
 		
 		/** Gold **/
 		public int getBGold() {
 			
 			Integer gold = buy.get("gold");
-			
-			if (gold != null)
-				return gold;
-			
-			return ERROR_CODE;
+			return ((gold != null) ? gold : ERROR_CODE);
 		}
 		
 		public double getUGold() {
 			
 			Double gold = upgrade.get("gold");
-			
-			if (gold != null)
-				return gold;
-			
-			return ERROR_CODE;
+			return ((gold != null) ? gold : ERROR_CODE);
 		}
 		
 		
@@ -103,63 +71,39 @@ public class SoldiersInfo {
 		public int getBMiss() {
 			
 			Integer missRate = buy.get("miss");
-			
-			if (missRate != null)
-				return missRate;
-			
-			return ERROR_CODE;
+			return ((missRate != null) ? missRate : ERROR_CODE);
 		}
 		
 		public double getUMiss() {
 			
 			Double missRate = upgrade.get("miss");
-			
-			if (missRate != null)
-				return missRate;
-			
-			return ERROR_CODE;
+			return ((missRate != null) ? missRate : ERROR_CODE);
 		}
 		
 		/** Dodge Rate **/
 		public int getBDodge() {
 			
 			Integer dodgeRate = buy.get("dodge");
-			
-			if (dodgeRate != null)
-				return dodgeRate;
-			
-			return ERROR_CODE;
+			return ((dodgeRate != null) ? dodgeRate : ERROR_CODE);
 		}
 		
 		public double getUDodge() {
 			
 			Double dodgeRate = upgrade.get("dodge");
-			
-			if (dodgeRate != null)
-				return dodgeRate;
-			
-			return ERROR_CODE;
+			return ((dodgeRate != null) ? dodgeRate : ERROR_CODE);
 		}
 		
 		/** Critical Rate **/
 		public int getBCritical() {
 			
 			Integer criticalRate = buy.get("critical");
-			
-			if (criticalRate != null)
-				return criticalRate;
-			
-			return ERROR_CODE;
+			return ((criticalRate != null) ? criticalRate : ERROR_CODE);
 		}
 		
 		public double getUCritical() {
 			
 			Double criticalRate = upgrade.get("critical");
-			
-			if (criticalRate != null)
-				return criticalRate;
-			
-			return ERROR_CODE;
+			return ((criticalRate != null) ? criticalRate : ERROR_CODE);
 		}
 		
 		/** Setters **/
@@ -174,6 +118,7 @@ public class SoldiersInfo {
 		public void setULife(double life) {
 			
 			life = Double.max(life, 0);
+			life = Double.min(life, 2);
 			upgrade.put("life", life);
 		}
 		
@@ -187,6 +132,7 @@ public class SoldiersInfo {
 		public void setUArmor(double armor) {
 			
 			armor = Double.max(armor, 0);
+			armor = Double.min(armor, 2);
 			upgrade.put("armor", armor);
 		}
 		
@@ -200,6 +146,7 @@ public class SoldiersInfo {
 		public void setUAttack(double attack) {
 			
 			attack = Double.max(attack, 0);
+			attack = Double.min(attack, 2);
 			upgrade.put("attack", attack);
 		}
 		
@@ -213,6 +160,7 @@ public class SoldiersInfo {
 		public void setUGold(double gold) {
 			
 			gold = Double.max(gold, 0);
+			gold = Double.min(gold, 2);
 			upgrade.put("gold", gold);
 		}
 		
@@ -228,7 +176,7 @@ public class SoldiersInfo {
 		public void setUMiss(double missRate) {
 			
 			missRate = Double.max(missRate, 0);
-			missRate = Double.min(missRate, 100);
+			missRate = Double.min(missRate, 2);
 			upgrade.put("miss", missRate);
 		}
 		
@@ -243,7 +191,7 @@ public class SoldiersInfo {
 		public void setUDodge(double dodgeRate) {
 			
 			dodgeRate = Double.max(dodgeRate, 0);
-			dodgeRate = Double.min(dodgeRate, 100);
+			dodgeRate = Double.min(dodgeRate, 2);
 			upgrade.put("dodge", dodgeRate);
 		}
 		
@@ -258,7 +206,7 @@ public class SoldiersInfo {
 		public void setUCritical(double criticalRate) {
 			
 			criticalRate = Double.max(criticalRate, 0);
-			criticalRate = Double.min(criticalRate, 100);
+			criticalRate = Double.min(criticalRate, 2);
 			upgrade.put("critical", criticalRate);
 		}
 	}

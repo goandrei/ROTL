@@ -16,63 +16,39 @@ public class TowersInfo {
 	public int getBArmor() {
 		
 		Integer armor = buy.get("armor");
-		
-		if (armor != null)
-			return armor;
-		
-		return ERROR_CODE;
+		return ((armor != null) ? armor : ERROR_CODE);
 	}
 	
 	public double getUArmor() {
 		
 		Double armor = upgrade.get("armor");
-		
-		if (armor != null)
-			return armor;
-		
-		return ERROR_CODE;
+		return ((armor != null) ? armor : ERROR_CODE);
 	}
 	
 	/** Attack **/
 	public int getBAttack() {
 		
 		Integer attack = buy.get("attack");
-		
-		if (attack != null)
-			return attack;
-		
-		return ERROR_CODE;
+		return ((attack != null) ? attack : ERROR_CODE);
 	}
 	
 	public double getUAttack() {
 		
 		Double attack = upgrade.get("attack");
-		
-		if (attack != null)
-			return attack;
-		
-		return ERROR_CODE;
+		return ((attack != null) ? attack : ERROR_CODE);
 	}
 	
 	/** Gold **/
 	public int getBGold() {
 		
 		Integer gold = buy.get("gold");
-		
-		if (gold != null)
-			return gold;
-		
-		return ERROR_CODE;
+		return ((gold != null) ? gold : ERROR_CODE);
 	}
 	
 	public double getUGold() {
 		
 		Double gold = upgrade.get("gold");
-		
-		if (gold != null)
-			return gold;
-		
-		return ERROR_CODE;
+		return ((gold != null) ? gold : ERROR_CODE);
 	}
 	
 	/** Setters **/
@@ -87,6 +63,7 @@ public class TowersInfo {
 	public void setUArmor(double armor) {
 		
 		armor = Double.max(armor, 0);
+		armor = Double.min(armor, 2);
 		upgrade.put("armor", armor);
 	}
 	
@@ -100,6 +77,7 @@ public class TowersInfo {
 	public void setUAttack(double attack) {
 		
 		attack = Double.max(attack, 0);
+		attack = Double.min(attack, 2);
 		upgrade.put("attack", attack);
 	}
 	
@@ -113,6 +91,7 @@ public class TowersInfo {
 	public void setUGold(double gold) {
 		
 		gold = Double.max(gold, 0);
+		gold = Double.min(gold, 2);
 		upgrade.put("gold", gold);
 	}
 	

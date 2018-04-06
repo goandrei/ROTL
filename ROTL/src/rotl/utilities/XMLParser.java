@@ -11,6 +11,8 @@ import rotl.entities.SoldiersInfo;
 import rotl.entities.TowersInfo;
 import rotl.entities.SoldiersInfo.S_Info;
 import rotl.entities.SoldierType;
+import java.util.List;
+import java.util.ArrayList;
 
 public class XMLParser {
 	
@@ -23,39 +25,35 @@ public class XMLParser {
 			Element buy = (Element) node.getElementsByTagName("buy").item(0);
 			Element upgrade = (Element) node.getElementsByTagName("upgrade").item(0);
 			
-			/** Buy **/
-			int blife = Integer.parseInt(buy.getElementsByTagName("life").item(0).getTextContent().trim());
-			int barmor = Integer.parseInt(buy.getElementsByTagName("armor").item(0).getTextContent().trim());
-			int battack = Integer.parseInt(buy.getElementsByTagName("attack").item(0).getTextContent().trim());
-			int bgold = Integer.parseInt(buy.getElementsByTagName("gold").item(0).getTextContent().trim());
-			int bmiss = Integer.parseInt(buy.getElementsByTagName("miss").item(0).getTextContent().trim());
-			int bdodge = Integer.parseInt(buy.getElementsByTagName("dodge").item(0).getTextContent().trim());
-			int bcritical = Integer.parseInt(buy.getElementsByTagName("critical").item(0).getTextContent().trim());
+			String[] attributes = {"life", "armor", "attack", "gold", "miss", "dodge", "critical"};
 			
-			info.setBLife(blife);
-			info.setBArmor(barmor);
-			info.setBAttack(battack);
-			info.setBGold(bgold);
-			info.setBMiss(bmiss);
-			info.setBDodge(bdodge);
-			info.setBCritical(bcritical);
+			/** Buy **/
+			List<Integer> bStatus = new ArrayList<>();
+			List<Double> uStatus = new ArrayList<>();
+			
+			for (String attr : attributes)
+				bStatus.add(Integer.parseInt(buy.getElementsByTagName(attr).item(0).getTextContent().trim()));
+			
+			info.setBLife(bStatus.get(0));
+			info.setBArmor(bStatus.get(1));
+			info.setBAttack(bStatus.get(2));
+			info.setBGold(bStatus.get(3));
+			info.setBMiss(bStatus.get(4));
+			info.setBDodge(bStatus.get(5));
+			info.setBCritical(bStatus.get(6));
 			
 			/** Upgrade **/
-			double ulife = Double.parseDouble(upgrade.getElementsByTagName("life").item(0).getTextContent().trim());
-			double uarmor = Double.parseDouble(upgrade.getElementsByTagName("armor").item(0).getTextContent().trim());
-			double uattack = Double.parseDouble(upgrade.getElementsByTagName("attack").item(0).getTextContent().trim());
-			double ugold = Double.parseDouble(upgrade.getElementsByTagName("gold").item(0).getTextContent().trim());
-			double umiss = Double.parseDouble(upgrade.getElementsByTagName("miss").item(0).getTextContent().trim());
-			double udodge = Double.parseDouble(upgrade.getElementsByTagName("dodge").item(0).getTextContent().trim());
-			double ucritical =  Double.parseDouble(upgrade.getElementsByTagName("critical").item(0).getTextContent().trim());
 			
-			info.setULife(ulife);
-			info.setUArmor(uarmor);
-			info.setUAttack(uattack);
-			info.setUGold(ugold);
-			info.setUMiss(umiss);
-			info.setUDodge(udodge);
-			info.setUCritical(ucritical);
+			for (String attr : attributes)
+				uStatus.add(Double.parseDouble(upgrade.getElementsByTagName(attr).item(0).getTextContent().trim()));
+			
+			info.setULife(uStatus.get(0));
+			info.setUArmor(uStatus.get(1));
+			info.setUAttack(uStatus.get(2));
+			info.setUGold(uStatus.get(3));
+			info.setUMiss(uStatus.get(4));
+			info.setUDodge(uStatus.get(5));
+			info.setUCritical(uStatus.get(6));
 			
 		} catch (Exception ex) {
 			
@@ -147,21 +145,28 @@ public class XMLParser {
 			Element buy = (Element) node.getElementsByTagName("buy").item(0);
 			Element upgrade = (Element) node.getElementsByTagName("upgrade").item(0);	
 			
-			int barmor = Integer.parseInt(buy.getElementsByTagName("armor").item(0).getTextContent().trim());
-			int battack = Integer.parseInt(buy.getElementsByTagName("attack").item(0).getTextContent().trim());
-			int bgold = Integer.parseInt(buy.getElementsByTagName("gold").item(0).getTextContent().trim());
+			String[] attributes = {"armor", "attack", "gold"};
 			
-			tInfo.setBArmor(barmor);
-			tInfo.setBAttack(battack);
-			tInfo.setBGold(bgold);
+			/** Buy **/
+			List<Integer> bStatus = new ArrayList<>();
+			List<Double> uStatus = new ArrayList<>();
 			
-			double uarmor = Double.parseDouble(upgrade.getElementsByTagName("armor").item(0).getTextContent().trim());
-			double uattack = Double.parseDouble(upgrade.getElementsByTagName("attack").item(0).getTextContent().trim());
-			double ugold = Double.parseDouble(upgrade.getElementsByTagName("gold").item(0).getTextContent().trim());
+			/** Buy **/
+			for (String attr : attributes)
+				bStatus.add(Integer.parseInt(buy.getElementsByTagName(attr).item(0).getTextContent().trim()));
 			
-			tInfo.setUArmor(uarmor);
-			tInfo.setUAttack(uattack);
-			tInfo.setUGold(ugold);
+			tInfo.setBArmor(bStatus.get(0));
+			tInfo.setBAttack(bStatus.get(1));
+			tInfo.setBGold(bStatus.get(2));
+			
+			/** Upgrade **/
+
+			for (String attr : attributes)
+				uStatus.add(Double.parseDouble(upgrade.getElementsByTagName(attr).item(0).getTextContent().trim()));
+			
+			tInfo.setUArmor(uStatus.get(0));
+			tInfo.setUAttack(uStatus.get(1));
+			tInfo.setUGold(uStatus.get(2));
 			
 		} catch (Exception ex) {
 			
