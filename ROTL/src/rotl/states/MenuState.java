@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import rotl.store.Store;
 import rotl.utilities.Handler;
 
 public class MenuState extends State{
@@ -101,7 +102,7 @@ public class MenuState extends State{
 					handler.getStateManager().setActualState(new GameState(handler.getGame().getWidth(), handler.getGame().getHeight(), handler));
 				
 				if(shop) {
-					
+					Store store = new Store(handler);
 				}
 			}
 
@@ -179,6 +180,11 @@ public class MenuState extends State{
 		}
 		g.drawString("Exit", xMenu, yMenu + 240);
 		
+		if(shop) {
+			g.setColor(Color.white);
+		}else {
+			g.setColor(Color.red);
+		}
 		g.drawString("Shop - test", xMenu, yMenu + 300);
 	}
 
