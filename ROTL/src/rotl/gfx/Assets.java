@@ -40,10 +40,13 @@ public class Assets {
 			introFrames[i - 1] = ImageLoader.loadImage("/images/frame" + i + ".png");
 		}
 		
-		lines = 0;
+		lines = 57;
 		columns = 16;
 		
 		buildingTiles = new BufferedImage[lines * columns + 1];
+		sheet = new SpriteSheet(ImageLoader.loadImage("/textures/buildings.png"));
+		
+		//offset adaugat - TODO
 		
 		for(int i = 0;i < lines; ++i) {
 			for(int j = 0; j < columns; ++j) {

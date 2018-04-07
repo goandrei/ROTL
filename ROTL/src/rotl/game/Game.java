@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 
 import rotl.display.Display;
 import rotl.gfx.Assets;
+import rotl.gfx.GameCamera;
 import rotl.managers.StateManager;
 import rotl.states.IntroState;
 import rotl.states.State;
@@ -33,10 +34,14 @@ public class Game implements Runnable {
 	private Graphics g;
 	
 	private Assets assets;
+	
+	private GameCamera gameCamera;
 
 	public Game(String title){
 
 		this.title = title;
+		
+		gameCamera = new GameCamera(0, 0);
 		
 		assets = new Assets();
 		assets.init();
@@ -147,5 +152,9 @@ public class Game implements Runnable {
 	
 	public int getHeight() {
 		return screenHeight;
+	}
+	
+	public GameCamera getGameCamera() {
+		return gameCamera;
 	}
 }
