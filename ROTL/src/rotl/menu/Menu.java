@@ -35,206 +35,199 @@ import rotl.utilities.ImageLoader;
 
 public class Menu extends Application {
 
-	//menu variables
-    private static final Integer menuItemFontSize = 20;
-    private static final String menuImageSrc = "/images/BG2.PNG";
-    private static final Pair<Integer, Integer> menuPosition = new Pair<Integer, Integer>(100, 300);
-    private static final Pair<Integer, Integer> menuItemDimensions = new Pair<Integer, Integer>(250, 35);
-    
-    //title variables
-    private static final Integer titleFontSize = 50;
-    private static final String titleName = "Return of the\nLegends";
-    private static final Pair<Integer, Integer> titlePosition = new Pair<Integer, Integer>(50, 150);
-    
-    //panel variables
-    private static final String panelName = "Return of the Legends - Game";
-    private static final Pair<Integer, Integer> paneDimensions = new Pair<Integer, Integer>(1080, 620);
+	// menu variables
+	private static final Integer menuItemFontSize = 20;
+	private static final String menuImageSrc = "/images/BG2.PNG";
+	private static final Pair<Integer, Integer> menuPosition = new Pair<Integer, Integer>(100, 300);
+	private static final Pair<Integer, Integer> menuItemDimensions = new Pair<Integer, Integer>(250, 35);
 
-    private static JFrame frame = new JFrame("titlu");
-    private static JFXPanel jfxPanel = new JFXPanel();
-    private Handler handler;
-    
-    public static Menu instance = null;
-    
-    public static void main(String[] args) {
+	// title variables
+	private static final Integer titleFontSize = 50;
+	private static final String titleName = "Return of the\nLegends";
+	private static final Pair<Integer, Integer> titlePosition = new Pair<Integer, Integer>(50, 150);
 
-    	//frame.add(jfxPanel);
-    	//frame.setSize(new Dimension(500, 500));
-        //launch(args);
-    }
-    
-    public Menu() {}
-    
-    public Menu(Handler handler) {
-    	this.handler = handler;
-    	init();
-    }
-    
-    public static Menu getInstance(Handler handler) {
-    	
-    	if(instance == null) {
-    		instance = new Menu(handler);
-    	}
-    	
-    	return null;
-    }
-    
-    public void init() {
-    	
-    	JFrame frame = handler.getGame().getDisplay().getFrame();
-    	frame.remove(handler.getGame().getDisplay().getCanvas());
-    	
-        Scene scene = new Scene(createContent());
-        jfxPanel.setScene(scene);
-        frame.add(jfxPanel);
-        frame.setVisible(true);
-    }
+	// panel variables
+	private static final String panelName = "Return of the Legends - Game";
+	private static final Pair<Integer, Integer> paneDimensions = new Pair<Integer, Integer>(1080, 620);
 
-    private Parent createContent() {
-        Pane root = new Pane();
+	private static JFrame frame = new JFrame("titlu");
+	private static JFXPanel jfxPanel = new JFXPanel();
+	private Handler handler;
 
-        root.setPrefSize(paneDimensions.getKey(), paneDimensions.getValue());
+	public static Menu instance = null;
 
-        try (InputStream is = Files.newInputStream(Paths.get(menuImageSrc))) {
-            ImageView img = new ImageView(new Image(is));
-            img.setFitWidth(root.getLayoutX());
-            img.setFitHeight(root.getLayoutY());
-            root.getChildren().add(img);
-        } catch (IOException e) {
-            System.out.println("Couldn't load image...");
-        }
+	public static void main(String[] args) {
 
-        Title title = new Title(titleName);
-        title.setTranslateX(titlePosition.getKey());
-        title.setTranslateY(titlePosition.getValue());
+		// frame.add(jfxPanel);
+		// frame.setSize(new Dimension(500, 500));
+		// launch(args);
+	}
 
-        MenuBox vbox = new MenuBox(
-                new MenuItem("PLAY", root),
-                new MenuItem("HALL OF Fame", root),
-                new MenuItem("INSTRUCTIONS", root),
-                new MenuItem("OPTIONS", root),
-                new MenuItem("CREDITS", root),
-                new MenuItem("EXIT", root));
-        vbox.setTranslateX(menuPosition.getKey());
-        vbox.setTranslateY(menuPosition.getValue());
+	public Menu() {
+	}
 
-        root.getChildren().addAll(title, vbox);
-        root.setMaxSize(paneDimensions.getKey() * 1.2, paneDimensions.getValue() * 1.2);
-        root.setMinSize(paneDimensions.getKey() * 0.8, paneDimensions.getValue() * 0.8);
+	public Menu(Handler handler) {
+		this.handler = handler;
+		init();
+	}
 
-        return root;
+	public static Menu getInstance(Handler handler) {
 
-    }
+		if (instance == null) {
+			instance = new Menu(handler);
+		}
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        //Scene scene = new Scene(createContent());
-        //jfxPanel.setScene(scene);
-        //frame.setVisible(true);
-       // primaryStage.setTitle(panelName);
-        //primaryStage.setScene(scene);
-        //primaryStage.show();
-    }
+		return null;
+	}
 
-    private static class Title extends StackPane {
-        public Title(String name) {
-//			Rectangle bg = new Rectangle(titleBoxDimensions.getKey().getKey(),
-//					titleBoxDimensions.getKey().getValue());
-//			bg.setStroke(Color.WHITE);
-//			bg.setStrokeWidth(titleBoxDimensions.getValue());
-//			bg.setFill(null);
+	public void init() {
 
-            Text text = new Text(name);
-            text.setFill(Color.LIGHTGOLDENRODYELLOW);
-            text.setFont(Font.font("Neuropol", FontWeight.BOLD, titleFontSize));
-            text.setTranslateX(titlePosition.getKey());
+		JFrame frame = handler.getGame().getDisplay().getFrame();
+		frame.remove(handler.getGame().getDisplay().getCanvas());
 
-            setAlignment(Pos.CENTER);
-//			getChildren().addAll(bg,text);
-            getChildren().add(text);
-        }
-    }
+		Scene scene = new Scene(createContent());
+		jfxPanel.setScene(scene);
+		frame.add(jfxPanel);
+		frame.setVisible(true);
+	}
 
-    private static class MenuBox extends VBox {
-        public MenuBox(MenuItem... items) {
-            getChildren().add(createSeperator());
+	private Parent createContent() {
+		Pane root = new Pane();
 
-            for (MenuItem item : items) {
-                getChildren().addAll(item, createSeperator());
-            }
-        }
+		root.setPrefSize(paneDimensions.getKey(), paneDimensions.getValue());
 
-        private Line createSeperator() {
-            Line sep = new Line();
-            sep.setEndX(menuItemDimensions.getKey());
-            sep.setStroke(Color.DARKGREY);
-            return sep;
-        }
+		try (InputStream is = Files.newInputStream(Paths.get(menuImageSrc))) {
+			ImageView img = new ImageView(new Image(is));
+			img.setFitWidth(root.getLayoutX());
+			img.setFitHeight(root.getLayoutY());
+			root.getChildren().add(img);
+		} catch (IOException e) {
+			System.out.println("Couldn't load image...");
+		}
 
-    }
+		Title title = new Title(titleName);
+		title.setTranslateX(titlePosition.getKey());
+		title.setTranslateY(titlePosition.getValue());
 
-    private static class MenuItem extends StackPane {
-        public MenuItem(String name, Pane root) {
-            LinearGradient gradient = new LinearGradient(0, 0, 1, 0,
-                    true, CycleMethod.NO_CYCLE, new Stop[]{
-                    new Stop(0, Color.DEEPSKYBLUE),
-                    new Stop(0.5, Color.BLACK),
-                    new Stop(0.5, Color.BLACK),
-                    new Stop(1, Color.DEEPSKYBLUE)
+		MenuBox vbox = new MenuBox(new MenuItem("PLAY", root), new MenuItem("HALL OF Fame", root),
+				new MenuItem("INSTRUCTIONS", root), new MenuItem("OPTIONS", root), new MenuItem("CREDITS", root),
+				new MenuItem("EXIT", root));
+		vbox.setTranslateX(menuPosition.getKey());
+		vbox.setTranslateY(menuPosition.getValue());
 
-            });
+		root.getChildren().addAll(title, vbox);
+		root.setMaxSize(paneDimensions.getKey() * 1.2, paneDimensions.getValue() * 1.2);
+		root.setMinSize(paneDimensions.getKey() * 0.8, paneDimensions.getValue() * 0.8);
 
-            Rectangle bg = new Rectangle(menuItemDimensions.getKey(),
-                    menuItemDimensions.getValue());
-            bg.setOpacity(0.25);
+		return root;
 
-            Text text = new Text(name);
-            text.setFill(Color.DARKGREY);
-            text.setFont(Font.font("Neuropol", FontWeight.SEMI_BOLD, menuItemFontSize));
-            setAlignment(Pos.CENTER);
-            getChildren().addAll(bg, text);
+	}
 
-            setOnMouseEntered(event -> {
-                bg.setFill(gradient);
-                text.setFill(Color.WHITE);
-            });
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		// Scene scene = new Scene(createContent());
+		// jfxPanel.setScene(scene);
+		// frame.setVisible(true);
+		// primaryStage.setTitle(panelName);
+		// primaryStage.setScene(scene);
+		// primaryStage.show();
+	}
 
-            setOnMouseExited(event -> {
-                bg.setFill(Color.BLACK);
-                text.setFill(Color.DARKGREY);
-            });
+	private static class Title extends StackPane {
+		public Title(String name) {
+			// Rectangle bg = new Rectangle(titleBoxDimensions.getKey().getKey(),
+			// titleBoxDimensions.getKey().getValue());
+			// bg.setStroke(Color.WHITE);
+			// bg.setStrokeWidth(titleBoxDimensions.getValue());
+			// bg.setFill(null);
 
-            setOnMousePressed(event -> {
-                bg.setFill(Color.DARKBLUE);
-            });
+			Text text = new Text(name);
+			text.setFill(Color.LIGHTGOLDENRODYELLOW);
+			text.setFont(Font.font("Neuropol", FontWeight.BOLD, titleFontSize));
+			text.setTranslateX(titlePosition.getKey());
 
-            setOnMouseReleased(event -> {
-                bg.setFill(gradient);
+			setAlignment(Pos.CENTER);
+			// getChildren().addAll(bg,text);
+			getChildren().add(text);
+		}
+	}
 
-                if (name == "EXIT") {
-                    setVisible(false);
-                    // finally, call this to really exit.
-                    // i/o libraries such as WiiRemoteJ need this.
-                    // also, this is what swing does for JFrame.EXIT_ON_CLOSE
-                    System.exit(0);
-                }
-                if (name == "HALL OF Fame") {
-                    HallOfFame hof = HallOfFame.getHallOfFame();
-                    hof.setHallOfFame(root);
-                }
-                if (name == "INSTRUCTIONS") {
-                    Instructions instr = Instructions.getInstructions();
-                    instr.setInstructions(root);
-                }
-                if (name == "OPTIONS") {
-                    Options op = Options.getOptions();
-                    op.setOptions(root);
-                }
-                if (name == "CREDITS") {
-                    Credits credits = Credits.getCredits();
-                    credits.setCredits(root);
-                }
-            });
-        }
-    }
+	private static class MenuBox extends VBox {
+		public MenuBox(MenuItem... items) {
+			getChildren().add(createSeperator());
+
+			for (MenuItem item : items) {
+				getChildren().addAll(item, createSeperator());
+			}
+		}
+
+		private Line createSeperator() {
+			Line sep = new Line();
+			sep.setEndX(menuItemDimensions.getKey());
+			sep.setStroke(Color.DARKGREY);
+			return sep;
+		}
+
+	}
+
+	private static class MenuItem extends StackPane {
+		public MenuItem(String name, Pane root) {
+			LinearGradient gradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE,
+					new Stop[] { new Stop(0, Color.DEEPSKYBLUE), new Stop(0.5, Color.BLACK), new Stop(0.5, Color.BLACK),
+							new Stop(1, Color.DEEPSKYBLUE)
+
+					});
+
+			Rectangle bg = new Rectangle(menuItemDimensions.getKey(), menuItemDimensions.getValue());
+			bg.setOpacity(0.25);
+
+			Text text = new Text(name);
+			text.setFill(Color.DARKGREY);
+			text.setFont(Font.font("Neuropol", FontWeight.SEMI_BOLD, menuItemFontSize));
+			setAlignment(Pos.CENTER);
+			getChildren().addAll(bg, text);
+
+			setOnMouseEntered(event -> {
+				bg.setFill(gradient);
+				text.setFill(Color.WHITE);
+			});
+
+			setOnMouseExited(event -> {
+				bg.setFill(Color.BLACK);
+				text.setFill(Color.DARKGREY);
+			});
+
+			setOnMousePressed(event -> {
+				bg.setFill(Color.DARKBLUE);
+			});
+
+			setOnMouseReleased(event -> {
+				bg.setFill(gradient);
+
+				if (name == "EXIT") {
+					setVisible(false);
+					// finally, call this to really exit.
+					// i/o libraries such as WiiRemoteJ need this.
+					// also, this is what swing does for JFrame.EXIT_ON_CLOSE
+					System.exit(0);
+				}
+				if (name == "HALL OF Fame") {
+					HallOfFame hof = HallOfFame.getHallOfFame();
+					hof.setHallOfFame(root);
+				}
+				if (name == "INSTRUCTIONS") {
+					Instructions instr = Instructions.getInstructions();
+					instr.setInstructions(root);
+				}
+				if (name == "OPTIONS") {
+					Options op = Options.getOptions();
+					op.setOptions(root);
+				}
+				if (name == "CREDITS") {
+					Credits credits = Credits.getCredits();
+					credits.setCredits(root);
+				}
+			});
+		}
+	}
 }

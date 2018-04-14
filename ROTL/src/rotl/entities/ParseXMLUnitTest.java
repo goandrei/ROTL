@@ -5,20 +5,20 @@ import rotl.utilities.XMLParser;
 public class ParseXMLUnitTest {
 
 	public static void main(String[] args) {
-		
+
 		long startTime = System.currentTimeMillis();
-		
+
 		String soldiersPath = "resources\\entities_info\\soldiers.xml";
 		String towersPath = "resources\\entities_info\\towers.xml";
 		XMLParser.parseSoldiersInfo(soldiersPath);
 		XMLParser.parseTowersInfo(towersPath);
-		
+
 		SoldiersInfo sInfo = SoldiersInfo.getInstance();
-		
+
 		for (SoldierType type : SoldierType.values()) {
-			
+
 			SoldiersInfo.S_Info s_info = sInfo.getSoldierInfo(type);
-			
+
 			System.out.println(type);
 			System.out.println("Buy: ");
 			System.out.println(s_info.getBLife());
@@ -37,9 +37,9 @@ public class ParseXMLUnitTest {
 			System.out.println(s_info.getUDodge());
 			System.out.println(s_info.getUCritical());
 		}
-		
+
 		TowersInfo tInfo = TowersInfo.getInstance();
-		
+
 		System.out.println("Tower");
 		System.out.println("Buy: ");
 		System.out.println(tInfo.getBArmor());
@@ -49,10 +49,10 @@ public class ParseXMLUnitTest {
 		System.out.println(tInfo.getUArmor());
 		System.out.println(tInfo.getUAttack());
 		System.out.println(tInfo.getUGold());
-		
+
 		long endTime = System.currentTimeMillis();
 		System.out.println("Time: " + (endTime - startTime));
-		
+
 	}
 
 }

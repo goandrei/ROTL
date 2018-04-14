@@ -22,7 +22,7 @@ public class Game implements Runnable {
 	private Thread thread;
 
 	private Handler handler;
-	
+
 	private StateManager stateManager;
 
 	private State introState;
@@ -32,30 +32,30 @@ public class Game implements Runnable {
 	private BufferStrategy bufferStrategy;
 
 	private Graphics g;
-	
+
 	private Assets assets;
-	
+
 	private GameCamera gameCamera;
 
-	public Game(String title){
+	public Game(String title) {
 
 		this.title = title;
-		
+
 		gameCamera = new GameCamera(0, 0);
-		
+
 		assets = new Assets();
 		assets.init();
 
 		display = new Display(title);
-		
+
 		stateManager = new StateManager();
-		
+
 		handler = new Handler(stateManager, this);
 
 		screenHeight = display.getHeight();
 		screenWidth = display.getWidth();
 
-		//introState = new GameState(screenWidth, screenHeight, handler);
+		// introState = new GameState(screenWidth, screenHeight, handler);
 		introState = new IntroState(handler);
 		stateManager.setActualState(introState);
 	}
@@ -109,7 +109,7 @@ public class Game implements Runnable {
 
 	@Override
 	public void run() {
-		
+
 		int fps = 60;
 		long last = System.nanoTime();
 		double frameTime = 1000000000 / fps;
@@ -123,7 +123,8 @@ public class Game implements Runnable {
 			time += now - last;
 			last = now;
 
-			// if delta >= 1,then the frame exceeded the frameTime and we can update/render another frame
+			// if delta >= 1,then the frame exceeded the frameTime and we can update/render
+			// another frame
 			if (delta >= 1) {
 				update();
 				render();
@@ -141,19 +142,19 @@ public class Game implements Runnable {
 
 		stop();
 	}
-	
+
 	public Display getDisplay() {
 		return display;
 	}
-	
+
 	public int getWidth() {
 		return screenWidth;
 	}
-	
+
 	public int getHeight() {
 		return screenHeight;
 	}
-	
+
 	public GameCamera getGameCamera() {
 		return gameCamera;
 	}
