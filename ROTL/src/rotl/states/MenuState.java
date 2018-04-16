@@ -14,6 +14,9 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
+import rotl.menu.HallOfFame;
+import rotl.menu.Instructions;
+import rotl.menu.Options;
 import rotl.store.Store;
 import rotl.utilities.Handler;
 
@@ -144,13 +147,13 @@ public class MenuState extends State {
 							new GameState(handler.getGame().getWidth(), handler.getGame().getHeight(), handler));
 				}
 				if (options) {
-
+					Options.getOptions(handler);
 				}
 				if (instructions) {
-
+					Instructions.getInstructions(handler);
 				}
 				if (highScores) {
-
+					HallOfFame.getHallOfFame(handler);
 				}
 				if (exit) {
 					System.exit(0);

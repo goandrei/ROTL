@@ -1,9 +1,14 @@
 package rotl.menu;
 
+import java.awt.Graphics;
+
 public interface MenuOption {
 
-	static final String menuSectionImageSrc = "..\\resources\\images\\menuBG.jpg";
-	static final Integer backButtonFontSize = 25;
-	static final Integer titleFontSize = 35;
+	static final Integer fontSize = 25;
+	static final Integer titleFontSize = 100;
+	
+	void Init();
+	
+	public void paintComponent(Graphics g);
 
 }
