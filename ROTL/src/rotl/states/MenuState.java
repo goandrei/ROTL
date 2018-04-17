@@ -188,11 +188,6 @@ public class MenuState extends State {
 
 	@Override
 	public void update() {
-<<<<<<< HEAD
-		System.out.println(handler.getMouseManager().getMouseX() + "   " + handler.getMouseManager().getMouseY());
-=======
-
->>>>>>> refs/remotes/origin/master
 	}
 
 	@Override
