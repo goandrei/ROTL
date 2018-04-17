@@ -9,12 +9,21 @@ import java.awt.event.MouseMotionListener;
 
 import rotl.gfx.Assets;
 import rotl.managers.TileManager;
+import rotl.managers.UIManager;
+import rotl.ui.ClickListener;
+import rotl.ui.UIImageButton;
 import rotl.utilities.Handler;
 import rotl.utilities.XMLLoader;
 
 public class GameState extends State{
 	
+	private ClickListener clicker;
+	
 	private TileManager tileManager;
+	
+	private UIManager uiManager;
+	
+	private UIImageButton statusBar, store, playerInfo;
 	
 	private final int NO_OF_LAYERS;
 	
@@ -45,6 +54,8 @@ public class GameState extends State{
 		
 		buildDirectionRectangles();
 		addEventListeners();
+		
+		
 	}
 	
 	private void buildDirectionRectangles() {
@@ -151,7 +162,9 @@ public class GameState extends State{
 					//tileManager.render(g, -32 + offset + j * 64,-16 + i * 16, layers[i][j][k], k);
 				}
 			}
-		}	
+		}
+		
+		uiManager.render(g);
 		
 	/*	if(n) {
 			g.fillRect(width / 4, 0, width / 2, height / 4);

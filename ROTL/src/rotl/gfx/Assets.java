@@ -9,7 +9,7 @@ public class Assets {
 	public static BufferedImage[] outsideTiles;
 	public static BufferedImage[] buildingTiles;
 	public static BufferedImage[] introFrames;
-	public static BufferedImage cursor;
+	public static BufferedImage cursor, statusBar, playerInfoCanvas;
 	private final int TILE_WIDTH  = 64;
 	private final int TILE_HEIGHT = 32;
 	
@@ -22,6 +22,8 @@ public class Assets {
 		columns = 10;
 		
 		cursor = ImageLoader.loadImage("/images/cursor_final.png");
+		statusBar = ImageLoader.loadImage("/images/status_bar_shorter.png");
+		playerInfoCanvas = ImageLoader.loadImage("/images/player_info.png");
 		
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/iso-64x64-outside.png"));
 		outsideTiles = new BufferedImage[lines * columns + 1];

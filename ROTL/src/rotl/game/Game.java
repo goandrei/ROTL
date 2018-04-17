@@ -6,8 +6,11 @@ import java.awt.image.BufferStrategy;
 import rotl.display.Display;
 import rotl.gfx.Assets;
 import rotl.gfx.GameCamera;
+import rotl.managers.MouseManager;
 import rotl.managers.StateManager;
+import rotl.managers.UIManager;
 import rotl.states.IntroState;
+import rotl.states.MenuState;
 import rotl.states.State;
 import rotl.utilities.Handler;
 
@@ -24,8 +27,10 @@ public class Game implements Runnable {
 	private Handler handler;
 	
 	private StateManager stateManager;
-
-	private State introState;
+	
+	private UIManager uiManager;
+	
+	public State introState, menuState;
 
 	private Display display;
 
@@ -33,8 +38,13 @@ public class Game implements Runnable {
 
 	private Graphics g;
 	
+	//Input
+	private MouseManager mouseManager;
+	
+	//Assets
 	private Assets assets;
 	
+	//Camera
 	private GameCamera gameCamera;
 
 	public Game(String title){
@@ -47,7 +57,10 @@ public class Game implements Runnable {
 		assets.init();
 
 		display = new Display(title);
-		
+		display.getFrame().addMouseListener(mouseManager);
+		display.getFrame().addMouseMotionListener(mouseManager);
+		display.getCanvas().addMouseListener(mouseManager);
+		display.getCanvas().addMouseMotionListener(mouseManager);
 		stateManager = new StateManager();
 		
 		handler = new Handler(stateManager, this);
@@ -57,7 +70,12 @@ public class Game implements Runnable {
 
 		//introState = new GameState(screenWidth, screenHeight, handler);
 		introState = new IntroState(handler);
+		
 		stateManager.setActualState(introState);
+		
+		mouseManager = new MouseManager();
+		uiManager = new UIManager(handler);
+		
 	}
 
 	public synchronized void start() {
@@ -154,7 +172,16 @@ public class Game implements Runnable {
 		return screenHeight;
 	}
 	
+	
 	public GameCamera getGameCamera() {
 		return gameCamera;
+	}
+
+	public MouseManager getMouseManager() {
+		return mouseManager;
+	}
+	
+	public UIManager getUIManager() {
+		return uiManager;
 	}
 }

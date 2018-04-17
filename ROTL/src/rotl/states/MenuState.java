@@ -131,8 +131,7 @@ public class MenuState extends State{
 	
 	@Override
 	public void update() {
-		
-		
+		System.out.println(handler.getMouseManager().getMouseX() + "   " + handler.getMouseManager().getMouseY());
 	}
 
 	@Override
@@ -186,6 +185,8 @@ public class MenuState extends State{
 			g.setColor(Color.red);
 		}
 		g.drawString("Shop - test", xMenu, yMenu + 300);
+		
+		
 	}
 
 }
