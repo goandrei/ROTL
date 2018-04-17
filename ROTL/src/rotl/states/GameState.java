@@ -15,86 +15,92 @@ import rotl.ui.UIImageButton;
 import rotl.utilities.Handler;
 import rotl.utilities.XMLLoader;
 
-<<<<<<< HEAD
 public class GameState extends State{
 	
 	private ClickListener clicker;
 	
-=======
-public class GameState extends State {
-
->>>>>>> refs/remotes/origin/master
 	private TileManager tileManager;
-<<<<<<< HEAD
 	
 	private UIManager uiManager;
 	
 	private UIImageButton statusBar, store, playerInfo;
 	
-=======
-
->>>>>>> refs/remotes/origin/master
 	private final int NO_OF_LAYERS;
-
+	
 	private final int TILE_WIDTH = 64, TILE_HEIGHT = 32;
-
+	
 	private int width, height;
-
+		
 	private Rectangle east, west, south, north, southEast, southWest, northWest, northEast;
-
+	
 	private double offsetAmount = 0.01;
-
+	
 	private float cameraXOffset = 0, cameraYOffset = 0;
-
+		
 	private int[][][] layers;
 	Assets a = new Assets();
 
-	public GameState(int width, int height, Handler handler) {
+	public GameState(int width, int height, Handler handler){
 		super(handler);
-
+		
 		this.width = width;
 		this.height = height;
-
+				
 		tileManager = new TileManager();
 		XMLLoader load = new XMLLoader();
 		layers = load.loadXMLMaps("/maps/map.xml");
 		NO_OF_LAYERS = load.getNoOfLayers();
 		a.init();
-
+		
 		buildDirectionRectangles();
 		addEventListeners();
 		
+		//Grafical User Interface loading
+		uiManager = new UIManager(handler);
+		float statusBarWidth, statusBarHeight, playerInfoWidth, playerInfoHeight;
+				
+		statusBarWidth = Assets.statusBar.getWidth();
+		statusBarHeight = Assets.statusBar.getHeight();
+		statusBar = new UIImageButton((width - statusBarWidth)/2, height - statusBarHeight  , 
+											 (int)statusBarWidth, (int)statusBarHeight, Assets.statusBar, clicker);
+				
+		playerInfoWidth = Assets.playerInfo.getWidth();
+		playerInfoHeight = Assets.playerInfo.getHeight();
+		playerInfo = new UIImageButton(width/2 - playerInfoWidth, 100, (int)playerInfoWidth, (int)playerInfoHeight, Assets.playerInfo, clicker );
+				
+		uiManager.addObject(statusBar);
+		uiManager.addObject(playerInfo);
 		
 	}
-
+	
 	private void buildDirectionRectangles() {
-
+		
 		north = new Rectangle(width / 4, 0, width / 2, height / 4);
 		south = new Rectangle(width / 4, (height / 4) * 3, width / 2, height / 4);
-		east = new Rectangle(0, height / 4, width / 4, height / 2);
-		west = new Rectangle((width / 4) * 3, height / 4, width / 4, height / 2);
+		east  = new Rectangle(0, height / 4, width / 4, height / 2);
+		west  = new Rectangle((width / 4) * 3, height / 4, width / 4, height / 2);
 		northEast = new Rectangle(0, 0, width / 4, height / 4);
 		southEast = new Rectangle(0, (height / 4) * 3, width / 4, height / 4);
 		northWest = new Rectangle((width / 4) * 3, 0, width / 4, height / 4);
 		southWest = new Rectangle((width / 4) * 3, (height / 4) * 3, width / 4, height / 4);
 	}
-
+	
 	private void addEventListeners() {
-
+	
 		handler.getGame().getDisplay().getCanvas().addMouseMotionListener(new MouseMotionListener() {
 
 			@Override
 			public void mouseDragged(MouseEvent arg0) {
-
+				
 			}
 
 			@Override
 			public void mouseMoved(MouseEvent event) {
-
+				
 				Point mousePosition = event.getPoint();
-
-				if (north.contains(mousePosition)) {
-					// handler.getGame().getGameCamera().move(0, (float)-offsetAmount);
+				
+				if(north.contains(mousePosition)) {
+				//	handler.getGame().getGameCamera().move(0, (float)-offsetAmount);
 					cameraYOffset -= offsetAmount;
 					return;
 				} else if (east.contains(mousePosition)) {
@@ -167,17 +173,15 @@ public class GameState extends State {
 					// k);
 				}
 			}
-<<<<<<< HEAD
 		}
 		
 		uiManager.render(g);
+		
 		
 	/*	if(n) {
 			g.fillRect(width / 4, 0, width / 2, height / 4);
 		}else {
 			g.drawRect(width / 4, 0, width / 2, height / 4);
-=======
->>>>>>> refs/remotes/origin/master
 		}
 
 		/*
@@ -195,5 +199,5 @@ public class GameState extends State {
 		 */
 
 	}
-
+	
 }
