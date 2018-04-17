@@ -1,224 +1,210 @@
 package rotl.menu;
 
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Vector;
+import java.net.URL;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
+import javax.imageio.ImageIO;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
 
-public class Instructions implements MenuOption {
+import rotl.utilities.Handler;
 
-    private static final String menuSectionImageSrc = "..\\resources\\images\\BGinstruction.jpg",
-            nextImageSrc = "..\\resources\\images\\Next.png";
-    private static final Integer contentFontSize = 30;
-    private static Instructions single_instance = null;
-    private static String content1 = "\tJocul se bazeaza pe ideea de wave;\r\n" +
-            "- Initial, amandoi jucatorii pornesc doar cu turnurile din baza, toate la\r\n" +
-            "nivelul 1, fara turnuri inafara bazei si fara nici o trupa de soldati;\r\n" +
-            "- Initial, amandoi jucatorii primesc o cantitate de aur pe baza careia pot\r\n" +
-            "opera asa cum se prezinta in capitolul Store si Player pentru a obtine o\r\n" +
-            "armata mai puternica si o aparare mai buna, si pentru a obtine un scor\r\n" +
-            "cat mai bun intr-un wave;\r\n" +
-            "- Exista un time standard de pregatire inainte de fiecare lupta, in care\r\n" +
-            "jucatorul isi poate pregati armata;\r\n" +
-            "- Dupa expirarea timpului standard, lupta incepe:\r\n" +
-            "\to Se iau de la fiecare jucator doar trupele pentru care a fost setat\r\n" +
-            "explicit poarta de parasire a bazei si se trimit pe drumul care\r\n" +
-            "pleaca din acea poarta;\r\n" +
-            "\to Trupele se misca prin campul de lupta pe baza unor algoritmi de\r\n" +
-            "decizie in vederea ajungerii la zidul bazei inamice;\r\n" +
-            "\to Pe drum, se pot intalni cu trupe inamice, caz in care se simuleaza\r\n" +
-            "batalia intre ele. Trupa care supravietuieste(daca exista) isi\r\n" +
-            "continua drumul prin campul de lupta;\r\n" +
-            "\to Pe drum se pot intalni cu turnuri inamice, caz in care se simuleaza\r\n" +
-            "batalia intre ele. Trupa de soldati isi continua drumul prin campul\r\n" +
-            "de lupta, doar daca a reusit sa distruga turnul (sa elibereze calea);";
-    private static String content2 = "\to Ajunse la zidul inamic, trupele provoaca daune zidului pana la\r\n" +
-            "caderea acestuia, apoi intra in baza inamica si avanseaza spre\r\n" +
-            "castel; in interior pe fiecare drum va exista cate un turn, care\r\n" +
-            "respecta aceeasi interactiune cu trupele cum este prezentat\r\n" +
-            "anterior;\r\n" +
-            "\to Trupa trecuta si de turnul interior, pe un drum, ajunge la castel,\r\n" +
-            "unde provoaca daune, pana la distrugerea castelului;\r\n" +
-            "\to Distrugerea castelului inamic aduce victoria jucatorului care a\r\n" +
-            "realizat acest lucru;\r\n" +
-            "- Pentru un wave exista un timp standard; la terminarea timpului pentru\r\n" +
-            "un wave, toate trupele se intorc instant in baza de unde provin si toate\r\n" +
-            "daunele provocate de-a lungul wave-ul terminat se pastreaza, fiind\r\n" +
-            "datoria jucatorului sa isi refaca turnurile si armata; castelul si zidul nu pot\r\n" +
-            "fi refacute !!!\r\n" +
-            "- Dupa terminarea wave-ului (bataliei), se reinstaureaza starea de\r\n" +
-            "pregatire, descrisa anterior;\r\n" +
-            "- Scopul jocului presupune distrugerea castelului inamicului;\r\n" +
-            "- Nu exista limite pentru numarul de wave-uri, nivelul armatei sau al\r\n" +
-            "turnurilor, totul poate deveni cat de INSANE este posibil !!";
-    private static Integer step = 1;
+public class Instructions extends JPanel implements MenuOption {
 
-    private Instructions() {
-    }
+	private static final long serialVersionUID = 1L;
 
-    public static Instructions getInstructions() {
-        if (single_instance == null)
-            single_instance = new Instructions();
+	private static int state;
 
-        return single_instance;
-    }
+	private static int closeImgDimensionsX;
+	private static int closeImgDimensionsY;
+	private static Point closeImgPosition = new Point();
 
-    public void setInstructions(Pane root) {
+	private static int nextButtonDimensionsX;
+	private static int nextButtonDimensionsY;
+	private static Point nextButtonPosition = new Point();
 
-        step = 1;
-        try (InputStream is = Files.newInputStream(Paths.get(menuSectionImageSrc))) {
-            ImageView img = new ImageView(new Image(is));
-            img.setFitWidth(root.getMaxWidth() + 75);
-            img.setFitHeight(root.getMaxHeight());
-            root.getChildren().add(img);
+	private static Handler handler;
+	private static JDialog frame = new JDialog();
 
-            Text back = createBackButton(root);
+	private static Instructions single_instance = null;
 
-            Text title = createTitle(root);
+	private static String content1 = "    Jocul se bazeaza pe ideea de wave;\r\n"
+			+ "    - Initial, amandoi jucatorii pornesc doar cu turnurile din baza, toate la\r\n"
+			+ "nivelul 1, fara turnuri inafara bazei si fara nici o trupa de soldati;\r\n"
+			+ "    - Initial, amandoi jucatorii primesc o cantitate de aur pe baza careia pot\r\n"
+			+ "opera asa cum se prezinta in capitolul Store si Player pentru a obtine o\r\n"
+			+ "armata mai puternica si o aparare mai buna, si pentru a obtine un scor\r\n"
+			+ "cat mai bun intr-un wave;\r\n"
+			+ "    - Exista un time standard de pregatire inainte de fiecare lupta, in care\r\n"
+			+ "jucatorul isi poate pregati armata;\r\n" + "- Dupa expirarea timpului standard, lupta incepe:\r\n"
+			+ "        o Se iau de la fiecare jucator doar trupele pentru care a fost setat\r\n"
+			+ "explicit poarta de parasire a bazei si se trimit pe drumul care\r\n" + "pleaca din acea poarta;\r\n"
+			+ "        o Trupele se misca prin campul de lupta pe baza unor algoritmi de\r\n"
+			+ "decizie in vederea ajungerii la zidul bazei inamice;\r\n"
+			+ "        o Pe drum, se pot intalni cu trupe inamice, caz in care se simuleaza\r\n"
+			+ "batalia intre ele. Trupa care supravietuieste(daca exista) isi\r\n"
+			+ "continua drumul prin campul de lupta;\r\n";
+	private static String content2 = "        o Pe drum se pot intalni cu turnuri inamice, caz in care se simuleaza\r\n"
+			+ "batalia intre ele. Trupa de soldati isi continua drumul prin campul\r\n"
+			+ "de lupta, doar daca a reusit sa distruga turnul (sa elibereze calea);\r\n"
+			+ "        o Ajunse la zidul inamic, trupele provoaca daune zidului pana la\r\n"
+			+ "caderea acestuia, apoi intra in baza inamica si avanseaza spre\r\n"
+			+ "castel; in interior pe fiecare drum va exista cate un turn, care\r\n"
+			+ "respecta aceeasi interactiune cu trupele cum este prezentat\r\n" + "anterior;\r\n"
+			+ "        o Trupa trecuta si de turnul interior, pe un drum, ajunge la castel,\r\n"
+			+ "unde provoaca daune, pana la distrugerea castelului;\r\n"
+			+ "        o Distrugerea castelului inamic aduce victoria jucatorului care a\r\n"
+			+ "realizat acest lucru;\r\n"
+			+ "    - Pentru un wave exista un timp standard; la terminarea timpului pentru\r\n"
+			+ "un wave, toate trupele se intorc instant in baza de unde provin si toate\r\n"
+			+ "daunele provocate de-a lungul wave-ul terminat se pastreaza, fiind\r\n"
+			+ "datoria jucatorului sa isi refaca turnurile si armata; castelul si zidul nu pot\r\n"
+			+ "fi refacute !!!\r\n"; 
+	private static String content3 = "    - Dupa terminarea wave-ului (bataliei), se reinstaureaza starea de\r\n"
+			+ "pregatire, descrisa anterior;\r\n" + "- Scopul jocului presupune distrugerea castelului inamicului;\r\n"
+			+ "    - Nu exista limite pentru numarul de wave-uri, nivelul armatei sau al\r\n"
+			+ "turnurilor, totul poate deveni cat de INSANE este posibil !!";
 
-            Vector<Object> content = createContent(root);
+	private static int screenWidth, screenHeight;
 
-            ImageView next = createNextButton(root);
+	private static BufferedImage backgroundImg;
+	private static BufferedImage closeImg;
+	private static BufferedImage nextButton;
 
-            back.setOnMouseReleased(event -> {
-                root.getChildren().removeAll(img, back, title, (Text) content.get(0),
-                        (Text) content.get(1), next);
-            });
+	private Instructions(Handler handler) {
 
-            next.setOnMouseReleased(event -> {
-                if (step == 2) {
-                    Text txt1 = (Text) content.get(0);
-                    txt1.setVisible(false);
-                    Text txt2 = (Text) content.get(1);
-                    txt2.setVisible(true);
-                }
-            });
+		this.handler = handler;
+		screenWidth = (handler.getGame().getWidth() * 2) / 3;
+		screenHeight = (handler.getGame().getHeight() * 2) / 3;
 
-        } catch (IOException e) {
-            System.out.println("Couldn't load image...");
-        }
-    }
+		frame.setPreferredSize(new Dimension(screenWidth, screenHeight));
+		frame.setMaximumSize(new Dimension(screenWidth, screenHeight));
+		frame.setMinimumSize(new Dimension(screenWidth, screenHeight));
 
-    public ImageView createNextButton(Pane root) {
+		frame.setUndecorated(true);
 
-        try (InputStream is = Files.newInputStream(Paths.get(nextImageSrc))) {
-            ImageView img = new ImageView(new Image(is));
-            img.setFitWidth(75);
-            img.setFitHeight(75);
-            img.setTranslateX(975);
-            img.setTranslateY(525);
-            img.setOpacity(0.9);
-            root.getChildren().add(img);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setContentPane(this);
+		frame.setVisible(true);
 
-            img.setOnMouseEntered(event -> {
-                img.setOpacity(1);
-                img.setFitWidth(85);
-                img.setFitHeight(85);
-                img.setTranslateX(970);
-                img.setTranslateY(520);
-            });
+		Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/cursor_final.png"));
+		Point hotspot = new Point(0, 0);
+		Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(image, hotspot, "pencil");
+		frame.setCursor(cursor);
 
-            img.setOnMouseExited(event -> {
-                img.setFitWidth(75);
-                img.setFitHeight(75);
-                img.setTranslateX(975);
-                img.setTranslateY(525);
-                img.setOpacity(0.9);
-            });
+		Init();
 
-            return img;
+		setInstructions();
 
-        } catch (IOException e) {
-            System.out.println("Couldn't load image...");
-            return null;
-        }
-    }
+	}
 
-    @Override
-    public Text createBackButton(Pane root) {
+	public static Instructions getInstructions(Handler handler) {
+		if (single_instance == null) {
+			single_instance = new Instructions(handler);
+		}
 
-        LinearGradient gradient = new LinearGradient(0, 0, 1, 0,
-                true, CycleMethod.NO_CYCLE, new Stop[]{
-                new Stop(0, Color.DEEPSKYBLUE),
-                new Stop(0.5, Color.BLACK),
-                new Stop(0.5, Color.BLACK),
-                new Stop(1, Color.DEEPSKYBLUE)
+		frame.setVisible(true);
+		state = 1;
 
-        });
+		return single_instance;
+	}
 
+	private void drawString(Graphics g, String text, int x, int y) {
+		for (String line : text.split("\n"))
+			g.drawString(line, x, y += g.getFontMetrics().getHeight());
+	}
 
-        Text text = new Text("BACK");
-        text.setFill(Color.DARKGREY);
-        text.setFont(Font.font("Neuropol", FontWeight.SEMI_BOLD, backButtonFontSize));
-        text.setTranslateX(100);
-        text.setTranslateY(50);
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 
-        root.getChildren().add(text);
-        text.setOnMouseEntered(event -> {
-            text.setFill(gradient);
-            text.setFill(Color.WHITE);
-        });
+		g.drawImage(backgroundImg, 0, 0, screenWidth, screenHeight, this);
+		g.setFont(new Font("Neuropol X", Font.BOLD, titleFontSize));
+		g.setColor(Color.WHITE);
+		g.drawString("Instructions", (int) (screenWidth * 30 / 100), (int) (screenHeight * 15 / 100));
+		g.drawImage(closeImg, closeImgPosition.x, closeImgPosition.y, closeImgDimensionsX, closeImgDimensionsY, this);
+		g.setFont(new Font("Neuropol X", Font.BOLD, fontSize));
+		if (state == 1)
+			drawString(g, content1, (int) (screenWidth * 5 / 100), (int) (screenHeight * 25 / 100));
+		if (state == 2)
+			drawString(g, content2, (int) (screenWidth * 5 / 100), (int) (screenHeight * 25 / 100));
+		if (state == 3)
+			drawString(g, content3, (int) (screenWidth * 5 / 100), (int) (screenHeight * 25 / 100));
+		g.drawImage(nextButton, nextButtonPosition.x, nextButtonPosition.y, nextButtonDimensionsX,
+				nextButtonDimensionsY, this);
+	}
 
-        text.setOnMouseExited(event -> {
-            text.setFill(Color.BLACK);
-            text.setFill(Color.DARKGREY);
-        });
-        text.setOnMousePressed(event -> {
-            text.setFont(Font.font("Neuropol", FontWeight.BOLD, backButtonFontSize * 1.1));
-        });
+	public void setInstructions() {
 
-        return text;
-    }
+		closeImgDimensionsX = (int) (screenWidth * 5.5 / 100);
+		closeImgDimensionsY = (int) (screenHeight * 9.8 / 100);
+		closeImgPosition.setLocation(screenWidth - closeImgDimensionsX, 0);
 
-    @Override
-    public Text createTitle(Pane root) {
+		nextButtonDimensionsX = (int) (screenWidth * 5.5 / 100);
+		nextButtonDimensionsY = (int) (screenHeight * 9.8 / 100);
+		nextButtonPosition.setLocation(screenWidth - nextButtonDimensionsX - (int) (screenWidth * 1 / 100),
+				screenHeight - nextButtonDimensionsY - (int) (screenHeight * 2 / 100));
 
-        Text text = new Text("I N S T R U C T I O N S ");
-        text.setFill(Color.DEEPSKYBLUE);
-        text.setFont(Font.font("Neuropol", FontWeight.EXTRA_BOLD, titleFontSize));
-        text.setTranslateX(350);
-        text.setTranslateY(50);
-        root.getChildren().add(text);
+		addMouseListener(new MouseAdapter() {
 
-        return text;
-    }
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (closeImg != null) {
+					Point me = e.getPoint();
+					Rectangle bounds = new Rectangle(closeImgPosition.x, closeImgPosition.y, closeImgDimensionsX,
+							closeImgDimensionsY);
+					if (bounds.contains(me)) {
+						frame.setVisible(false);
+					}
+				}
+				if (nextButton != null) {
+					Point me = e.getPoint();
+					Rectangle bounds = new Rectangle(nextButtonPosition.x, nextButtonPosition.y, nextButtonDimensionsX,
+							nextButtonDimensionsY);
+					if (bounds.contains(me)) {
+						if (state != 3) {
+							state++;
+							repaint();
+						}
+					}
+				}
+			}
+		});
 
-    @Override
-    public Vector<Object> createContent(Pane root) {
+	}
 
-        Text text1 = new Text(content1);
-        Text text2 = new Text(content2);
-        text1.setFill(Color.LIGHTGOLDENRODYELLOW);
-        text1.setFont(Font.font("Neuropol X", FontWeight.NORMAL, contentFontSize));
-        text1.setTranslateX(100);
-        text1.setTranslateY(100);
-        text1.setVisible(true);
-        root.getChildren().add(text1);
-
-        text2.setFill(Color.LIGHTGOLDENRODYELLOW);
-        text2.setFont(Font.font("Neuropol X", FontWeight.NORMAL, contentFontSize));
-        text2.setTranslateX(100);
-        text2.setTranslateY(100);
-        text2.setVisible(false);
-        root.getChildren().add(text2);
-        step++;
-
-        Vector<Object> objVector = new Vector<Object>(2);
-        objVector.add(text1);
-        objVector.add(text2);
-
-        return objVector;
-    }
+	@Override
+	public void Init() {
+		URL resourceBKImg = getClass().getResource("/images/BGinstruction.jpg");
+		try {
+			backgroundImg = ImageIO.read(resourceBKImg);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		URL resourceCloseImg = getClass().getResource("/images/closeImg.png");
+		try {
+			closeImg = ImageIO.read(resourceCloseImg);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		URL resourceNextButton = getClass().getResource("/images/Next.png");
+		try {
+			nextButton = ImageIO.read(resourceNextButton);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -1,23 +1,27 @@
 package rotl.menu;
 
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+
+import javax.imageio.ImageIO;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Vector;
-
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -27,174 +31,168 @@ import javafx.util.Pair;
 
 import static java.lang.Math.*;
 
-public class HallOfFame implements MenuOption {
+import rotl.utilities.Handler;
 
-    static final String menuSectionImageSrc = "..\\resources\\images\\BGHallOfFame.jpg";
-    private static final Integer contentFontSize = 30;
-    private static HallOfFame single_instance = null;
-    private static Vector<Pair<String, Integer>> history =
-            new Vector<Pair<String, Integer>>();
+public class HallOfFame extends JPanel implements MenuOption {
 
-    private Scanner scanner;
+	private static final long serialVersionUID = 1L;
 
-    private HallOfFame() {
-    }
+	private static int closeImgDimensionsX;
+	private static int closeImgDimensionsY;
+	private static Point closeImgPosition = new Point();
 
-    public static HallOfFame getHallOfFame() {
-        if (single_instance == null)
-            single_instance = new HallOfFame();
+	private static Handler handler;
+	private static JDialog frame = new JDialog();
+	private static HallOfFame single_instance = null;
+	private static String content1 = "", content2 = "";
 
-        return single_instance;
-    }
+	private static int screenWidth, screenHeight;
 
-    public void setHallOfFame(Pane root) {
+	private static BufferedImage backgroundImg;
+	private static BufferedImage closeImg;
 
-        try (InputStream is = Files.newInputStream(Paths.get(menuSectionImageSrc))) {
-            ImageView img = new ImageView(new Image(is));
-            img.setFitWidth(root.getMaxWidth() + 75);
-            img.setFitHeight(root.getMaxHeight());
-            root.getChildren().add(img);
+	private static Vector<Pair<String, Integer>> history = new Vector<Pair<String, Integer>>();
 
-            Text back = createBackButton(root);
+	private HallOfFame(Handler handler) {
 
-            Text title = createTitle(root);
+		this.handler = handler;
+		screenWidth = (handler.getGame().getWidth() * 2) / 3;
+		screenHeight = (handler.getGame().getHeight() * 2) / 3;
 
-            Vector<Object> content = createContent(root);
+		frame.setPreferredSize(new Dimension(screenWidth, screenHeight));
+		frame.setMaximumSize(new Dimension(screenWidth, screenHeight));
+		frame.setMinimumSize(new Dimension(screenWidth, screenHeight));
 
-            back.setOnMouseReleased(event -> {
-                root.getChildren().removeAll(img, back, title, (Text) content.get(0),
-                        (Text) content.get(1));
-            });
+		frame.setUndecorated(true);
 
-        } catch (IOException e) {
-            System.out.println("Couldn't load image...");
-        }
-    }
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setContentPane(this);
+		frame.setVisible(true);
 
-    private void readHistory() {
+		Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/cursor_final.png"));
+		Point hotspot = new Point(0, 0);
+		Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(image, hotspot, "pencil");
+		frame.setCursor(cursor);
 
-        String s = null;
-        try {
-            scanner = new Scanner(new File("..\\resources\\files\\HallOfFames.txt"));
-            while (scanner.hasNextLine()) {
-                s = scanner.nextLine();
+		Init();
 
-                Pair<String, Integer> aux =
-                        new Pair<String, Integer>(s.substring(0, s.indexOf('#') - 1),
-                                Integer.parseInt(s.substring(s.indexOf('#') + 1,
-                                        s.lastIndexOf('#'))));
-                history.add(aux);
-            }
-        } catch (FileNotFoundException e) {
-        	System.out.println("Couldn't load text ...");
-            e.printStackTrace();
-        }
-    }
+		setHallOfFame();
 
-    private void processingHistory() {
+	}
 
-        Comparator<Pair<String, Integer>> comparator = new PairComparator();
-        Collections.sort(history, comparator);
-    }
+	public static HallOfFame getHallOfFame(Handler handler) {
+		if (single_instance == null) {
+			single_instance = new HallOfFame(handler);
+		}
 
-    @Override
-    public Text createBackButton(Pane root) {
+		frame.setVisible(true);
 
-        LinearGradient gradient = new LinearGradient(0, 0, 1, 0,
-                true, CycleMethod.NO_CYCLE, new Stop[]{
-                new Stop(0, Color.DEEPSKYBLUE),
-                new Stop(0.5, Color.BLACK),
-                new Stop(0.5, Color.BLACK),
-                new Stop(1, Color.DEEPSKYBLUE)
+		return single_instance;
+	}
 
-        });
+	private void drawString(Graphics g, String text, int x, int y) {
+		for (String line : text.split("\n"))
+			g.drawString(line, x, y += g.getFontMetrics().getHeight());
+	}
 
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 
-        Text text = new Text("BACK");
-        text.setFill(Color.DARKGREY);
-        text.setFont(Font.font("Neuropol", FontWeight.SEMI_BOLD, backButtonFontSize));
-        text.setTranslateX(100);
-        text.setTranslateY(50);
+		g.drawImage(backgroundImg, 0, 0, screenWidth, screenHeight, this);
+		g.setFont(new Font("Neuropol X", Font.BOLD, titleFontSize));
+		g.setColor(Color.WHITE);
+		g.drawString("HallOfFame", (int) (screenWidth * 30 / 100), (int) (screenHeight * 15 / 100));
+		g.drawImage(closeImg, closeImgPosition.x, closeImgPosition.y, closeImgDimensionsX, closeImgDimensionsY, this);
+		g.setFont(new Font("Neuropol X", Font.BOLD, (int) (fontSize * 1.5)));
+		drawString(g, content1, (int) (screenWidth * 5 / 100), (int) (screenHeight * 25 / 100));
+		drawString(g, content2, (int) (screenWidth * 65 / 100), (int) (screenHeight * 25 / 100));
+	}
 
-        root.getChildren().add(text);
-        text.setOnMouseEntered(event -> {
-            text.setFill(gradient);
-            text.setFill(Color.WHITE);
-        });
+	public void setHallOfFame() {
 
-        text.setOnMouseExited(event -> {
-            text.setFill(Color.BLACK);
-            text.setFill(Color.DARKGREY);
-        });
-        text.setOnMousePressed(event -> {
-            text.setFont(Font.font("Neuropol", FontWeight.BOLD, backButtonFontSize * 1.1));
-        });
+		closeImgDimensionsX = (int) (screenWidth * 5.5 / 100);
+		closeImgDimensionsY = (int) (screenHeight * 9.8 / 100);
+		closeImgPosition.setLocation(screenWidth - closeImgDimensionsX, 0);
 
-        return text;
-    }
+		addMouseListener(new MouseAdapter() {
 
-    @Override
-    public Text createTitle(Pane root) {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (closeImg != null) {
+					Point me = e.getPoint();
+					Rectangle bounds = new Rectangle(closeImgPosition.x, closeImgPosition.y, closeImgDimensionsX,
+							closeImgDimensionsY);
+					if (bounds.contains(me)) {
+						frame.setVisible(false);
+					}
+				}
+			}
+		});
 
-        Text text = new Text("H A L L   O f   F L A M E S ");
-        text.setFill(Color.DEEPSKYBLUE);
-        text.setFont(Font.font("Neuropol", FontWeight.EXTRA_BOLD, titleFontSize));
-        text.setTranslateX(300);
-        text.setTranslateY(75);
-        root.getChildren().add(text);
+	}
 
-        return text;
-    }
+	@Override
+	public void Init() {
+		URL resourceBKImg = getClass().getResource("/images/BGHallOfFame.jpg");
+		try {
+			backgroundImg = ImageIO.read(resourceBKImg);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		URL resourceCloseImg = getClass().getResource("/images/closeImg.png");
+		try {
+			closeImg = ImageIO.read(resourceCloseImg);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-    @Override
-    public Vector<Object> createContent(Pane root) {
+		readHistory();
 
-        readHistory();
+		processingHistory();
 
-        processingHistory();
+		for (Integer i = 0; i < min(history.size(), 10); ++i) {
 
-        String content1 = new String("");
-        String content2 = new String("");
+			Pair<String, Integer> aux = history.get(i);
+			content1 += i + 1;
+			content1 += ".  ";
+			content1 += aux.getKey();
+			content1 += '\n';
 
-        for (Integer i = 0; i < min(history.size(), 10); ++i) {
+			content2 += aux.getValue();
+			content2 += '\n';
+		}
+	}
 
-            Pair<String, Integer> aux = history.get(i);
-            content1 += i + 1;
-            content1 += ".  ";
-            content1 += aux.getKey();
-            content1 += '\n';
+	private void readHistory() {
 
-            content2 += aux.getValue();
-            content2 += '\n';
-        }
+		String s = null;
+		Scanner scanner;
+		try {
+			scanner = new Scanner(new File("./resources/files/HallOfFames.txt"));
+			while (scanner.hasNextLine()) {
+				s = scanner.nextLine();
 
+				Pair<String, Integer> aux = new Pair<String, Integer>(s.substring(0, s.indexOf('#') - 1),
+						Integer.parseInt(s.substring(s.indexOf('#') + 1, s.lastIndexOf('#'))));
+				history.add(aux);
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("Couldn't load text ...");
+			e.printStackTrace();
+		}
+	}
 
-        Text text1 = new Text(content1);
-        text1.setFill(Color.LIGHTGOLDENRODYELLOW);
-        text1.setFont(Font.font("Neuropol X", FontWeight.NORMAL, contentFontSize * 1.2));
-        text1.setTranslateX(150);
-        text1.setTranslateY(200);
-        text1.setVisible(true);
-        root.getChildren().add(text1);
+	private void processingHistory() {
 
-        Text text2 = new Text(content2);
-        text2.setFill(Color.LIGHTGOLDENRODYELLOW);
-        text2.setFont(Font.font("Neuropol X", FontWeight.NORMAL, contentFontSize * 1.2));
-        text2.setTranslateX(750);
-        text2.setTranslateY(200);
-        text2.setVisible(true);
-        root.getChildren().add(text2);
-
-        Vector<Object> objVector = new Vector<Object>(2);
-        objVector.add(text1);
-        objVector.add(text2);
-
-        return objVector;
-    }
+		Comparator<Pair<String, Integer>> comparator = new PairComparator();
+		Collections.sort(history, comparator);
+	}
 }
 
 class PairComparator implements Comparator<Pair<String, Integer>> {
-    public int compare(Pair<String, Integer> o1, Pair<String, Integer> o2) {
-        return -(o1.getValue().compareTo(o2.getValue()));
-    }
+	public int compare(Pair<String, Integer> o1, Pair<String, Integer> o2) {
+		return -(o1.getValue().compareTo(o2.getValue()));
+	}
 }

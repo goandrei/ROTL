@@ -8,47 +8,62 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
+
+import rotl.menu.HallOfFame;
+import rotl.menu.Instructions;
+import rotl.menu.Options;
 import rotl.store.Store;
 import rotl.utilities.Handler;
 
-public class MenuState extends State{
-	
+public class MenuState extends State {
+
+	private static int MenuDimensionX;
+	private static int MenuDimensionY;
+	private static BufferedImage backgroundImg;
+	private static BufferedImage playButton;
+	private static BufferedImage optionsButton;
+	private static BufferedImage instructionButton;
+	private static BufferedImage highScoreButton;
+	private static BufferedImage exitButton;
+
 	private boolean start, options, instructions, highScores, exit;
-	private int startSize, optionsSize , instructionsSize, highScoresSize, exitSize;
-	private Rectangle startRect, optionsRect, instructionsRect, highScoresRect, exitRect;
-	private int xMenu, yMenu;
+	private static int xMenu, yMenu;
+	private static int screenWidth, screenHeight;
 	private final int textSize = 48;
-	private Font font;
-	
+
 	Rectangle shopTest;
 	boolean shop = false;
-	
+
 	public MenuState(Handler handler) {
 		super(handler);
-		
+
+		Init();
+
 		start = true;
 		options = instructions = highScores = exit = false;
-		
-		font = new Font("Garamond",Font.BOLD,textSize);
-		
-		xMenu = handler.getGame().getWidth() / 12;
-		yMenu = handler.getGame().getHeight() / 4;
-		
-		startRect = new Rectangle(xMenu, yMenu - textSize, 116, textSize);
-		optionsRect = new Rectangle(xMenu, yMenu + 20, textSize * 3 + 30, textSize);
-		instructionsRect = new Rectangle(xMenu, yMenu + 80, textSize * 5 + 30, textSize);
-		highScoresRect = new Rectangle(xMenu, yMenu + 140, textSize * 6, textSize);
-		exitRect = new Rectangle(xMenu, yMenu + 200, textSize * 2, textSize);
-		
-		//shop test
-		shopTest = new Rectangle(xMenu,yMenu + 260, textSize * 2, textSize);
-	
+
+		screenWidth = handler.getGame().getWidth();
+		screenHeight = handler.getGame().getHeight();
+
+		xMenu = (int) (screenWidth * 10 / 100);
+		yMenu = (int) (screenWidth * 20 / 100);
+
+		MenuDimensionX = (int) (screenWidth * 30 / 100);
+		MenuDimensionY = (int) (screenHeight * 60 / 100);
+
+		// shop test
+		shopTest = new Rectangle(xMenu, yMenu + 260, textSize * 2, textSize);
+
 		addHandlers();
 	}
-	
+
 	public void addHandlers() {
-		
+
 		handler.getGame().getDisplay().getCanvas().addMouseMotionListener(new MouseMotionListener() {
 
 			@Override
@@ -58,36 +73,65 @@ public class MenuState extends State{
 			@Override
 			public void mouseMoved(MouseEvent event) {
 				Point mousePosition = event.getPoint();
-				
-				if(startRect.contains(mousePosition)) {
-					start = true;
-				}else {
-					start = false;
+
+				if (playButton != null) {
+					Rectangle bounds = new Rectangle(xMenu + (int) (screenWidth * 2 / 100),
+							yMenu + (int) (screenHeight * 1 / 100), MenuDimensionX - 2 * (int) (screenWidth * 2 / 100),
+							(int) (MenuDimensionY / 6));
+					if (bounds.contains(mousePosition)) {
+						start = true;
+					} else {
+						start = false;
+					}
 				}
-				if(optionsRect.contains(mousePosition)) {
-					options = true;
-				}else {
-					options = false;
+
+				if (optionsButton != null) {
+					Rectangle bounds = new Rectangle(xMenu + (int) (screenWidth * 2 / 100),
+							yMenu + 2 * (int) (screenHeight * 1 / 100) + (int) (MenuDimensionY / 6),
+							MenuDimensionX - 2 * (int) (screenWidth * 2 / 100), (int) (MenuDimensionY / 6));
+					if (bounds.contains(mousePosition)) {
+						options = true;
+					} else {
+						options = false;
+					}
 				}
-				if(instructionsRect.contains(mousePosition)) {
-					instructions = true;
-				}else {
-					instructions = false;
+
+				if (instructionButton != null) {
+					Rectangle bounds = new Rectangle(xMenu + (int) (screenWidth * 2 / 100),
+							yMenu + 3 * (int) (screenHeight * 1 / 100) + 2 * (int) (MenuDimensionY / 6),
+							MenuDimensionX - 2 * (int) (screenWidth * 2 / 100), (int) (MenuDimensionY / 6));
+					if (bounds.contains(mousePosition)) {
+						instructions = true;
+					} else {
+						instructions = false;
+					}
 				}
-				if(highScoresRect.contains(mousePosition)) {
-					highScores = true;
-				}else {
-					highScores = false;
+
+				if (highScoreButton != null) {
+					Rectangle bounds = new Rectangle(xMenu + (int) (screenWidth * 2 / 100),
+							yMenu + 4 * (int) (screenHeight * 1 / 100) + 3 * (int) (MenuDimensionY / 6),
+							MenuDimensionX - 2 * (int) (screenWidth * 2 / 100), (int) (MenuDimensionY / 6));
+					if (bounds.contains(mousePosition)) {
+						highScores = true;
+					} else {
+						highScores = false;
+					}
 				}
-				if(exitRect.contains(mousePosition)) {
-					exit = true;
-				}else {
-					exit = false;
+
+				if (exitButton != null) {
+					Rectangle bounds = new Rectangle(xMenu + (int) (screenWidth * 2 / 100),
+							yMenu + 5 * (int) (screenHeight * 1 / 100) + 4 * (int) (MenuDimensionY / 6),
+							MenuDimensionX - 2 * (int) (screenWidth * 2 / 100), (int) (MenuDimensionY / 6));
+					if (bounds.contains(mousePosition)) {
+						exit = true;
+					} else {
+						exit = false;
+					}
 				}
-				
-				if(shopTest.contains(mousePosition)) {
+
+				if (shopTest.contains(mousePosition)) {
 					shop = true;
-				}else {
+				} else {
 					shop = false;
 				}
 			}
@@ -97,12 +141,25 @@ public class MenuState extends State{
 
 			@Override
 			public void mouseClicked(MouseEvent event) {
-				
-				if(start)
-					handler.getStateManager().setActualState(new GameState(handler.getGame().getWidth(), handler.getGame().getHeight(), handler));
-				
-				if(shop) {
-					Store store = new Store(handler);
+
+				if (start) {
+					handler.getStateManager().setActualState(
+							new GameState(handler.getGame().getWidth(), handler.getGame().getHeight(), handler));
+				}
+				if (options) {
+					Options.getOptions(handler);
+				}
+				if (instructions) {
+					Instructions.getInstructions(handler);
+				}
+				if (highScores) {
+					HallOfFame.getHallOfFame(handler);
+				}
+				if (exit) {
+					System.exit(0);
+				}
+				if (shop) {
+					Store.getInstance(handler);
 				}
 			}
 
@@ -113,80 +170,144 @@ public class MenuState extends State{
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
-				
+
 			}
 
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				
+
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				
+
 			}
-			
+
 		});
 	}
-	
+
 	@Override
 	public void update() {
+<<<<<<< HEAD
 		System.out.println(handler.getMouseManager().getMouseX() + "   " + handler.getMouseManager().getMouseY());
+=======
+
+>>>>>>> refs/remotes/origin/master
 	}
 
 	@Override
 	public void render(Graphics g) {
-		
-		g.setColor(Color.black);
-		g.fillRect(0, 0, handler.getGame().getWidth(), handler.getGame().getHeight());
+
+		g.drawImage(backgroundImg, 0, 0, screenWidth, screenHeight, null);
+
+		g.setFont(new Font("Neuropol X", Font.BOLD, 100));
 		g.setColor(Color.WHITE);
+		g.drawString("Menu", (int) (xMenu * 150 / 100), yMenu - 50);
 
-		g.setFont(font);
-		g.setColor(Color.red);
-		
-		if(start) {
-			g.setColor(Color.white);
-		}else {
-			g.setColor(Color.red);
-		}
-		g.drawString("Start", xMenu, yMenu);
+		g.setColor(new Color(255, 255, 255, 100));
+		g.fillRect(xMenu - (int) (MenuDimensionX * 2 / 100), yMenu - (int) (MenuDimensionY * 30 / 100),
+				MenuDimensionX + (int) (MenuDimensionX * 2 / 100), (int) (MenuDimensionY * 1.25));
 
-		if(options) {
-			g.setColor(Color.white);
-		}else {
-			g.setColor(Color.red);
-		}
-		g.drawString("Options", xMenu, yMenu + 60);
-		
-		if(instructions) {
-			g.setColor(Color.white);
-		}else {
-			g.setColor(Color.red);
-		}
-		g.drawString("Instructions", xMenu, yMenu + 120);
+		g.setFont(new Font("Neuropol X", Font.BOLD, 125));
+		g.setColor(new Color(41, 168, 222, 200));
+		g.drawString("Return of", xMenu + (int) (MenuDimensionX * 120 / 100), (int) ((yMenu + MenuDimensionY) * 1 / 3));
+		g.drawString("the legends", xMenu + (int) (MenuDimensionX * 120 / 100),
+				(int) ((yMenu + MenuDimensionY) * 1 / 3) + 75);
 
-		if(highScores) {
+		if (start) {
+			g.drawImage(playButton, xMenu + (int) (screenWidth * 2 / 100) + 5,
+					yMenu + (int) (screenHeight * 1 / 100) + 3, MenuDimensionX - 2 * (int) (screenWidth * 2 / 100) - 10,
+					(int) (MenuDimensionY / 6) - 6, null);
+		} else {
+			g.drawImage(playButton, xMenu + (int) (screenWidth * 2 / 100), yMenu + (int) (screenHeight * 1 / 100),
+					MenuDimensionX - 2 * (int) (screenWidth * 2 / 100), (int) (MenuDimensionY / 6), null);
+		}
+		if (options) {
+			g.drawImage(optionsButton, xMenu + (int) (screenWidth * 2 / 100) + 5,
+					yMenu + 2 * (int) (screenHeight * 1 / 100) + (int) (MenuDimensionY / 6) + 3,
+					MenuDimensionX - 2 * (int) (screenWidth * 2 / 100) - 10, (int) (MenuDimensionY / 6) - 6, null);
+		} else {
+			g.drawImage(optionsButton, xMenu + (int) (screenWidth * 2 / 100),
+					yMenu + 2 * (int) (screenHeight * 1 / 100) + (int) (MenuDimensionY / 6),
+					MenuDimensionX - 2 * (int) (screenWidth * 2 / 100), (int) (MenuDimensionY / 6), null);
+		}
+		if (instructions) {
+			g.drawImage(instructionButton, xMenu + (int) (screenWidth * 2 / 100) + 5,
+					yMenu + 3 * (int) (screenHeight * 1 / 100) + 2 * (int) (MenuDimensionY / 6) + 3,
+					MenuDimensionX - 2 * (int) (screenWidth * 2 / 100) - 10, (int) (MenuDimensionY / 6) - 6, null);
+		} else {
+			g.drawImage(instructionButton, xMenu + (int) (screenWidth * 2 / 100),
+					yMenu + 3 * (int) (screenHeight * 1 / 100) + 2 * (int) (MenuDimensionY / 6),
+					MenuDimensionX - 2 * (int) (screenWidth * 2 / 100), (int) (MenuDimensionY / 6), null);
+		}
+		if (highScores) {
+			g.drawImage(highScoreButton, xMenu + (int) (screenWidth * 2 / 100) + 5,
+					yMenu + 4 * (int) (screenHeight * 1 / 100) + 3 * (int) (MenuDimensionY / 6) + 3,
+					MenuDimensionX - 2 * (int) (screenWidth * 2 / 100) - 10, (int) (MenuDimensionY / 6) - 6, null);
+		} else {
+			g.drawImage(highScoreButton, xMenu + (int) (screenWidth * 2 / 100),
+					yMenu + 4 * (int) (screenHeight * 1 / 100) + 3 * (int) (MenuDimensionY / 6),
+					MenuDimensionX - 2 * (int) (screenWidth * 2 / 100), (int) (MenuDimensionY / 6), null);
+		}
+		if (exit) {
+			g.drawImage(exitButton, xMenu + (int) (screenWidth * 2 / 100) + 5,
+					yMenu + 5 * (int) (screenHeight * 1 / 100) + 4 * (int) (MenuDimensionY / 6) + 3,
+					MenuDimensionX - 2 * (int) (screenWidth * 2 / 100) - 10, (int) (MenuDimensionY / 6) - 6, null);
+		} else {
+			g.drawImage(exitButton, xMenu + (int) (screenWidth * 2 / 100),
+					yMenu + 5 * (int) (screenHeight * 1 / 100) + 4 * (int) (MenuDimensionY / 6),
+					MenuDimensionX - 2 * (int) (screenWidth * 2 / 100), (int) (MenuDimensionY / 6), null);
+		}
+		// for testing
+		if (shop) {
 			g.setColor(Color.white);
-		}else {
+		} else {
 			g.setColor(Color.red);
 		}
-		g.drawString("High Scores", xMenu, yMenu + 180);
-		
-		if(exit) {
-			g.setColor(Color.white);
-		}else {
-			g.setColor(Color.red);
-		}
-		g.drawString("Exit", xMenu, yMenu + 240);
-		
-		if(shop) {
-			g.setColor(Color.white);
-		}else {
-			g.setColor(Color.red);
-		}
+		g.setFont(new Font("Neuropol X", Font.BOLD, 20));
 		g.drawString("Shop - test", xMenu, yMenu + 300);
 		
 		
+	}
+
+	private void Init() {
+
+		URL resourceBKImg = getClass().getResource("/images/Age-of-Empires-Menu.jpg");
+		try {
+			backgroundImg = ImageIO.read(resourceBKImg);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		URL resourcePlayButton = getClass().getResource("/images/playButton.png");
+		try {
+			playButton = ImageIO.read(resourcePlayButton);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		URL resourceOptionButton = getClass().getResource("/images/optButton.png");
+		try {
+			optionsButton = ImageIO.read(resourceOptionButton);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		URL resourceInstructionButton = getClass().getResource("/images/instButton.png");
+		try {
+			instructionButton = ImageIO.read(resourceInstructionButton);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		URL resourceHighScoresButton = getClass().getResource("/images/HSButton.png");
+		try {
+			highScoreButton = ImageIO.read(resourceHighScoresButton);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		URL resourceExitButton = getClass().getResource("/images/exitButton.png");
+		try {
+			exitButton = ImageIO.read(resourceExitButton);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
