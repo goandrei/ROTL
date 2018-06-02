@@ -1,7 +1,6 @@
 package rotl.utilities;
 
 import java.io.File;
-import java.util.Base64;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;

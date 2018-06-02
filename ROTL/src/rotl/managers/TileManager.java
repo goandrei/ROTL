@@ -1,7 +1,6 @@
 package rotl.managers;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
 import rotl.gfx.Assets;
 

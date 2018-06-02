@@ -1,6 +1,11 @@
 package rotl.player;
 
-import rotl.entities.*;
+import rotl.entities.GameEntity;
+import rotl.entities.Soldier;
+import rotl.entities.SoldierFactory;
+import rotl.entities.SoldierType;
+import rotl.entities.Tower;
+import rotl.entities.TowerFactory;
 import rotl.utilities.XMLParser;
 
 public class UpgradeRepairUnitTest {

@@ -1,9 +1,5 @@
 package rotl.launcher;
 
-import java.awt.Color;
-import java.awt.Graphics;
-
-import rotl.display.Display;
 import rotl.game.Game;
 
 public class Launcher {

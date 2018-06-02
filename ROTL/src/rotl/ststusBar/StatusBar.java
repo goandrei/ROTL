@@ -14,8 +14,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.JDialog;
@@ -30,19 +28,33 @@ public class StatusBar extends JPanel {
 
 	private static StatusBar instance = null;
 
-	private static int closeImgDimensionsX;
-	private static int closeImgDimensionsY;
-	private static Point closeImgPosition = new Point();
-	
 	private static int positionX;
 	private static int positionY;
 	private static Point position = new Point();
-	
+
 	private static int storeButtonX;
 	private static int storeButtonY;
 	private static int storeButtonXDimenssion;
 	private static int storeButtonYDimenssion;
 	private static Point storeButtonPosition = new Point();
+
+	private static int infoRectDimensionsX;
+	private static int infoRectDimensionsY;
+	private static Point infoRectPosition = new Point();
+
+	private static int gameinfoRectDimensionsX;
+	private static int gameinfoRectDimensionsY;
+	private static Point gameinfoRectPosition = new Point();
+
+	private static int stockinfoRectDimensionsX;
+	private static int stockinfoRectDimensionsY;
+	private static Point stockinfoRectPosition = new Point();
+
+	private static String userName = "Player 1";
+	private static int gold = 1235;
+	private static int score = 1234567;
+	private static int waveNumber = 2;
+	private static int enamyScore = 12345;
 
 	private static Handler handler;
 	private static JDialog frame = new JDialog();
@@ -52,8 +64,7 @@ public class StatusBar extends JPanel {
 	private static BufferedImage closeImg;
 	private static BufferedImage backgroundImg;
 	private static BufferedImage storeButton;
-	
-	
+
 	public static StatusBar getInstance(Handler handler) {
 
 		if (instance == null) {
@@ -71,19 +82,27 @@ public class StatusBar extends JPanel {
 		screenWidth = (handler.getGame().getWidth() * 3) / 4;
 		screenHeight = (handler.getGame().getHeight()) / 8;
 
-		closeImgDimensionsX = (int) (screenWidth * 5.5 / 100);
-		closeImgDimensionsY = (int) (screenHeight * 9.8 / 100);
-		closeImgPosition.setLocation(screenWidth - closeImgDimensionsX, 0);
-		
 		positionX = (handler.getGame().getWidth() - screenWidth) / 2;
 		positionY = handler.getGame().getHeight() - screenHeight - 10;
 		position.setLocation(positionX, positionY);
-		
+
 		storeButtonX = (int) (screenWidth * 80 / 100);
 		storeButtonY = (int) (screenHeight * 15 / 100);
 		storeButtonXDimenssion = (int) (screenWidth * 20 / 100);
 		storeButtonYDimenssion = (int) (screenHeight * 70 / 100);
 		storeButtonPosition.setLocation(storeButtonX, storeButtonY);
+
+		infoRectPosition.setLocation((int) (screenWidth * 0.5 / 100), (int) (screenHeight * 5 / 100));
+		infoRectDimensionsX = (int) (screenWidth * 22.5 / 100);
+		infoRectDimensionsY = (int) (screenHeight * 90 / 100);
+
+		gameinfoRectPosition.setLocation((int) (screenWidth * 23.5 / 100), (int) (screenHeight * 5 / 100));
+		gameinfoRectDimensionsX = (int) (screenWidth * 22.5 / 100);
+		gameinfoRectDimensionsY = (int) (screenHeight * 90 / 100);
+
+		stockinfoRectPosition.setLocation((int) (screenWidth * 46.5 / 100), (int) (screenHeight * 5 / 100));
+		stockinfoRectDimensionsX = (int) (screenWidth * 33 / 100);
+		stockinfoRectDimensionsY = (int) (screenHeight * 90 / 100);
 
 		setModalSize();
 
@@ -99,7 +118,7 @@ public class StatusBar extends JPanel {
 		Point hotspot = new Point(0, 0);
 		Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(image, hotspot, "pencil");
 		frame.setCursor(cursor);
-		
+
 		frame.setFocusable(true);
 		frame.setAlwaysOnTop(true);
 
@@ -112,7 +131,7 @@ public class StatusBar extends JPanel {
 
 				if (closeImg != null) {
 					Point me = e.getPoint();
-					Rectangle bounds = new Rectangle(storeButtonPosition.x, storeButtonPosition.y, 
+					Rectangle bounds = new Rectangle(storeButtonPosition.x, storeButtonPosition.y,
 							storeButtonXDimenssion, storeButtonYDimenssion);
 					if (bounds.contains(me)) {
 						Store.getInstance(handler);
@@ -129,6 +148,40 @@ public class StatusBar extends JPanel {
 		g.setFont(new Font("Neuropol X", Font.BOLD, 100));
 		g.setColor(Color.WHITE);
 		g.drawImage(storeButton, storeButtonX, storeButtonY, storeButtonXDimenssion, storeButtonYDimenssion, this);
+
+		g.setColor(new Color(255, 255, 255, 100));
+		g.fillRect(infoRectPosition.x, infoRectPosition.y, infoRectDimensionsX, infoRectDimensionsY);
+		g.setFont(new Font("Neuropol X", Font.BOLD, 25));
+		g.setColor(Color.WHITE);
+		g.drawString("Player: " + userName, infoRectPosition.x + (int) (screenWidth * 1 / 100),
+				infoRectPosition.y + (int) (screenHeight * 20 / 100));
+		g.drawString("Gold: " + gold, infoRectPosition.x + (int) (screenWidth * 1 / 100),
+				infoRectPosition.y + (int) (screenHeight * 50 / 100));
+		g.drawString("Score: " + score, infoRectPosition.x + (int) (screenWidth * 1 / 100),
+				infoRectPosition.y + (int) (screenHeight * 80 / 100));
+
+		g.setColor(new Color(255, 255, 255, 100));
+		g.fillRect(gameinfoRectPosition.x, gameinfoRectPosition.y, gameinfoRectDimensionsX, gameinfoRectDimensionsY);
+		g.setColor(Color.WHITE);
+		g.drawString("Wave no: " + waveNumber, gameinfoRectPosition.x + (int) (screenWidth * 1 / 100),
+				infoRectPosition.y + (int) (screenHeight * 20 / 100));
+		g.drawString("Enamy score: " + enamyScore, gameinfoRectPosition.x + (int) (screenWidth * 1 / 100),
+				infoRectPosition.y + (int) (screenHeight * 50 / 100));
+		g.drawString("Diverse: ", gameinfoRectPosition.x + (int) (screenWidth * 1 / 100),
+				infoRectPosition.y + (int) (screenHeight * 80 / 100));
+
+		g.setColor(new Color(255, 255, 255, 100));
+		g.fillRect(stockinfoRectPosition.x, stockinfoRectPosition.y, stockinfoRectDimensionsX,
+				stockinfoRectDimensionsY);
+		g.setColor(Color.WHITE);
+		g.drawString("Infantry: 12", stockinfoRectPosition.x + (int) (screenWidth * 1 / 100),
+				infoRectPosition.y + (int) (screenHeight * 20 / 100));
+		g.drawString("Archers: 55 ", stockinfoRectPosition.x + (int) (screenWidth * 1 / 100),
+				infoRectPosition.y + (int) (screenHeight * 40 / 100));
+		g.drawString("Grenadier: 100", stockinfoRectPosition.x + (int) (screenWidth * 1 / 100),
+				infoRectPosition.y + (int) (screenHeight * 60 / 100));
+		g.drawString("Cavalry: 1001", stockinfoRectPosition.x + (int) (screenWidth * 1 / 100),
+				infoRectPosition.y + (int) (screenHeight * 80 / 100));
 	}
 
 	private void setModalSize() {

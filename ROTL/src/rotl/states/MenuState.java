@@ -17,11 +17,10 @@ import javax.imageio.ImageIO;
 import rotl.menu.HallOfFame;
 import rotl.menu.Instructions;
 import rotl.menu.Options;
-import rotl.store.Store;
 import rotl.utilities.Handler;
 
 public class MenuState extends State {
-	
+
 	private static boolean inMenuState = true;
 
 	private static int MenuDimensionX;
@@ -281,7 +280,7 @@ public class MenuState extends State {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void changeState() {
 		inMenuState = !inMenuState;
 	}

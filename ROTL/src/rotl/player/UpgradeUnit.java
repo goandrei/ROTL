@@ -1,18 +1,19 @@
 package rotl.player;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.util.Pair;
 import rotl.entities.Defender;
+import rotl.entities.EntitiesException;
 import rotl.entities.Fighter;
 import rotl.entities.Soldier;
 import rotl.entities.SoldierType;
-import rotl.entities.Tower;
 import rotl.entities.SoldiersInfo;
 import rotl.entities.SoldiersInfo.S_Info;
+import rotl.entities.Tower;
 import rotl.entities.TowersInfo;
 import rotl.entities.Warrior;
-import rotl.entities.EntitiesException;
-import javafx.util.Pair;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UpgradeUnit implements GameUnit {
 

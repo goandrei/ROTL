@@ -1,18 +1,21 @@
 package rotl.utilities;
 
 import java.io.File;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
-import rotl.entities.SoldiersInfo;
-import rotl.entities.TowersInfo;
-import rotl.entities.SoldiersInfo.S_Info;
-import rotl.entities.SoldierType;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import rotl.entities.SoldierType;
+import rotl.entities.SoldiersInfo;
+import rotl.entities.SoldiersInfo.S_Info;
+import rotl.entities.TowersInfo;
 
 public class XMLParser {
 

@@ -71,7 +71,7 @@ public class Instructions extends JPanel implements MenuOption {
 			+ "un wave, toate trupele se intorc instant in baza de unde provin si toate\r\n"
 			+ "daunele provocate de-a lungul wave-ul terminat se pastreaza, fiind\r\n"
 			+ "datoria jucatorului sa isi refaca turnurile si armata; castelul si zidul nu pot\r\n"
-			+ "fi refacute !!!\r\n"; 
+			+ "fi refacute !!!\r\n";
 	private static String content3 = "    - Dupa terminarea wave-ului (bataliei), se reinstaureaza starea de\r\n"
 			+ "pregatire, descrisa anterior;\r\n" + "- Scopul jocului presupune distrugerea castelului inamicului;\r\n"
 			+ "    - Nu exista limite pentru numarul de wave-uri, nivelul armatei sau al\r\n"
