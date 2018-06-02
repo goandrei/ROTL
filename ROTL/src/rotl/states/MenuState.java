@@ -21,6 +21,8 @@ import rotl.store.Store;
 import rotl.utilities.Handler;
 
 public class MenuState extends State {
+	
+	private static boolean inMenuState = true;
 
 	private static int MenuDimensionX;
 	private static int MenuDimensionY;
@@ -35,9 +37,6 @@ public class MenuState extends State {
 	private static int xMenu, yMenu;
 	private static int screenWidth, screenHeight;
 	private final int textSize = 48;
-
-	Rectangle shopTest;
-	boolean shop = false;
 
 	public MenuState(Handler handler) {
 		super(handler);
@@ -55,9 +54,6 @@ public class MenuState extends State {
 
 		MenuDimensionX = (int) (screenWidth * 30 / 100);
 		MenuDimensionY = (int) (screenHeight * 60 / 100);
-
-		// shop test
-		shopTest = new Rectangle(xMenu, yMenu + 260, textSize * 2, textSize);
 
 		addHandlers();
 	}
@@ -128,12 +124,6 @@ public class MenuState extends State {
 						exit = false;
 					}
 				}
-
-				if (shopTest.contains(mousePosition)) {
-					shop = true;
-				} else {
-					shop = false;
-				}
 			}
 		});
 
@@ -142,24 +132,21 @@ public class MenuState extends State {
 			@Override
 			public void mouseClicked(MouseEvent event) {
 
-				if (start) {
+				if (start && inMenuState) {
 					handler.getStateManager().setActualState(
 							new GameState(handler.getGame().getWidth(), handler.getGame().getHeight(), handler));
 				}
-				if (options) {
+				if (options && inMenuState) {
 					Options.getOptions(handler);
 				}
-				if (instructions) {
+				if (instructions && inMenuState) {
 					Instructions.getInstructions(handler);
 				}
-				if (highScores) {
+				if (highScores && inMenuState) {
 					HallOfFame.getHallOfFame(handler);
 				}
-				if (exit) {
+				if (exit && inMenuState) {
 					System.exit(0);
-				}
-				if (shop) {
-					Store.getInstance(handler);
 				}
 			}
 
@@ -253,16 +240,6 @@ public class MenuState extends State {
 					yMenu + 5 * (int) (screenHeight * 1 / 100) + 4 * (int) (MenuDimensionY / 6),
 					MenuDimensionX - 2 * (int) (screenWidth * 2 / 100), (int) (MenuDimensionY / 6), null);
 		}
-		// for testing
-		if (shop) {
-			g.setColor(Color.white);
-		} else {
-			g.setColor(Color.red);
-		}
-		g.setFont(new Font("Neuropol X", Font.BOLD, 20));
-		g.drawString("Shop - test", xMenu, yMenu + 300);
-		
-		
 	}
 
 	private void Init() {
@@ -303,6 +280,10 @@ public class MenuState extends State {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void changeState() {
+		inMenuState = !inMenuState;
 	}
 
 }

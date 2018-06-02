@@ -1,26 +1,19 @@
 package rotl.menu;
 
+import java.awt.Graphics;
+
 public class Credits implements MenuOption {
 
-	private static final String menuSectionImageSrc = "..\\resources\\images\\BGcredits.jpg",
-			nextImageSrc = "..\\resources\\images\\Next.png", logoSrc = "..\\resources\\images\\tb_logo.png";
-	
-	private static Credits single_instance = null;
-	private static String content = "Team : - Bogdan Anghelache\n" + "              - Andrei Gorneanu\n"
-			+ "              - Marian Lupascu\n" + "              - Stefan Stevoaca\n"
-			+ "              - Stefan Nita\n";
-
-	private Credits() {
+	@Override
+	public void Init() {
+		// TODO Auto-generated method stub
+		
 	}
 
-	public static Credits getCredits() {
-		if (single_instance == null)
-			single_instance = new Credits();
-
-		return single_instance;
+	@Override
+	public void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		
 	}
 
-	public void setCredits() {
-
-	}
 }

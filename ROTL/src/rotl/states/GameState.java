@@ -4,26 +4,22 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.JDialog;
+
 import rotl.gfx.Assets;
 import rotl.managers.TileManager;
-import rotl.managers.UIManager;
-import rotl.ui.ClickListener;
-import rotl.ui.UIImageButton;
+import rotl.store.Store;
+import rotl.ststusBar.StatusBar;
 import rotl.utilities.Handler;
 import rotl.utilities.XMLLoader;
 
 public class GameState extends State{
 	
-	private ClickListener clicker;
-	
 	private TileManager tileManager;
-	
-	private UIManager uiManager;
-	
-	private UIImageButton statusBar, store, playerInfo;
 	
 	private final int NO_OF_LAYERS;
 	
@@ -55,22 +51,8 @@ public class GameState extends State{
 		buildDirectionRectangles();
 		addEventListeners();
 		
-		//Grafical User Interface loading
-		uiManager = new UIManager(handler);
-		float statusBarWidth, statusBarHeight, playerInfoWidth, playerInfoHeight;
-				
-		statusBarWidth = Assets.statusBar.getWidth();
-		statusBarHeight = Assets.statusBar.getHeight();
-		statusBar = new UIImageButton((width - statusBarWidth)/2, height - statusBarHeight  , 
-											 (int)statusBarWidth, (int)statusBarHeight, Assets.statusBar, clicker);
-				
-		playerInfoWidth = Assets.playerInfo.getWidth();
-		playerInfoHeight = Assets.playerInfo.getHeight();
-		playerInfo = new UIImageButton(width/2 - playerInfoWidth, 100, (int)playerInfoWidth, (int)playerInfoHeight, Assets.playerInfo, clicker );
-				
-		uiManager.addObject(statusBar);
-		uiManager.addObject(playerInfo);
-		
+		MenuState.changeState();
+		StatusBar.getInstance(handler);
 	}
 	
 	private void buildDirectionRectangles() {
@@ -103,101 +85,107 @@ public class GameState extends State{
 				//	handler.getGame().getGameCamera().move(0, (float)-offsetAmount);
 					cameraYOffset -= offsetAmount;
 					return;
-				} else if (east.contains(mousePosition)) {
-					// handler.getGame().getGameCamera().move((float)offsetAmount, 0);
+				}else if(east.contains(mousePosition)) {
+					//handler.getGame().getGameCamera().move((float)offsetAmount, 0);
 					cameraXOffset -= offsetAmount;
 					return;
-				} else if (south.contains(mousePosition)) {
-					// handler.getGame().getGameCamera().move(0, (float)offsetAmount);
+				}else if(south.contains(mousePosition)) {
+					//handler.getGame().getGameCamera().move(0, (float)offsetAmount);
 					cameraYOffset += offsetAmount;
 					return;
-				} else if (west.contains(mousePosition)) {
-					// handler.getGame().getGameCamera().move((float)-offsetAmount, 0);
+				}else if(west.contains(mousePosition)) {
+					//handler.getGame().getGameCamera().move((float)-offsetAmount, 0);
 					cameraXOffset += offsetAmount;
 					return;
 				}
-
-				/*
-				 * if(northWest.contains(mousePosition)) { cameraXOffset += offsetAmount;
-				 * cameraYOffset -= offsetAmount; return; }
-				 * if(northEast.contains(mousePosition)) { cameraXOffset -= offsetAmount;
-				 * cameraYOffset -= offsetAmount; return; }
-				 * if(southWest.contains(mousePosition)) {
-				 * handler.getGame().getGameCamera().move((float)offsetAmount,
-				 * (float)offsetAmount); cameraXOffset += offsetAmount; cameraYOffset +=
-				 * offsetAmount; return; } if(southEast.contains(mousePosition)) { cameraXOffset
-				 * -= offsetAmount; cameraYOffset += offsetAmount; return; }
-				 */
-
+				
+				/*if(northWest.contains(mousePosition)) {
+					cameraXOffset += offsetAmount;
+					cameraYOffset -= offsetAmount;
+					return;
+				}
+				if(northEast.contains(mousePosition)) {
+					cameraXOffset -= offsetAmount;
+					cameraYOffset -= offsetAmount;
+					return;
+				}
+				if(southWest.contains(mousePosition)) {
+					handler.getGame().getGameCamera().move((float)offsetAmount, (float)offsetAmount);
+					cameraXOffset += offsetAmount;
+					cameraYOffset += offsetAmount;
+					return;
+				}
+				if(southEast.contains(mousePosition)) {
+					cameraXOffset -= offsetAmount;
+					cameraYOffset += offsetAmount;
+					return;
+				}*/
+				
 				cameraXOffset = cameraYOffset = 0;
 			}
 		});
 	}
-
+	
 	@Override
-	public void update() {
-
-		if (Math.abs(cameraXOffset) > 0.2) {
-			cameraXOffset = (float) 0.2 * (cameraXOffset < 0 ? -1 : 1);
+	public void update(){
+		
+		if(Math.abs(cameraXOffset) > 0.2) {
+			cameraXOffset = (float)0.2 * (cameraXOffset < 0 ? -1 : 1);
 		}
-		if (Math.abs(cameraYOffset) > 0.5) {
-			cameraYOffset = (float) 0.5 * (cameraYOffset < 0 ? -1 : 1);
+		if(Math.abs(cameraYOffset) > 0.5) {
+			cameraYOffset = (float)0.5 * (cameraYOffset < 0 ? -1 : 1);
 		}
 
-		handler.getGame().getGameCamera().move(cameraXOffset, cameraYOffset);
+		handler.getGame().getGameCamera().move(cameraXOffset,cameraYOffset);
 	}
 
 	@Override
 	public void render(Graphics g) {
-
+		
 		g.clearRect(0, 0, width, height);
-
-		int startHeight = Math.max((int) (handler.getGame().getGameCamera().getYOffset() / (TILE_HEIGHT / 2)) - 1, 0);
-		int startWidth = Math.max((int) (handler.getGame().getGameCamera().getXOffset() / TILE_WIDTH) - 1, 0);
-
-		for (int k = 0; k < NO_OF_LAYERS; ++k) {
-			for (int i = startHeight; i <= (startHeight + height / 16 + 2); ++i) {
-				for (int j = startWidth; j <= (startWidth + width / 64 + 2); ++j) {
+		
+		int startHeight  = Math.max((int)(handler.getGame().getGameCamera().getYOffset() / (TILE_HEIGHT / 2)) - 1, 0);
+		int startWidth   = Math.max((int)(handler.getGame().getGameCamera().getXOffset() / TILE_WIDTH)  - 1, 0);
+		
+		for(int k = 0;k < NO_OF_LAYERS; ++k) {
+			for(int i = startHeight;i <= (startHeight + height / 16 + 2); ++i){
+				for(int j = startWidth;j <= (startWidth + width / 64 + 2); ++j) {
 					int offset;
-					if ((int) (handler.getGame().getGameCamera().getYOffset() + i) % 2 == 0)
+					if((int)(handler.getGame().getGameCamera().getYOffset() + i) % 2 == 0)
 						offset = 0;
 					else
 						offset = 32;
-					tileManager.render(g,
-							-32 + offset + (int) (j * TILE_WIDTH - handler.getGame().getGameCamera().getXOffset()),
-							-16 + (int) ((i * (TILE_HEIGHT / 2)) - handler.getGame().getGameCamera().getYOffset()),
-							layers[(int) (handler.getGame().getGameCamera().getYOffset() + i)][(int) (j
-									+ handler.getGame().getGameCamera().getXOffset())][k],
-							k);
-					// tileManager.render(g, -32 + offset + j * 64,-16 + i * 16, layers[i][j][k],
-					// k);
+					tileManager.render(g, -32 + offset + (int)(j * TILE_WIDTH - handler.getGame().getGameCamera().getXOffset()),-16 + (int)((i * (TILE_HEIGHT / 2)) - handler.getGame().getGameCamera().getYOffset()), layers[(int)(handler.getGame().getGameCamera().getYOffset() + i)][(int)(j + handler.getGame().getGameCamera().getXOffset())][k], k);
+					//tileManager.render(g, -32 + offset + j * 64,-16 + i * 16, layers[i][j][k], k);
 				}
 			}
-		}
-		
-		uiManager.render(g);
-		
+		}	
 		
 	/*	if(n) {
 			g.fillRect(width / 4, 0, width / 2, height / 4);
 		}else {
 			g.drawRect(width / 4, 0, width / 2, height / 4);
 		}
-
-		/*
-		 * if(n) { g.fillRect(width / 4, 0, width / 2, height / 4); }else {
-		 * g.drawRect(width / 4, 0, width / 2, height / 4); }
-		 * 
-		 * if(s) { g.fillRect(width / 4, (height / 4) * 3, width / 2, height / 4); }else
-		 * { g.drawRect(width / 4, (height / 4) * 3, width / 2, height / 4); }
-		 * 
-		 * if(w) { g.fillRect((width / 4) * 3, height / 4, width / 4, height / 2); }else
-		 * { g.drawRect((width / 4) * 3, height / 4, width / 4, height / 2); }
-		 * 
-		 * if(e) { g.fillRect(0, height / 4, width / 4, height / 2); }else {
-		 * g.drawRect(0, height / 4, width / 4, height / 2); }
-		 */
-
+		
+		if(s) {
+			g.fillRect(width / 4, (height / 4) * 3, width / 2, height / 4);
+		}else {
+			g.drawRect(width / 4, (height / 4) * 3, width / 2, height / 4);
+		}
+		
+		if(w) {
+			g.fillRect((width / 4) * 3, height / 4, width / 4, height / 2);
+		}else {
+			g.drawRect((width / 4) * 3, height / 4, width / 4, height / 2);
+		}
+		
+		if(e) {
+			g.fillRect(0, height / 4, width / 4, height / 2);
+		}else {
+			g.drawRect(0, height / 4, width / 4, height / 2);
+		}
+		*/
+		
 	}
 	
 }

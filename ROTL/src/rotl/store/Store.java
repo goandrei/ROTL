@@ -158,6 +158,7 @@ public class Store extends JPanel {
 		Point hotspot = new Point(0, 0);
 		Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(image, hotspot, "pencil");
 		frame.setCursor(cursor);
+		frame.setAlwaysOnTop(true);
 
 		Init();
 

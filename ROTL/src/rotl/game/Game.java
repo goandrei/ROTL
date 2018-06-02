@@ -22,7 +22,7 @@ public class Game implements Runnable {
 	private Thread thread;
 
 	private Handler handler;
-
+	
 	private StateManager stateManager;
 
 	private State introState;
@@ -32,28 +32,24 @@ public class Game implements Runnable {
 	private BufferStrategy bufferStrategy;
 
 	private Graphics g;
-
+	
 	private Assets assets;
 	
 	private GameCamera gameCamera;
 
-	public Game(String title) {
+	public Game(String title){
 
 		this.title = title;
-
+		
 		gameCamera = new GameCamera(0, 0);
-
+		
 		assets = new Assets();
 		assets.init();
 
 		display = new Display(title);
-		display.getFrame().addMouseListener(mouseManager);
-		display.getFrame().addMouseMotionListener(mouseManager);
-		display.getCanvas().addMouseListener(mouseManager);
-		display.getCanvas().addMouseMotionListener(mouseManager);
-
+		
 		stateManager = new StateManager();
-
+		
 		handler = new Handler(stateManager, this);
 
 		screenHeight = display.getHeight();
@@ -158,16 +154,7 @@ public class Game implements Runnable {
 		return screenHeight;
 	}
 	
-	
 	public GameCamera getGameCamera() {
 		return gameCamera;
-	}
-
-	public MouseManager getMouseManager() {
-		return mouseManager;
-	}
-	
-	public UIManager getUIManager() {
-		return uiManager;
 	}
 }
