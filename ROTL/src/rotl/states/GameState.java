@@ -39,7 +39,7 @@ public class GameState extends State {
 
 		tileManager = new TileManager();
 		XMLLoader load = new XMLLoader();
-		layers = load.loadXMLMaps("/maps/map.xml");
+		layers = load.loadXMLMaps("/maps/mapp.xml");
 		NO_OF_LAYERS = load.getNoOfLayers();
 		a.init();
 
