@@ -29,7 +29,10 @@ public class Arena extends JPanel {
 
 	private static Arena instance = null;
 
-	static int currentSoldier = 2;
+	static int currentSoldier = 0;
+	static int index = 0;
+	static int index1 = 0;
+	static int index2 = 0;
 	static final int numberOfSoldiers = 3;
 	private static final ArrayList<String> soldiersSources = new ArrayList<>(
 			Arrays.asList("Infantry", "Knight_templar", "Teutonic_knight"));
@@ -49,6 +52,14 @@ public class Arena extends JPanel {
 	private static int closeImgDimensionsX;
 	private static int closeImgDimensionsY;
 	private static Point closeImgPosition = new Point();
+	
+	private static int vsDimensionsX;
+	private static int vsDimensionsY;
+	private static Point vsPosition = new Point();
+	
+	private static int fightDimensionsX;
+	private static int fightDimensionsY;
+	private static Point fightPosition = new Point();
 
 	private static int soldierRectDimensionsX;
 	private static int soldierRectDimensionsY;
@@ -116,9 +127,11 @@ public class Arena extends JPanel {
 	private static BufferedImage sellButton;
 	private static BufferedImage useForFightButton;
 	private static BufferedImage cashImg;
+	private static BufferedImage vs;
+	private static BufferedImage fight;
 	
-	private static BufferedImage soldair1;
-	private static BufferedImage soldair2;
+	private static BufferedImage soldair1 = null;
+	private static BufferedImage soldair2 = null;
 
 	public static Arena getInstance(Handler handler) {
 
@@ -145,6 +158,14 @@ public class Arena extends JPanel {
 		resctSoldier1DimensionsY = (int) (screenHeight * 35 / 100);
 		resctSoldier1Position.setLocation((int) (screenWidth * 5.5 / 100), (int) (screenWidth * 7.5 / 100));
 
+		vsDimensionsX = (int) (screenWidth * 11 / 100);
+		vsDimensionsY = (int) (screenHeight * 19 / 100);
+		vsPosition.setLocation(resctSoldier1Position.x + (int) (resctSoldier1DimensionsX * 1.1), resctSoldier1Position.y + 10);
+		
+		fightDimensionsX = (int) (screenWidth * 19 / 100);
+		fightDimensionsY = (int) (screenHeight * 19 / 100);
+		fightPosition.setLocation(resctSoldier1Position.x + (int) (resctSoldier1DimensionsX * 1), vsPosition.y + vsDimensionsY + 10);
+		
 		resctSoldier2DimensionsX = (int) (screenWidth * 35 / 100);
 		resctSoldier2DimensionsY = (int) (screenHeight * 35 / 100);
 		resctSoldier2Position.setLocation((int) (screenWidth * 59.5 / 100), (int) (screenWidth * 7.5 / 100));
@@ -269,20 +290,26 @@ public class Arena extends JPanel {
 				}
 				if (sellButton != null) {
 					Point me = e.getPoint();
-					Rectangle bounds = new Rectangle(upgradeButtonPosition.x, upgradeButtonPosition.y,
-							upgradeButtonDimensionsX, upgradeButtonDimensionsY);
+					Rectangle bounds = new Rectangle(sellButtonPosition.x, sellButtonPosition.y,
+							sellButtonDimensionsX, sellButtonDimensionsY);
 					if (bounds.contains(me)) {
 						sell();
 					}
 				}
 				if (useForFightButton != null) {
 					Point me = e.getPoint();
-					Rectangle bounds = new Rectangle(upgradeButtonPosition.x, upgradeButtonPosition.y,
-							upgradeButtonDimensionsX, upgradeButtonDimensionsY);
+					Rectangle bounds = new Rectangle(useForFightButtonPosition.x, useForFightButtonPosition.y,
+							useForFightButtonDimensionsX, useForFightButtonDimensionsY);
 					if (bounds.contains(me)) {
-
-
-						
+						useForFight();
+					}
+				}
+				if (fight != null) {
+					Point me = e.getPoint();
+					Rectangle bounds = new Rectangle(fightPosition.x, fightPosition.y,
+							fightDimensionsX, fightDimensionsY);
+					if (bounds.contains(me)) {
+						fight();
 					}
 				}
 			}
@@ -293,6 +320,8 @@ public class Arena extends JPanel {
 		super.paintComponent(g);
 
 		g.drawImage(backgroundImg, 0, 0, screenWidth, screenHeight, this);
+		g.drawImage(vs, vsPosition.x, vsPosition.y, vsDimensionsX, vsDimensionsY, this);
+		
 		g.setFont(new Font("Neuropol X", Font.BOLD, 100));
 		g.setColor(Color.WHITE);
 		g.drawString("Arena", (int) (screenWidth * 40 / 100), 65);
@@ -300,7 +329,15 @@ public class Arena extends JPanel {
 		g.setColor(new Color(255, 255, 255, 100));
 		
 		g.fillRect(resctSoldier1Position.x, resctSoldier1Position.y, resctSoldier1DimensionsX, resctSoldier1DimensionsY);
+		g.drawImage(soldair1, resctSoldier1Position.x + (int) (resctSoldier1DimensionsX * 30/100), 
+				resctSoldier1Position.y + (int) (resctSoldier1Position.y * 5 /100), 
+				(int) (resctSoldier1DimensionsY * 80 /100),
+				(int) (resctSoldier1DimensionsY * 90 /100), this);
 		g.fillRect(resctSoldier2Position.x, resctSoldier2Position.y, resctSoldier2DimensionsX, resctSoldier2DimensionsY);
+		g.drawImage(soldair2, resctSoldier2Position.x + (int) (resctSoldier2DimensionsX * 30/100), 
+				resctSoldier2Position.y + (int) (resctSoldier2Position.y * 5 /100), 
+				(int) (resctSoldier2DimensionsY * 80 /100),
+				(int) (resctSoldier2DimensionsY * 90 /100), this);
 		
 		g.fillRect(soldierRectPosition.x, soldierRectPosition.y, soldierRectDimensionsX, soldierRectDimensionsY);
 		g.drawImage(SoldiersBKIMG, soldierPosition.x, soldierPosition.y, soldierDimensionsX, soldierDimensionsY, this);
@@ -355,6 +392,7 @@ public class Arena extends JPanel {
 				(int) (screenHeight * 10 / 100), this);
 		g.setFont(new Font("Neuropol X", Font.BOLD, 30));
 		g.drawString("100000000 $ : ", (int) (screenWidth * 70 / 100), (int) (screenHeight * 95 / 100));
+		g.drawImage(fight, fightPosition.x, fightPosition.y, fightDimensionsX, fightDimensionsY, this);
 	}
 
 	private void setModalSize() {
@@ -456,6 +494,20 @@ public class Arena extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		URL resourceVS = getClass().getResource("/images/vs.png");
+		try {
+			vs = ImageIO.read(resourceVS);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		URL resourceFight = getClass().getResource("/images/fight.png");
+		try {
+			fight = ImageIO.read(resourceFight);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static void updateInformations(ArrayList<Integer> soldiersHealthInput, 
@@ -469,12 +521,42 @@ public class Arena extends JPanel {
 		soldiersUpgradeCost  = soldiersUpgradeCostInput;
 		soldiersSellMoney = soldiersSellMoneyInput;
 	}
+	
+	private void useForFight() {
+		if(index % 2 == 0) {
+			URL resourceSoldier1 = getClass()
+					.getResource("/store/" + soldiersSources.get(currentSoldier) + ".png");
+			try {
+				soldair1 = ImageIO.read(resourceSoldier1);
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+			repaint();
+			index1 = currentSoldier;
+		}
+		else {
+			URL resourceSoldier2 = getClass()
+					.getResource("/store/" + soldiersSources.get(currentSoldier) + ".png");
+			try {
+				soldair2 = ImageIO.read(resourceSoldier2);
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+			repaint();
+			index2 = currentSoldier;
+		}
+		index++;
+	}
 
 	private void upgrade() {
-
+		
 	}
 
 	private void sell() {
-
+		
+	}
+	
+	private void fight() {
+		
 	}
 }
