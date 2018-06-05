@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import rotl.simulate.Arena;
 import rotl.store.Store;
 import rotl.utilities.Handler;
+import rotl.utilities.ImageLoader;
 
 public class StatusBar extends JPanel {
 
@@ -214,30 +215,9 @@ public class StatusBar extends JPanel {
 
 	private void Init() {
 
-		URL resourceBKImg = getClass().getResource("/images/pexels-photo-370799.jpeg");
-		try {
-			backgroundImg = ImageIO.read(resourceBKImg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourceCloseImg = getClass().getResource("/store/closeImg.png");
-		try {
-			closeImg = ImageIO.read(resourceCloseImg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		URL resourcestoreButton = getClass().getResource("/images/storeButton.png");
-		try {
-			storeButton = ImageIO.read(resourcestoreButton);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		URL resourceArena = getClass().getResource("/images/Arena.png");
-		try {
-			arena = ImageIO.read(resourceArena);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		backgroundImg = ImageLoader.loadImage("/images/pexels-photo-370799.jpeg");
+		closeImg = ImageLoader.loadImage("/store/closeImg.png");
+		storeButton = ImageLoader.loadImage("/images/storeButton.png");
+		arena = ImageLoader.loadImage("/images/Arena.png");
 	}
 }

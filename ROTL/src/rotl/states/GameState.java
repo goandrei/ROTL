@@ -137,7 +137,7 @@ public class GameState extends State {
 
 		handler.getGame().getGameCamera().move(cameraXOffset, cameraYOffset);
 		
-		//exitButton.update();
+		exitButton.update();
 	}
 
 	@Override
@@ -168,7 +168,7 @@ public class GameState extends State {
 			}
 		}
 
-		//exitButton.render(g);
+		exitButton.render(g);
 		
 		/*
 		 * if(n) { g.fillRect(width / 4, 0, width / 2, height / 4); }else {
