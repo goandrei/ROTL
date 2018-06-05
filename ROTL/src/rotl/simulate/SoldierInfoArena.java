@@ -1,18 +1,22 @@
 package rotl.simulate;
 
+import rotl.entities.SoldierType;
+
 public final class SoldierInfoArena {
 	
 	 private final int life;
 	 private final int armor;
 	 private final int attack;
 	 private final int gold;
+	 private final SoldierType soldierType;
 	 
-	 private SoldierInfoArena(int life, int armor, int attack, int gold) {
+	 private SoldierInfoArena(int life, int armor, int attack, int gold, SoldierType soldierType) {
 		 
 		 this.life = life;
 		 this.armor = armor;
 		 this.attack = attack;
 		 this.gold = gold;
+		 this.soldierType = soldierType;
 	 }
 	 
 	 public int getLife() {
@@ -31,6 +35,10 @@ public final class SoldierInfoArena {
 		 return this.gold;
 	 }
 	 
+	 public SoldierType getSoldierType() {
+		 return this.soldierType;
+	 }
+	 
 	 public static Builder builder() {
 		 return new Builder();
 	 }
@@ -41,6 +49,7 @@ public final class SoldierInfoArena {
 		 private int armor;
 		 private int attack;
 		 private int gold;
+		 private SoldierType soldierType = null;
 		 
 		 private Builder() {}
 		 
@@ -64,8 +73,13 @@ public final class SoldierInfoArena {
 			 return this;
 		 }
 		 
+		 public Builder withSoldierType(SoldierType soldierType) {
+			 this.soldierType = soldierType;
+			 return this;
+		 }
+		 
 		 public SoldierInfoArena build() {
-			 return new SoldierInfoArena(life, armor, attack, gold);
+			 return new SoldierInfoArena(life, armor, attack, gold, soldierType);
 		 }
 	 }
 }

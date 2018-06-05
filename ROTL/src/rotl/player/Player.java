@@ -3,10 +3,13 @@ package rotl.player;
 import java.util.ArrayList;
 import java.util.List;
 
+import rotl.entities.Defender;
 import rotl.entities.EntitiesException;
+import rotl.entities.Fighter;
 import rotl.entities.Soldier;
 import rotl.entities.SoldierFactory;
 import rotl.entities.SoldierType;
+import rotl.entities.Warrior;
 import rotl.simulate.SoldierInfoArena;
 
 public class Player {
@@ -41,13 +44,22 @@ public class Player {
 			throw new IllegalArgumentException();
 		
 		final Soldier soldier = soldiers.get(index);
+		SoldierType soldierType = null;
+		
+		if (soldier instanceof Fighter)
+			soldierType = SoldierType.FIGHTER;
+		else if (soldier instanceof Defender)
+			soldierType = SoldierType.DEFENDER;
+		else if (soldier instanceof Warrior)
+			soldierType = SoldierType.WARRIOR;
 		
 		final SoldierInfoArena.Builder builder = SoldierInfoArena.builder();
 		
 		builder.withLife(soldier.getLife())
 				.withArmor(soldier.getArmor())
 				.withAttack(soldier.getAttack())
-				.withGold(UpgradeUnit.upgradeEntity(soldier, UnitOp.FEE));
+				.withGold(UpgradeUnit.upgradeEntity(soldier, UnitOp.FEE))
+				.withSoldierType(soldierType);
 		
 		return builder.build();
 	}

@@ -6,6 +6,7 @@ import rotl.entities.SoldierFactory;
 import rotl.entities.SoldierType;
 import rotl.entities.Tower;
 import rotl.entities.TowerFactory;
+import rotl.simulate.SoldierInfoArena;
 import rotl.utilities.XMLParser;
 
 public class UpgradeRepairUnitTest {
@@ -16,34 +17,10 @@ public class UpgradeRepairUnitTest {
 		String towersPath = "resources\\entities_info\\towers.xml";
 		XMLParser.parseSoldiersInfo(soldiersPath);
 		XMLParser.parseTowersInfo(towersPath);
-
-		SoldierFactory sf = new SoldierFactory();
-		TowerFactory tf = new TowerFactory();
-
-		Soldier s = sf.getSoldier(SoldierType.WARRIOR);
 		
-		System.out.println("Soldier");
-		System.out.println();
-		System.out.println("Before");
-		System.out.println("Life: " + s.getLife());
-		System.out.println("Armor: " + s.getArmor());
-		System.out.println("Attack: " + s.getAttack());
-		System.out.println("MissRate: " + s.getMissRate());
-		System.out.println("DodgeRate: " + s.getDodgeRate());
-		System.out.println("CriticalRate: " + s.getCriticalRate());
-		System.out.println("Level: " + s.getLevel());
-
-		UpgradeUnit.upgradeEntity(s, UnitOp.DO);
-
-		System.out.println();
-		System.out.println("After");
-		System.out.println("Life: " + s.getLife());
-		System.out.println("Armor: " + s.getArmor());
-		System.out.println("Attack: " + s.getAttack());
-		System.out.println("MissRate: " + s.getMissRate());
-		System.out.println("DodgeRate: " + s.getDodgeRate());
-		System.out.println("CriticalRate: " + s.getCriticalRate());
-		System.out.println("Level: " + s.getLevel());
+		SoldierType soldierType = SoldierType.FIGHTER;
+		
+		System.out.println(soldierType.getSoldierName());
 		
 		/*Tower t = tf.getTower();
 
