@@ -29,23 +29,22 @@ public class Store extends JPanel {
 
 	private static Store instance = null;
 
-	static int currentSoldier = 10;
+	static int currentSoldier = 2;
+	static final int numberOfSoldiers = 3;
 	private static final ArrayList<String> soldiersSources = new ArrayList<>(
-			Arrays.asList("Archers", "Grenadier", "Heavy_cavalry", "Infantry", "Knight_templar", "Longbowmen", "Mamluk",
-					"Raiders_muscovoy", "Shortbow", "Spear_infantry", "Teutonic_knight"));
+			Arrays.asList("Infantry", "Knight_templar", "Teutonic_knight"));
 	private static final ArrayList<String> soldiersName = new ArrayList<>(
-			Arrays.asList("Archers", "Grenadier", "Heavy Cavalry", "Infantry", "Knight Templar", "Longbowmen", "Mamluk",
-					"Raiders Muscovoy", "Shortbow", "Spear Infantry", "Teutonic Knight"));
-	private static final ArrayList<Integer> soldiersHealth = new ArrayList<>(
-			Arrays.asList(250, 100, 450, 500, 750, 600, 375, 1000, 250, 500, 50));
-	private static final ArrayList<Integer> soldiersDamage = new ArrayList<>(
-			Arrays.asList(4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 5));
-	private static final ArrayList<Integer> soldiersAttack = new ArrayList<>(
-			Arrays.asList(30, 35, 88, 75, 88, 99, 120, 77, 200, 66, 100));
-	private static final ArrayList<Integer> soldiersUpgradeCost = new ArrayList<>(
-			Arrays.asList(1000, 1500, 2000, 8000, 10000, 4550, 7777, 99999, 88888, 5000, 8000));
-	private static final ArrayList<Integer> soldiersPurchaseCost = new ArrayList<>(
-			Arrays.asList(100, 100, 2000, 800, 1000, 455, 777, 9999, 8888, 500, 800));
+			Arrays.asList("Fighter", "Defender", "Warrior"));
+	private static ArrayList<Integer> soldiersHealth = new ArrayList<>(
+			Arrays.asList(250, 100, 450));
+	private static ArrayList<Integer> soldiersDamage = new ArrayList<>(
+			Arrays.asList(4, 5, 6));
+	private static ArrayList<Integer> soldiersAttack = new ArrayList<>(
+			Arrays.asList(30, 35, 88));
+	private static ArrayList<Integer> soldiersUpgradeCost = new ArrayList<>(
+			Arrays.asList(1000, 1500, 2000));
+	private static ArrayList<Integer> soldiersPurchaseCost = new ArrayList<>(
+			Arrays.asList(100, 100, 2000));
 
 	private static int closeImgDimensionsX;
 	private static int closeImgDimensionsY;
@@ -180,7 +179,7 @@ public class Store extends JPanel {
 					if (bounds.contains(me)) {
 						currentSoldier--;
 						if (currentSoldier == -1) {
-							currentSoldier = 10;
+							currentSoldier = numberOfSoldiers - 1;
 						}
 						URL resourceSoldiersBK = getClass()
 								.getResource("/store/" + soldiersSources.get(currentSoldier) + ".png");
@@ -198,7 +197,7 @@ public class Store extends JPanel {
 							prevButtonPosition.y, prevAndNextButtonDimensionsX, prevAndNextButtonDimensionsY);
 					if (bounds.contains(me)) {
 						currentSoldier++;
-						currentSoldier = currentSoldier % 11;
+						currentSoldier = currentSoldier % numberOfSoldiers;
 						URL resourceSoldiersBK = getClass()
 								.getResource("/store/" + soldiersSources.get(currentSoldier) + ".png");
 						try {
@@ -397,6 +396,18 @@ public class Store extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void updateInformations(ArrayList<Integer> soldiersHealthInput, 
+							              ArrayList<Integer> soldiersDamageInput,
+							              ArrayList<Integer> soldiersAttackInput,
+							              ArrayList<Integer> soldiersUpgradeCostInput,
+							              ArrayList<Integer> soldiersPurchaseCostInput) {
+		soldiersHealth = soldiersHealthInput;
+		soldiersDamage = soldiersDamageInput;
+		soldiersAttack = soldiersAttackInput;
+		soldiersUpgradeCost  = soldiersUpgradeCostInput;
+		soldiersPurchaseCost = soldiersPurchaseCostInput;
 	}
 
 	private void upgrade() {

@@ -19,6 +19,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
+import rotl.simulate.Arena;
 import rotl.store.Store;
 import rotl.utilities.Handler;
 
@@ -49,6 +50,10 @@ public class StatusBar extends JPanel {
 	private static int stockinfoRectDimensionsX;
 	private static int stockinfoRectDimensionsY;
 	private static Point stockinfoRectPosition = new Point();
+	
+	private static int arenaDimensionsX;
+	private static int arenaDimensionsY;
+	private static Point arenaPosition = new Point();
 
 	private static String userName = "Player 1";
 	private static int gold = 1235;
@@ -64,6 +69,7 @@ public class StatusBar extends JPanel {
 	private static BufferedImage closeImg;
 	private static BufferedImage backgroundImg;
 	private static BufferedImage storeButton;
+	private static BufferedImage arena;
 
 	public static StatusBar getInstance(Handler handler) {
 
@@ -101,8 +107,12 @@ public class StatusBar extends JPanel {
 		gameinfoRectDimensionsY = (int) (screenHeight * 90 / 100);
 
 		stockinfoRectPosition.setLocation((int) (screenWidth * 46.5 / 100), (int) (screenHeight * 5 / 100));
-		stockinfoRectDimensionsX = (int) (screenWidth * 33 / 100);
+		stockinfoRectDimensionsX = (int) (screenWidth * 20 / 100);
 		stockinfoRectDimensionsY = (int) (screenHeight * 90 / 100);
+		
+		arenaPosition.setLocation((int) (screenWidth * 68 / 100), (int) (screenHeight * 5 / 100));
+		arenaDimensionsX = (int) (screenWidth * 10 / 100);
+		arenaDimensionsY = (int) (screenHeight * 90 / 100);
 
 		setModalSize();
 
@@ -135,6 +145,15 @@ public class StatusBar extends JPanel {
 							storeButtonXDimenssion, storeButtonYDimenssion);
 					if (bounds.contains(me)) {
 						Store.getInstance(handler);
+					}
+				}
+				
+				if (arena != null) {
+					Point me = e.getPoint();
+					Rectangle bounds = new Rectangle(arenaPosition.x, arenaPosition.y,
+							arenaDimensionsX, arenaDimensionsY);
+					if (bounds.contains(me)) {
+						Arena.getInstance(handler);
 					}
 				}
 			}
@@ -182,6 +201,8 @@ public class StatusBar extends JPanel {
 				infoRectPosition.y + (int) (screenHeight * 60 / 100));
 		g.drawString("Cavalry: 1001", stockinfoRectPosition.x + (int) (screenWidth * 1 / 100),
 				infoRectPosition.y + (int) (screenHeight * 80 / 100));
+		
+		g.drawImage(arena, arenaPosition.x, arenaPosition.y, arenaDimensionsX, arenaDimensionsY, this);
 	}
 
 	private void setModalSize() {
@@ -212,13 +233,11 @@ public class StatusBar extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	private void upgrade() {
-
-	}
-
-	private void buy() {
-
+		URL resourceArena = getClass().getResource("/images/Arena.png");
+		try {
+			arena = ImageIO.read(resourceArena);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
