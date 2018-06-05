@@ -141,10 +141,14 @@ public class Arena extends JPanel {
 		closeImgDimensionsY = (int) (screenHeight * 9.8 / 100);
 		closeImgPosition.setLocation(screenWidth - closeImgDimensionsX, 0);
 		
-		//resctSoldier1DimensionsX = ;
-		//resctSoldier1DimensionsY = ;
-		//resctSoldier1Position.setLocation();;
+		resctSoldier1DimensionsX = (int) (screenWidth * 35 / 100);
+		resctSoldier1DimensionsY = (int) (screenHeight * 35 / 100);
+		resctSoldier1Position.setLocation((int) (screenWidth * 5.5 / 100), (int) (screenWidth * 7.5 / 100));
 
+		resctSoldier2DimensionsX = (int) (screenWidth * 35 / 100);
+		resctSoldier2DimensionsY = (int) (screenHeight * 35 / 100);
+		resctSoldier2Position.setLocation((int) (screenWidth * 59.5 / 100), (int) (screenWidth * 7.5 / 100));
+		
 		soldierRectDimensionsX = (int) (screenWidth * 89 / 100);
 		soldierRectDimensionsY = (int) (screenHeight * 40 / 100);
 		soldierRectPosition.setLocation((int) (screenWidth * 5.5 / 100), (int) (screenHeight * 50 / 100));
@@ -294,6 +298,10 @@ public class Arena extends JPanel {
 		g.drawString("Arena", (int) (screenWidth * 40 / 100), 65);
 		g.drawImage(closeImg, closeImgPosition.x, closeImgPosition.y, closeImgDimensionsX, closeImgDimensionsY, this);
 		g.setColor(new Color(255, 255, 255, 100));
+		
+		g.fillRect(resctSoldier1Position.x, resctSoldier1Position.y, resctSoldier1DimensionsX, resctSoldier1DimensionsY);
+		g.fillRect(resctSoldier2Position.x, resctSoldier2Position.y, resctSoldier2DimensionsX, resctSoldier2DimensionsY);
+		
 		g.fillRect(soldierRectPosition.x, soldierRectPosition.y, soldierRectDimensionsX, soldierRectDimensionsY);
 		g.drawImage(SoldiersBKIMG, soldierPosition.x, soldierPosition.y, soldierDimensionsX, soldierDimensionsY, this);
 		g.drawImage(PrevButton, prevButtonPosition.x, prevButtonPosition.y, prevAndNextButtonDimensionsX,
