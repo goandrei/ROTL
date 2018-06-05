@@ -21,11 +21,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import rotl.entities.Soldier;
-import rotl.entities.SoldierFactory;
 import rotl.entities.SoldierType;
 import rotl.player.Player;
-import rotl.simulate.SoldierInfoArena;
 import rotl.utilities.Handler;
 
 public class Store extends JPanel {
