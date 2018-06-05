@@ -23,11 +23,11 @@ import javax.swing.JPanel;
 
 import rotl.utilities.Handler;
 
-public class Arena extends JPanel {
+public class Fight extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Arena instance = null;
+	private static Fight instance = null;
 
 	static int currentSoldier = 0;
 	static int index = 0;
@@ -133,16 +133,16 @@ public class Arena extends JPanel {
 	private static BufferedImage soldair1 = null;
 	private static BufferedImage soldair2 = null;
 
-	public static Arena getInstance(Handler handler) {
+	public static Fight getInstance(Handler handler) {
 
 		if (instance == null) {
-			instance = new Arena(handler);
+			instance = new Fight(handler);
 		}
 		frame.setVisible(true);
 		return instance;
 	}
 
-	private Arena(Handler handler) {
+	private Fight(Handler handler) {
 
 		this.handler = handler;
 
@@ -324,7 +324,7 @@ public class Arena extends JPanel {
 		
 		g.setFont(new Font("Neuropol X", Font.BOLD, 100));
 		g.setColor(Color.WHITE);
-		g.drawString("Arena", (int) (screenWidth * 40 / 100), 65);
+		g.drawString("Fight", (int) (screenWidth * 40 / 100), 65);
 		g.drawImage(closeImg, closeImgPosition.x, closeImgPosition.y, closeImgDimensionsX, closeImgDimensionsY, this);
 		g.setColor(new Color(255, 255, 255, 100));
 		
@@ -557,6 +557,6 @@ public class Arena extends JPanel {
 	}
 	
 	private void fight() {
-		Fight.getInstance(handler);
+		
 	}
 }
