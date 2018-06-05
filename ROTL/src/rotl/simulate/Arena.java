@@ -118,16 +118,16 @@ public class Arena extends JPanel {
 
 		soldierRectDimensionsX = (int) (screenWidth * 60 / 100);
 		soldierRectDimensionsY = (int) (screenHeight * 40 / 100);
-		soldierRectPosition.setLocation((int) (screenWidth * 5.5 / 100), (int) (screenHeight * 55 / 100));
+		soldierRectPosition.setLocation((int) (screenWidth * 5.5 / 100), (int) (screenHeight * 50 / 100));
 
-		soldierDimensionsX = (int) (soldierRectDimensionsX * 45 / 100);
-		soldierDimensionsY = (int) (soldierRectDimensionsY * 95 / 100);
-		soldierPosition.setLocation((int) (soldierRectPosition.x * (1 + 8.8 / 100)), 
-				(int) (soldierRectPosition.y * (1 + 24.4 / 100)));
+		soldierDimensionsX = (int) (soldierRectDimensionsX * 35 / 100);
+		soldierDimensionsY = (int) (soldierRectDimensionsY * 90 / 100);
+		soldierPosition.setLocation((int) (soldierRectPosition.x * 1.4), 
+				(int) (soldierRectPosition.y * 1.025));
 
-		prevAndNextButtonDimensionsX = (int) (screenWidth * 9.7 / 100);
-		prevAndNextButtonDimensionsY = (int) (screenHeight * 13.7 / 100);
-		prevButtonPosition.setLocation((int) (screenWidth * 11 / 100), soldierRectDimensionsY + soldierRectPosition.y);
+		prevAndNextButtonDimensionsX = (int) (screenWidth * 7.5 / 100);
+		prevAndNextButtonDimensionsY = (int) (screenHeight * 10.5 / 100);
+		prevButtonPosition.setLocation((int) (screenWidth * 10 / 100), soldierRectDimensionsY + soldierRectPosition.y);
 
 		infoRectDimensionsX = (int) (screenWidth * 50 / 100);
 		infoRectDimensionsY = soldierRectDimensionsY;

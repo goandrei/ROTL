@@ -29,7 +29,7 @@ public class Store extends JPanel {
 
 	private static Store instance = null;
 
-	static int currentSoldier = 2;
+	static int currentSoldier = 0;
 	static final int numberOfSoldiers = 3;
 	private static final ArrayList<String> soldiersSources = new ArrayList<>(
 			Arrays.asList("Infantry", "Knight_templar", "Teutonic_knight"));
@@ -103,6 +103,16 @@ public class Store extends JPanel {
 	private Store(Handler handler) {
 
 		this.handler = handler;
+		
+		try {
+		SoldiersInfoStore infoStore = new SoldiersInfoStore();
+		soldiersHealth = (ArrayList<Integer>) infoStore.getSoldiersHealthInput();
+		soldiersArmour = (ArrayList<Integer>) infoStore.getSoldiersArmorInput();
+		soldiersAttack = (ArrayList<Integer>) infoStore.getSoldiersAttackInput();
+		soldiersPurchaseCost = (ArrayList<Integer>) infoStore.getSoldiersPurchaseCostInput();
+		} catch (Exception ex) {
+			ex.getMessage();
+		}
 
 		// get the parent screen size and get the modal's size
 		screenWidth = (handler.getGame().getWidth() * 2) / 3;
