@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import rotl.entities.SoldierType;
 import rotl.player.Player;
 import rotl.utilities.Handler;
+import rotl.utilities.ImageLoader;
 
 public class Store extends JPanel {
 
@@ -296,81 +297,17 @@ public class Store extends JPanel {
 
 	private void Init() {
 
-		URL resourceBKImg = getClass().getResource("/store/background.jpg");
-		try {
-			backgroundImg = ImageIO.read(resourceBKImg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourceCloseImg = getClass().getResource("/store/closeImg.png");
-		try {
-			closeImg = ImageIO.read(resourceCloseImg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourceSoldiersBK = getClass().getResource("/store/" + soldiersSources.get(currentSoldier) + ".png");
-		try {
-			SoldiersBKIMG = ImageIO.read(resourceSoldiersBK);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourcePrevButton = getClass().getResource("/store/TriangleButtonL.png");
-		try {
-			PrevButton = ImageIO.read(resourcePrevButton);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourceNextButton = getClass().getResource("/store/TriangleButtonR.png");
-		try {
-			NextButton = ImageIO.read(resourceNextButton);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourcelife = getClass().getResource("/store/heart.png");
-		try {
-			lifeImg = ImageIO.read(resourcelife);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourcedamage = getClass().getResource("/store/Damage_boost.png");
-		try {
-			damageImg = ImageIO.read(resourcedamage);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourceattack = getClass().getResource("/store/Attack.png");
-		try {
-			attackImg = ImageIO.read(resourceattack);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourcecost = getClass().getResource("/store/Gold_pile.png");
-		try {
-			costImg = ImageIO.read(resourcecost);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourceBuyButton = getClass().getResource("/store/buyButton.png");
-		try {
-			buyButton = ImageIO.read(resourceBuyButton);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		URL resourceMyCash = getClass().getResource("/store/cash-icon.png");
-		try {
-			cashImg = ImageIO.read(resourceMyCash);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		backgroundImg = ImageLoader.loadImage("/store/background.jpg");
+		closeImg = ImageLoader.loadImage("/store/closeImg.png");
+		SoldiersBKIMG = ImageLoader.loadImage("/store/" + soldiersSources.get(currentSoldier) + ".png");
+		PrevButton = ImageLoader.loadImage("/store/TriangleButtonL.png");
+		NextButton = ImageLoader.loadImage("/store/TriangleButtonR.png");
+		lifeImg = ImageLoader.loadImage("/store/heart.png");
+		damageImg = ImageLoader.loadImage("/store/Damage_boost.png");
+		attackImg = ImageLoader.loadImage("/store/Attack.png");
+		costImg = ImageLoader.loadImage("/store/Gold_pile.png");
+		buyButton = ImageLoader.loadImage("/store/buyButton.png");
+		cashImg = ImageLoader.loadImage("/store/cash-icon.png");
 	}
 	
 	public static void updateInformations(ArrayList<Integer> soldiersHealthInput, 
