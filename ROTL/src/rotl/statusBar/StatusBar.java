@@ -220,4 +220,8 @@ public class StatusBar extends JPanel {
 		storeButton = ImageLoader.loadImage("/images/storeButton.png");
 		arena = ImageLoader.loadImage("/images/Arena.png");
 	}
+	
+	public static void changeVisibility(boolean val) {
+		frame.setVisible(val);
+	}
 }

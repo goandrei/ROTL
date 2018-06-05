@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 import rotl.states.MenuState;
+import rotl.statusBar.StatusBar;
 import rotl.utilities.Handler;
 import rotl.utilities.ImageLoader;
 
@@ -45,6 +46,8 @@ public class ExitButton implements Button{
 				
 				if(position.contains(mousePosition)){
 					handler.getStateManager().setActualState(new MenuState(handler));
+					MenuState.changeState();
+					StatusBar.changeVisibility(false);
 				}
 			}
 			
