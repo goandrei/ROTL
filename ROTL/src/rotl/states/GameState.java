@@ -8,7 +8,7 @@ import java.awt.event.MouseMotionListener;
 
 import rotl.gfx.Assets;
 import rotl.managers.TileManager;
-import rotl.ststusBar.StatusBar;
+import rotl.statusBar.StatusBar;
 import rotl.utilities.Handler;
 import rotl.utilities.XMLLoader;
 
