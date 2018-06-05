@@ -21,6 +21,11 @@ import javax.imageio.ImageIO;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
+import rotl.entities.Soldier;
+import rotl.entities.SoldierFactory;
+import rotl.entities.SoldierType;
+import rotl.player.Player;
+import rotl.simulate.SoldierInfoArena;
 import rotl.utilities.Handler;
 
 public class Store extends JPanel {
@@ -28,7 +33,7 @@ public class Store extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private static Store instance = null;
-
+	
 	static int currentSoldier = 0;
 	static final int numberOfSoldiers = 3;
 	private static final ArrayList<String> soldiersSources = new ArrayList<>(
@@ -111,7 +116,7 @@ public class Store extends JPanel {
 		soldiersAttack = (ArrayList<Integer>) infoStore.getSoldiersAttackInput();
 		soldiersPurchaseCost = (ArrayList<Integer>) infoStore.getSoldiersPurchaseCostInput();
 		} catch (Exception ex) {
-			ex.getMessage();
+			System.err.println(ex.getMessage());
 		}
 
 		// get the parent screen size and get the modal's size
@@ -383,6 +388,19 @@ public class Store extends JPanel {
 	}
 
 	private void buy() {
-
+		
+		final Player player = Player.getInstance();
+		SoldierType soldierType = null;
+		
+		try {
+			
+			soldierType = SoldierType.values()[Store.currentSoldier];
+		
+		} catch (IndexOutOfBoundsException ex) {
+			
+			ex.printStackTrace();
+		}
+	
+		player.addSoldier(soldierType);
 	}
 }

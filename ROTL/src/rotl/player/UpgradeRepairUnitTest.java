@@ -21,7 +21,31 @@ public class UpgradeRepairUnitTest {
 		TowerFactory tf = new TowerFactory();
 
 		Soldier s = sf.getSoldier(SoldierType.WARRIOR);
-		Tower t = tf.getTower();
+		
+		System.out.println("Soldier");
+		System.out.println();
+		System.out.println("Before");
+		System.out.println("Life: " + s.getLife());
+		System.out.println("Armor: " + s.getArmor());
+		System.out.println("Attack: " + s.getAttack());
+		System.out.println("MissRate: " + s.getMissRate());
+		System.out.println("DodgeRate: " + s.getDodgeRate());
+		System.out.println("CriticalRate: " + s.getCriticalRate());
+		System.out.println("Level: " + s.getLevel());
+
+		UpgradeUnit.upgradeEntity(s, UnitOp.DO);
+
+		System.out.println();
+		System.out.println("After");
+		System.out.println("Life: " + s.getLife());
+		System.out.println("Armor: " + s.getArmor());
+		System.out.println("Attack: " + s.getAttack());
+		System.out.println("MissRate: " + s.getMissRate());
+		System.out.println("DodgeRate: " + s.getDodgeRate());
+		System.out.println("CriticalRate: " + s.getCriticalRate());
+		System.out.println("Level: " + s.getLevel());
+		
+		/*Tower t = tf.getTower();
 
 		System.out.println("Soldier");
 		System.out.println();
@@ -73,7 +97,7 @@ public class UpgradeRepairUnitTest {
 
 		goldArmor = RepairUnit.repairArmor(t, UnitOp.FEE);
 
-		System.out.println("Gold armor repair: " + goldArmor);
+		System.out.println("Gold armor repair: " + goldArmor);*/
 	}
 
 }

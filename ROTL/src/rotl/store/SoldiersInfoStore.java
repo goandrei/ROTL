@@ -9,7 +9,7 @@ import rotl.entities.SoldierType;
 import rotl.entities.SoldiersInfo;
 import rotl.entities.SoldiersInfo.S_Info;
 
-public class SoldiersInfoStore {
+public final class SoldiersInfoStore {
 	
 	private final List<Integer> soldiersHealthInput;
 	private final List<Integer> soldiersArmorInput;
@@ -27,8 +27,6 @@ public class SoldiersInfoStore {
 		
 		Arrays.stream(SoldierType.values()).forEach((soldierType) -> {
 			
-			System.out.println(soldierType);
-			
 			final S_Info info = sInfo.getSoldierInfo(soldierType);
 			
 			if (info == null)
@@ -38,8 +36,6 @@ public class SoldiersInfoStore {
 			final int armor = info.getBArmor();
 			final int attack = info.getBAttack();
 			final int gold = info.getBGold();
-			
-			System.out.println(life + " " + armor + " " + attack + " " + gold + "\n");
 			
 			if ((life == SoldiersInfo.ERROR_CODE) || (armor == SoldiersInfo.ERROR_CODE)
 					|| (attack == SoldiersInfo.ERROR_CODE) || (gold == SoldiersInfo.ERROR_CODE)) {

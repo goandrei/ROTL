@@ -5,7 +5,7 @@ import rotl.utilities.XMLParser;
 public class ParseXMLUnitTest {
 
 	public static void main(String[] args) {
-
+		
 		long startTime = System.currentTimeMillis();
 
 		String soldiersPath = "resources\\entities_info\\soldiers.xml";
@@ -52,7 +52,7 @@ public class ParseXMLUnitTest {
 
 		long endTime = System.currentTimeMillis();
 		System.out.println("Time: " + (endTime - startTime));
-	
+		
 	}
 	
 }
