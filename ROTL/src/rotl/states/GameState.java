@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
+import rotl.buttons.ExitButton;
 //import rotl.buttons.ExitButton;
 import rotl.gfx.Assets;
 import rotl.managers.TileManager;
@@ -30,7 +31,7 @@ public class GameState extends State {
 
 	private float cameraXOffset = 0, cameraYOffset = 0;
 	
-	//private ExitButton exitButton;
+	private ExitButton exitButton;
 
 	private int[][][] layers;
 	Assets a = new Assets();
@@ -47,7 +48,7 @@ public class GameState extends State {
 		NO_OF_LAYERS = load.getNoOfLayers();
 		a.init();
 		
-		//exitButton = new ExitButton();
+		exitButton = new ExitButton(handler);
 
 		buildDirectionRectangles();
 		addEventListeners();
