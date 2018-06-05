@@ -11,6 +11,7 @@ import rotl.managers.TileManager;
 import rotl.statusBar.StatusBar;
 import rotl.utilities.Handler;
 import rotl.utilities.XMLLoader;
+import rotl.utilities.XMLParser;
 
 public class GameState extends State {
 
@@ -48,6 +49,13 @@ public class GameState extends State {
 
 		MenuState.changeState();
 		StatusBar.getInstance(handler);
+		
+		/** parse soldiers info **/
+		
+		final String soldiersPath = "resources\\entities_info\\soldiers.xml";
+		final String towersPath = "resources\\entities_info\\towers.xml";
+		XMLParser.parseSoldiersInfo(soldiersPath);
+		XMLParser.parseTowersInfo(towersPath);
 	}
 
 	private void buildDirectionRectangles() {

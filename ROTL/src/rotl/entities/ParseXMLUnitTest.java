@@ -12,7 +12,7 @@ public class ParseXMLUnitTest {
 		String towersPath = "resources\\entities_info\\towers.xml";
 		XMLParser.parseSoldiersInfo(soldiersPath);
 		XMLParser.parseTowersInfo(towersPath);
-
+		
 		SoldiersInfo sInfo = SoldiersInfo.getInstance();
 
 		for (SoldierType type : SoldierType.values()) {
@@ -52,7 +52,7 @@ public class ParseXMLUnitTest {
 
 		long endTime = System.currentTimeMillis();
 		System.out.println("Time: " + (endTime - startTime));
-
+	
 	}
-
+	
 }
