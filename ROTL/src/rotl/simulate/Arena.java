@@ -109,20 +109,21 @@ public class Arena extends JPanel {
 		this.handler = handler;
 
 		// get the parent screen size and get the modal's size
-		screenWidth = (handler.getGame().getWidth() * 2) / 3;
-		screenHeight = (handler.getGame().getHeight() * 2) / 3;
+		screenWidth = (handler.getGame().getWidth() * 8) / 10;
+		screenHeight = (handler.getGame().getHeight() * 8) / 10;
 
 		closeImgDimensionsX = (int) (screenWidth * 5.5 / 100);
 		closeImgDimensionsY = (int) (screenHeight * 9.8 / 100);
 		closeImgPosition.setLocation(screenWidth - closeImgDimensionsX, 0);
 
-		soldierRectDimensionsX = (int) (screenWidth * 33 / 100);
-		soldierRectDimensionsY = (int) (screenHeight * 68.4 / 100);
-		soldierRectPosition.setLocation((int) (screenWidth * 5.5 / 100), (int) (screenHeight * 19 / 100));
+		soldierRectDimensionsX = (int) (screenWidth * 60 / 100);
+		soldierRectDimensionsY = (int) (screenHeight * 40 / 100);
+		soldierRectPosition.setLocation((int) (screenWidth * 5.5 / 100), (int) (screenHeight * 55 / 100));
 
-		soldierDimensionsX = (int) (screenWidth * 33 / 100);
-		soldierDimensionsY = (int) (screenHeight * 61.3 / 100);
-		soldierPosition.setLocation((int) (screenWidth * 8.8 / 100), (int) (screenHeight * 24.4 / 100));
+		soldierDimensionsX = (int) (soldierRectDimensionsX * 45 / 100);
+		soldierDimensionsY = (int) (soldierRectDimensionsY * 95 / 100);
+		soldierPosition.setLocation((int) (soldierRectPosition.x * (1 + 8.8 / 100)), 
+				(int) (soldierRectPosition.y * (1 + 24.4 / 100)));
 
 		prevAndNextButtonDimensionsX = (int) (screenWidth * 9.7 / 100);
 		prevAndNextButtonDimensionsY = (int) (screenHeight * 13.7 / 100);
@@ -307,7 +308,7 @@ public class Arena extends JPanel {
 
 	private void Init() {
 
-		URL resourceBKImg = getClass().getResource("/store/background.jpg");
+		URL resourceBKImg = getClass().getResource("/images/Age-of-Empires-Arena.jpg");
 		try {
 			backgroundImg = ImageIO.read(resourceBKImg);
 		} catch (IOException e) {
