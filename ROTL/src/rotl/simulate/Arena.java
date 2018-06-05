@@ -87,6 +87,14 @@ public class Arena extends JPanel {
 	private static int otherDimensionsX;
 	private static int otherDimensionsY;
 	private static Point otherPosition = new Point();
+	
+	private static int resctSoldier1DimensionsX;
+	private static int resctSoldier1DimensionsY;
+	private static Point resctSoldier1Position = new Point();
+
+	private static int resctSoldier2DimensionsX;
+	private static int resctSoldier2DimensionsY;
+	private static Point resctSoldier2Position = new Point();
 
 	private static Handler handler;
 	private static JDialog frame = new JDialog();
@@ -108,6 +116,9 @@ public class Arena extends JPanel {
 	private static BufferedImage sellButton;
 	private static BufferedImage useForFightButton;
 	private static BufferedImage cashImg;
+	
+	private static BufferedImage soldair1;
+	private static BufferedImage soldair2;
 
 	public static Arena getInstance(Handler handler) {
 
@@ -129,6 +140,10 @@ public class Arena extends JPanel {
 		closeImgDimensionsX = (int) (screenWidth * 5.5 / 100);
 		closeImgDimensionsY = (int) (screenHeight * 9.8 / 100);
 		closeImgPosition.setLocation(screenWidth - closeImgDimensionsX, 0);
+		
+		//resctSoldier1DimensionsX = ;
+		//resctSoldier1DimensionsY = ;
+		//resctSoldier1Position.setLocation();;
 
 		soldierRectDimensionsX = (int) (screenWidth * 89 / 100);
 		soldierRectDimensionsY = (int) (screenHeight * 40 / 100);
