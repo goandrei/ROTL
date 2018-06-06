@@ -2,6 +2,7 @@ package rotl.menu;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -9,7 +10,6 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
-import java.awt.Dialog.ModalityType;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
@@ -23,6 +23,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import rotl.utilities.Handler;
+import rotl.utilities.ImageLoader;
 
 public class Options extends JPanel implements MenuOption {
 
@@ -58,7 +59,7 @@ public class Options extends JPanel implements MenuOption {
 		frame.setLocationRelativeTo(null);
 		frame.setContentPane(this);
 		frame.setVisible(true);
-		
+
 		frame.setModalityType(ModalityType.APPLICATION_MODAL);
 
 		Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/cursor_final.png"));
@@ -75,14 +76,14 @@ public class Options extends JPanel implements MenuOption {
 			@Override
 			public void focusGained(FocusEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void focusLost(FocusEvent arg0) {
 				System.out.println("focus");
 				frame.setVisible(false);
-			}	
+			}
 		});
 	}
 
@@ -132,17 +133,8 @@ public class Options extends JPanel implements MenuOption {
 
 	@Override
 	public void Init() {
-		URL resourceBKImg = getClass().getResource("/images/BGoption.jpg");
-		try {
-			backgroundImg = ImageIO.read(resourceBKImg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		URL resourceCloseImg = getClass().getResource("/images/closeImg.png");
-		try {
-			closeImg = ImageIO.read(resourceCloseImg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
+		backgroundImg = ImageLoader.loadImage("/images/BGoption.jpg");
+		closeImg = ImageLoader.loadImage("/images/closeImg.png");
 	}
 }

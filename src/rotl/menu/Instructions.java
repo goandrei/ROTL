@@ -2,7 +2,6 @@ package rotl.menu;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -23,6 +22,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import rotl.utilities.Handler;
+import rotl.utilities.ImageLoader;
 
 public class Instructions extends JPanel implements MenuOption {
 
@@ -102,7 +102,7 @@ public class Instructions extends JPanel implements MenuOption {
 		frame.setLocationRelativeTo(null);
 		frame.setContentPane(this);
 		frame.setVisible(true);
-		
+
 		Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/cursor_final.png"));
 		Point hotspot = new Point(0, 0);
 		Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(image, hotspot, "pencil");
@@ -117,16 +117,16 @@ public class Instructions extends JPanel implements MenuOption {
 			@Override
 			public void focusGained(FocusEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void focusLost(FocusEvent arg0) {
 				System.out.println("focus");
 				frame.setVisible(false);
-			}	
+			}
 		});
-		
+
 	}
 
 	public static Instructions getInstructions(Handler handler) {
@@ -207,23 +207,8 @@ public class Instructions extends JPanel implements MenuOption {
 
 	@Override
 	public void Init() {
-		URL resourceBKImg = getClass().getResource("/images/BGinstruction.jpg");
-		try {
-			backgroundImg = ImageIO.read(resourceBKImg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		URL resourceCloseImg = getClass().getResource("/images/closeImg.png");
-		try {
-			closeImg = ImageIO.read(resourceCloseImg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		URL resourceNextButton = getClass().getResource("/images/Next.png");
-		try {
-			nextButton = ImageIO.read(resourceNextButton);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		backgroundImg = ImageLoader.loadImage("/images/BGinstruction.jpg");
+		closeImg = ImageLoader.loadImage("/images/closeImg.png");
+		nextButton = ImageLoader.loadImage("/images/Next.png");
 	}
 }

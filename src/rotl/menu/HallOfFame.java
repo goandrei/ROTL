@@ -31,6 +31,7 @@ import javax.swing.JPanel;
 
 import javafx.util.Pair;
 import rotl.utilities.Handler;
+import rotl.utilities.ImageLoader;
 
 public class HallOfFame extends JPanel implements MenuOption {
 
@@ -83,14 +84,14 @@ public class HallOfFame extends JPanel implements MenuOption {
 			@Override
 			public void focusGained(FocusEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void focusLost(FocusEvent arg0) {
 				System.out.println("focus");
 				frame.setVisible(false);
-			}	
+			}
 		});
 	}
 
@@ -148,18 +149,9 @@ public class HallOfFame extends JPanel implements MenuOption {
 
 	@Override
 	public void Init() {
-		URL resourceBKImg = getClass().getResource("/images/BGHallOfFame.jpg");
-		try {
-			backgroundImg = ImageIO.read(resourceBKImg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		URL resourceCloseImg = getClass().getResource("/images/closeImg.png");
-		try {
-			closeImg = ImageIO.read(resourceCloseImg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
+		backgroundImg = ImageLoader.loadImage("/images/BGHallOfFame.jpg");
+		closeImg = ImageLoader.loadImage("/images/closeImg.png");
 
 		readHistory();
 
