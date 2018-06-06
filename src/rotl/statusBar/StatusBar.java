@@ -62,6 +62,8 @@ public class StatusBar extends JPanel {
 	private static BufferedImage backgroundImg;
 	private static BufferedImage storeButton;
 	private static BufferedImage arena;
+	private static BufferedImage playerLogo;
+	private static BufferedImage goldImg;
 	
 	public static int numberFighters = 100;
 	public static int numberDefenders = 150;
@@ -183,22 +185,21 @@ public class StatusBar extends JPanel {
 		g.fillRect(infoRectPosition.x, infoRectPosition.y, infoRectDimensionsX, infoRectDimensionsY);
 		g.setFont(new Font("Neuropol X", Font.BOLD, 25));
 		g.setColor(Color.WHITE);
-		g.drawString("Player: " + userName, infoRectPosition.x + (int) (screenWidth * 1 / 100),
+		g.drawString(userName, infoRectPosition.x + (int) (screenWidth * 8 / 100),
 				infoRectPosition.y + (int) (screenHeight * 20 / 100));
-		g.drawString("Gold: " + gold, infoRectPosition.x + (int) (screenWidth * 1 / 100),
-				infoRectPosition.y + (int) (screenHeight * 50 / 100));
-		g.drawString("Score: " + score, infoRectPosition.x + (int) (screenWidth * 1 / 100),
-				infoRectPosition.y + (int) (screenHeight * 80 / 100));
+		g.drawImage(playerLogo, infoRectPosition.x + (int) (screenWidth * 9 / 100),
+				infoRectPosition.y + (int) (screenHeight * 30 / 100),
+				50, 50, this);
 
 		g.setColor(new Color(255, 255, 255, 100));
 		g.fillRect(gameinfoRectPosition.x, gameinfoRectPosition.y, gameinfoRectDimensionsX, gameinfoRectDimensionsY);
 		g.setColor(Color.WHITE);
-		g.drawString("Wave no: " + waveNumber, gameinfoRectPosition.x + (int) (screenWidth * 1 / 100),
-				infoRectPosition.y + (int) (screenHeight * 20 / 100));
-		g.drawString("Enamy score: " + enamyScore, gameinfoRectPosition.x + (int) (screenWidth * 1 / 100),
-				infoRectPosition.y + (int) (screenHeight * 50 / 100));
-		g.drawString("Diverse: ", gameinfoRectPosition.x + (int) (screenWidth * 1 / 100),
-				infoRectPosition.y + (int) (screenHeight * 80 / 100));
+		g.drawImage(goldImg, gameinfoRectPosition.x + (int) (screenWidth * 9 / 100),
+				gameinfoRectPosition.y + (int) (screenHeight * 5 / 100),
+				45, 45, this);
+		
+		g.drawString(gold + "", gameinfoRectPosition.x + (int) (screenWidth * 9 / 100),
+				infoRectPosition.y + (int) (screenHeight * 10 / 100) + 60);
 
 		g.setColor(new Color(255, 255, 255, 100));
 		g.fillRect(stockinfoRectPosition.x, stockinfoRectPosition.y, stockinfoRectDimensionsX,
@@ -238,6 +239,8 @@ public class StatusBar extends JPanel {
 		Defender = ImageLoader.loadImage("/store/Knight_templar.png");
 		Warrior = ImageLoader.loadImage("/store/Teutonic_knight.png");
 
+		playerLogo = ImageLoader.loadImage("/images/playerLogo.png");
+		goldImg = ImageLoader.loadImage("/store/Gold_pile.png");
 	}
 
 	public static void changeVisibility(boolean val) {
