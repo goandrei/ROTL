@@ -1,13 +1,14 @@
 package rotl.store;
 
-import rotl.entities.SoldierType;
-import rotl.player.Player;
-import rotl.utilities.Handler;
-import rotl.utilities.ImageLoader;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
@@ -17,6 +18,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import javax.imageio.ImageIO;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+
+import rotl.entities.SoldierType;
+import rotl.player.Player;
+import rotl.simulate.Arena;
+import rotl.utilities.Handler;
+import rotl.utilities.ImageLoader;
 
 public class Store extends JPanel {
 
@@ -80,14 +91,14 @@ public class Store extends JPanel {
 	private static BufferedImage PrevButton;
 
 	private static BufferedImage lifeImg;
-	private static BufferedImage damageImg;
+	private static BufferedImage armorImg;
 	private static BufferedImage attackImg;
 	private static BufferedImage costImg;
 	private static BufferedImage buyButton;
 	private static BufferedImage cashImg;
-
+	
 	private boolean running;
-
+	
 	public static Store getInstance(Handler handler) {
 
 		if (instance == null) {
@@ -97,9 +108,9 @@ public class Store extends JPanel {
 		instance.running = true;
 		return instance;
 	}
-
+	
 	public boolean isRunning() {
-		return running;
+		return running;		
 	}
 
 	private Store(Handler handler) {
@@ -116,19 +127,19 @@ public class Store extends JPanel {
 			System.err.println(ex.getMessage());
 		}
 		
-		frame.addFocusListener(new FocusListener() {
-
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void focusLost(FocusEvent arg0) {
-				System.out.println("focus");
-				frame.setVisible(false);
-			}	
+		frame.addFocusListener(new FocusListener() {		
+					
+			@Override		
+			public void focusGained(FocusEvent arg0) {	
+				// TODO Auto-generated method stub		
+						
+			}		
+						
+			@Override		
+			public void focusLost(FocusEvent arg0) {		
+				System.out.println("focus");		
+				frame.setVisible(false);		
+			}			
 		});
 
 		// get the parent screen size and get the modal's size
@@ -267,7 +278,7 @@ public class Store extends JPanel {
 				buyButtonDimensionsX, buyButtonDimensionsY,
 				this);
 		g.drawImage(lifeImg, otherPosition.x, otherPosition.y, otherDimensionsX, otherDimensionsY, this);
-		g.drawImage(damageImg, otherPosition.x,
+		g.drawImage(armorImg, otherPosition.x,
 				otherPosition.y + otherDimensionsY + (int) (infoRectDimensionsY * 1 / 100), otherDimensionsX,
 				otherDimensionsY, this);
 		g.drawImage(attackImg, otherPosition.x,
@@ -318,7 +329,7 @@ public class Store extends JPanel {
 		PrevButton = ImageLoader.loadImage("/store/TriangleButtonL.png");
 		NextButton = ImageLoader.loadImage("/store/TriangleButtonR.png");
 		lifeImg = ImageLoader.loadImage("/store/heart.png");
-		damageImg = ImageLoader.loadImage("/store/Damage_boost.png");
+		armorImg = ImageLoader.loadImage("/store/Armor.png");
 		attackImg = ImageLoader.loadImage("/store/Attack.png");
 		costImg = ImageLoader.loadImage("/store/Gold_pile.png");
 		buyButton = ImageLoader.loadImage("/store/buyButton.png");
@@ -351,5 +362,8 @@ public class Store extends JPanel {
 		}
 	
 		player.addSoldier(soldierType);
+		
+		if (Arena.isBuilt())
+			Arena.getInstance(handler).repaint();
 	}
 }
