@@ -284,5 +284,4 @@ public class MenuState extends State {
 	public static void changeState() {
 		inMenuState = !inMenuState;
 	}
-
 }

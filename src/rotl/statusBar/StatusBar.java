@@ -42,6 +42,10 @@ public class StatusBar extends JPanel {
 	private static int arenaDimensionsX;
 	private static int arenaDimensionsY;
 	private static Point arenaPosition = new Point();
+	
+	private static int soldairDimensionsX;
+	private static int soldairDimensionsY;
+	private static Point soldairPosition = new Point();
 
 	private static String userName = "Player 1";
 	private static int gold = 1235;
@@ -58,6 +62,17 @@ public class StatusBar extends JPanel {
 	private static BufferedImage backgroundImg;
 	private static BufferedImage storeButton;
 	private static BufferedImage arena;
+	private static BufferedImage playerLogo;
+	private static BufferedImage goldImg;
+	
+	public static int numberFighters = 100;
+	public static int numberDefenders = 150;
+	public static int numberWarriors = 77;
+	
+	private static BufferedImage Fighter;
+	private static BufferedImage Defender;
+	private static BufferedImage Warrior;
+
 
 	private Arena arenaInstance;
 
@@ -99,6 +114,10 @@ public class StatusBar extends JPanel {
 		stockinfoRectPosition.setLocation((int) (screenWidth * 46.5 / 100), (int) (screenHeight * 5 / 100));
 		stockinfoRectDimensionsX = (int) (screenWidth * 20 / 100);
 		stockinfoRectDimensionsY = (int) (screenHeight * 90 / 100);
+		
+		soldairDimensionsX = 30;
+		soldairDimensionsY = 30;
+		soldairPosition.setLocation(stockinfoRectPosition.x + 15, stockinfoRectPosition.y - 2);
 
 		arenaPosition.setLocation((int) (screenWidth * 68 / 100), (int) (screenHeight * 5 / 100));
 		arenaDimensionsX = (int) (screenWidth * 10 / 100);
@@ -166,35 +185,38 @@ public class StatusBar extends JPanel {
 		g.fillRect(infoRectPosition.x, infoRectPosition.y, infoRectDimensionsX, infoRectDimensionsY);
 		g.setFont(new Font("Neuropol X", Font.BOLD, 25));
 		g.setColor(Color.WHITE);
-		g.drawString("Player: " + userName, infoRectPosition.x + (int) (screenWidth * 1 / 100),
+		g.drawString(userName, infoRectPosition.x + (int) (screenWidth * 8 / 100),
 				infoRectPosition.y + (int) (screenHeight * 20 / 100));
-		g.drawString("Gold: " + gold, infoRectPosition.x + (int) (screenWidth * 1 / 100),
-				infoRectPosition.y + (int) (screenHeight * 50 / 100));
-		g.drawString("Score: " + score, infoRectPosition.x + (int) (screenWidth * 1 / 100),
-				infoRectPosition.y + (int) (screenHeight * 80 / 100));
+		g.drawImage(playerLogo, infoRectPosition.x + (int) (screenWidth * 9 / 100),
+				infoRectPosition.y + (int) (screenHeight * 30 / 100),
+				50, 50, this);
 
 		g.setColor(new Color(255, 255, 255, 100));
 		g.fillRect(gameinfoRectPosition.x, gameinfoRectPosition.y, gameinfoRectDimensionsX, gameinfoRectDimensionsY);
 		g.setColor(Color.WHITE);
-		g.drawString("Wave no: " + waveNumber, gameinfoRectPosition.x + (int) (screenWidth * 1 / 100),
-				infoRectPosition.y + (int) (screenHeight * 20 / 100));
-		g.drawString("Enamy score: " + enamyScore, gameinfoRectPosition.x + (int) (screenWidth * 1 / 100),
-				infoRectPosition.y + (int) (screenHeight * 50 / 100));
-		g.drawString("Diverse: ", gameinfoRectPosition.x + (int) (screenWidth * 1 / 100),
-				infoRectPosition.y + (int) (screenHeight * 80 / 100));
+		g.drawImage(goldImg, gameinfoRectPosition.x + (int) (screenWidth * 9 / 100),
+				gameinfoRectPosition.y + (int) (screenHeight * 5 / 100),
+				45, 45, this);
+		
+		g.drawString(gold + "", gameinfoRectPosition.x + (int) (screenWidth * 9 / 100),
+				infoRectPosition.y + (int) (screenHeight * 10 / 100) + 60);
 
 		g.setColor(new Color(255, 255, 255, 100));
 		g.fillRect(stockinfoRectPosition.x, stockinfoRectPosition.y, stockinfoRectDimensionsX,
 				stockinfoRectDimensionsY);
+
 		g.setColor(Color.WHITE);
-		g.drawString("Infantry: 12", stockinfoRectPosition.x + (int) (screenWidth * 1 / 100),
-				infoRectPosition.y + (int) (screenHeight * 20 / 100));
-		g.drawString("Archers: 55 ", stockinfoRectPosition.x + (int) (screenWidth * 1 / 100),
-				infoRectPosition.y + (int) (screenHeight * 40 / 100));
-		g.drawString("Grenadier: 100", stockinfoRectPosition.x + (int) (screenWidth * 1 / 100),
-				infoRectPosition.y + (int) (screenHeight * 60 / 100));
-		g.drawString("Cavalry: 1001", stockinfoRectPosition.x + (int) (screenWidth * 1 / 100),
-				infoRectPosition.y + (int) (screenHeight * 80 / 100));
+		g.drawImage(Fighter, soldairPosition.x, soldairPosition.y, soldairDimensionsX, soldairDimensionsY, this);
+		g.drawString(" : " + numberFighters, soldairPosition.x + soldairDimensionsX,
+				soldairPosition.y + (int) (screenHeight * 21 / 100));
+		g.drawImage(Defender, soldairPosition.x, soldairPosition.y + soldairDimensionsY,
+				soldairDimensionsX, soldairDimensionsY, this);
+		g.drawString(" : " + numberDefenders, soldairPosition.x + soldairDimensionsX,
+				soldairPosition.y + (int) (screenHeight * 21 / 100) + soldairDimensionsY);
+		g.drawImage(Warrior, soldairPosition.x, soldairPosition.y + 2* soldairDimensionsY,
+				soldairDimensionsX, soldairDimensionsY, this);
+		g.drawString(" : " + numberWarriors, soldairPosition.x + soldairDimensionsX,
+				soldairPosition.y + (int) (screenHeight * 21 / 100) + 2* soldairDimensionsY);
 
 		g.drawImage(arena, arenaPosition.x, arenaPosition.y, arenaDimensionsX, arenaDimensionsY, this);
 	}
@@ -212,6 +234,13 @@ public class StatusBar extends JPanel {
 		closeImg = ImageLoader.loadImage("/store/closeImg.png");
 		storeButton = ImageLoader.loadImage("/images/storeButton.png");
 		arena = ImageLoader.loadImage("/images/Arena.png");
+		
+		Fighter = ImageLoader.loadImage("/store/Infantry.png");
+		Defender = ImageLoader.loadImage("/store/Knight_templar.png");
+		Warrior = ImageLoader.loadImage("/store/Teutonic_knight.png");
+
+		playerLogo = ImageLoader.loadImage("/images/playerLogo.png");
+		goldImg = ImageLoader.loadImage("/store/Gold_pile.png");
 	}
 
 	public static void changeVisibility(boolean val) {
