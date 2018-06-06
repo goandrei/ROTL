@@ -44,14 +44,10 @@ public class Store extends JPanel {
 			Arrays.asList("Infantry", "Knight_templar", "Teutonic_knight"));
 	private static final ArrayList<String> soldiersName = new ArrayList<>(
 			Arrays.asList("Fighter", "Defender", "Warrior"));
-	private static ArrayList<Integer> soldiersHealth = new ArrayList<>(
-			Arrays.asList(250, 100, 450));
-	private static ArrayList<Integer> soldiersArmour = new ArrayList<>(
-			Arrays.asList(4, 5, 6));
-	private static ArrayList<Integer> soldiersAttack = new ArrayList<>(
-			Arrays.asList(30, 35, 88));
-	private static ArrayList<Integer> soldiersPurchaseCost = new ArrayList<>(
-			Arrays.asList(1000, 1500, 2000));
+	private static ArrayList<Integer> soldiersHealth;
+	private static ArrayList<Integer> soldiersArmour;
+	private static ArrayList<Integer> soldiersAttack;
+	private static ArrayList<Integer> soldiersPurchaseCost;
 
 	private static int closeImgDimensionsX;
 	private static int closeImgDimensionsY;
@@ -307,7 +303,7 @@ public class Store extends JPanel {
 				screenHeight - (int) (screenHeight * 11 / 100), (int) (screenWidth * 6 / 100),
 				(int) (screenHeight * 10 / 100), this);
 		g.setFont(new Font("Neuropol X", Font.BOLD, 30));
-		g.drawString("100000000 $ : ", (int) (screenWidth * 70 / 100), (int) (screenHeight * 95 / 100));
+		g.drawString(Player.getInstance().getGold() + " $", (int) (screenWidth * 70 / 100), (int) (screenHeight * 95 / 100));
 	}
 
 	private void setModalSize() {
@@ -346,21 +342,22 @@ public class Store extends JPanel {
 	private void buy() {
 		
 		final Player player = Player.getInstance();
-		SoldierType soldierType = null;
+		final SoldierType soldierType = SoldierType.values()[Store.currentSoldier];
 		
-		try {
+		int currentGold = Player.getInstance().getGold();	
+		final int price = soldiersPurchaseCost.get(Store.currentSoldier);
+		
+		if (currentGold >= price) {
+				
+			currentGold -= price;
+			Player.getInstance().setGold(currentGold);
 			
-			soldierType = SoldierType.values()[Store.currentSoldier];
-		
-		} catch (IndexOutOfBoundsException ex) {
+			player.addSoldier(soldierType);
 			
-			ex.printStackTrace();
-		}
-	
-		player.addSoldier(soldierType);
-		
-		if (Arena.isBuilt()) {
-			Arena.getInstanceNonAbusive().repaint();
+			if (Arena.isBuilt()) {
+				Arena.getInstanceNonAbusive().repaint();
+			}
+			repaint();
 		}
 	}
 	

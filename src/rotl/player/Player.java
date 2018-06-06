@@ -11,6 +11,7 @@ import rotl.entities.SoldierFactory;
 import rotl.entities.SoldierType;
 import rotl.entities.Warrior;
 import rotl.simulate.SoldierInfoArena;
+import rotl.statusBar.StatusBar;
 
 public class Player {
 
@@ -70,6 +71,24 @@ public class Player {
 			
 			final Soldier soldier = this.soldierFactory.getSoldier(soldierType);
 			soldiers.add(soldier);
+			
+			final StatusBar statusBar = StatusBar.getInstanceNonAbusive();
+			
+			if (statusBar != null) {
+				
+				switch (soldierType) {
+				
+					case FIGHTER:
+						statusBar.setNumberFighters(statusBar.getNumberFighters() + 1);
+						break;
+					case DEFENDER:
+						statusBar.setNumberDefenders(statusBar.getNumberDefenders() + 1);
+						break;
+					case WARRIOR:
+						statusBar.setNumberWarriors(statusBar.getNumberWarriors() + 1);
+						break;
+				}
+			}
 		
 		} catch (EntitiesException ex) {
 			
@@ -82,7 +101,35 @@ public class Player {
 		if (index < 0 || index >= soldiers.size())
 			throw new IllegalArgumentException();
 		
+		final Soldier soldier = soldiers.get(index);
+		SoldierType soldierType = null;
+		
+		if (soldier instanceof Fighter)
+			soldierType = SoldierType.FIGHTER;
+		else if (soldier instanceof Defender)
+			soldierType = SoldierType.DEFENDER;
+		else if (soldier instanceof Warrior)
+			soldierType = SoldierType.WARRIOR;
+		
 		soldiers.remove(index);
+		
+		final StatusBar statusBar = StatusBar.getInstanceNonAbusive();
+		
+		if (statusBar != null) {
+			
+			switch (soldierType) {
+			
+				case FIGHTER:
+					statusBar.setNumberFighters(statusBar.getNumberFighters() - 1);
+					break;
+				case DEFENDER:
+					statusBar.setNumberDefenders(statusBar.getNumberDefenders() - 1);
+					break;
+				case WARRIOR:
+					statusBar.setNumberWarriors(statusBar.getNumberWarriors() - 1);
+					break;
+			}
+		}
 	}
 	
 	public void upgradeSoldier(int index) {
@@ -94,14 +141,13 @@ public class Player {
 		
 		/** Pay money for upgrade **/
 		
-		// int upgradeGold = UpgradeUnit.upgradeEntity(soldier, UnitOp.FEE);
+		int upgradeGold = UpgradeUnit.upgradeEntity(soldier, UnitOp.FEE);
 		
-		//if (this.gold >= upgradeGold) {
+		if (this.gold >= upgradeGold) {
 			
 			UpgradeUnit.upgradeEntity(soldier, UnitOp.DO);
-			
-			//this.gold -= upgradeGold;
-		//}
+			this.setGold(this.gold - upgradeGold);
+		}
 	}
 	
 	public void healSoldier(int index) {
@@ -113,14 +159,13 @@ public class Player {
 		
 		/** Pay money for upgrade **/
 		
-		//int healGold = RepairUnit.healSoldier(soldier, UnitOp.FEE);
+		int healGold = RepairUnit.healSoldier(soldier, UnitOp.FEE);
 		
-		//if (this.gold >= healGold) {
+		if (this.gold >= healGold) {
 			
 			RepairUnit.healSoldier(soldier, UnitOp.DO);
-			
-			//this.gold -= healGold;
-		//}
+			this.setGold(this.gold - healGold);
+		}
 	}
 	
 	public void repairArmorSoldier(int index) {
@@ -132,14 +177,13 @@ public class Player {
 		
 		/** Pay money for upgrade **/
 		
-		//int repairGold = RepairUnit.repairArmor(soldier, UnitOp.FEE);
+		int repairGold = RepairUnit.repairArmor(soldier, UnitOp.FEE);
 		
-		//if (this.gold >= repairGold) {
+		if (this.gold >= repairGold) {
 			
 			RepairUnit.repairArmor(soldier, UnitOp.DO);
-			
-			//this.gold -= repairGold;
-		//}
+			this.setGold(this.gold - repairGold);
+		}
 	}
 	
 	/** Getters **/
@@ -155,5 +199,11 @@ public class Player {
 
 		_gold = Integer.max(_gold, 0);
 		this.gold = _gold;
+		
+		final StatusBar statusBar = StatusBar.getInstanceNonAbusive();
+		
+		if (statusBar != null) {
+			statusBar.setGold(this.gold);
+		}
 	}
 }

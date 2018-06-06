@@ -447,6 +447,11 @@ public class Arena extends JPanel {
 					otherPosition.x + otherDimensionsX + (int) (infoRectDimensionsX * 5 / 100),
 					otherPosition.y + (int) (infoRectDimensionsY * 7 / 100) + 3 * otherDimensionsY
 							+ 3 * (int) (infoRectDimensionsY * 1 / 100));
+			
+			g.setFont(new Font("Neuropol X", Font.BOLD, 40));
+			g.setColor(Color.WHITE);
+			g.drawString(String.valueOf(currentSoldier + 1), prevButtonPosition.x + prevAndNextButtonDimensionsX - 10, 
+					prevButtonPosition.y + (int) (prevAndNextButtonDimensionsY * 5 / 8));
 		}	
 		
 		/** **/
@@ -456,7 +461,7 @@ public class Arena extends JPanel {
 				(int) (screenHeight * 10 / 100), this);
 		
 		g.setFont(new Font("Neuropol X", Font.BOLD, 30));
-		g.drawString("100000000 $ : ", (int) (screenWidth * 70 / 100), (int) (screenHeight * 95 / 100));
+		g.drawString(Player.getInstance().getGold() + " $", (int) (screenWidth * 70 / 100), (int) (screenHeight * 95 / 100));
 		g.drawImage(fight, fightPosition.x, fightPosition.y, fightDimensionsX, fightDimensionsY, this);
 	}
 

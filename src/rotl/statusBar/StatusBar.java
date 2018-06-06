@@ -1,5 +1,6 @@
 package rotl.statusBar;
 
+import rotl.player.Player;
 import rotl.simulate.Arena;
 import rotl.store.Store;
 import rotl.utilities.Handler;
@@ -48,7 +49,7 @@ public class StatusBar extends JPanel {
 	private static Point soldairPosition = new Point();
 
 	private static String userName = "Player 1";
-	private static int gold = 1235;
+	private static int gold = 0;
 
 	private static Handler handler;
 	private static JDialog frame = new JDialog();
@@ -61,9 +62,9 @@ public class StatusBar extends JPanel {
 	private static BufferedImage playerLogo;
 	private static BufferedImage goldImg;
 	
-	public static int numberFighters = 100;
-	public static int numberDefenders = 150;
-	public static int numberWarriors = 77;
+	private static int numberFighters;
+	private static int numberDefenders;
+	private static int numberWarriors;
 	
 	private static BufferedImage Fighter;
 	private static BufferedImage Defender;
@@ -203,7 +204,7 @@ public class StatusBar extends JPanel {
 				gameinfoRectPosition.y + (int) (screenHeight * 5 / 100),
 				45, 45, this);
 		
-		g.drawString(gold + "", gameinfoRectPosition.x + (int) (screenWidth * 9 / 100),
+		g.drawString(gold + "", gameinfoRectPosition.x + (int) (screenWidth * 6 / 100),
 				infoRectPosition.y + (int) (screenHeight * 10 / 100) + 60);
 
 		g.setColor(new Color(255, 255, 255, 100));
@@ -235,6 +236,7 @@ public class StatusBar extends JPanel {
 
 	private void Init() {
 
+		gold = Player.getInstance().getGold();
 		backgroundImg = ImageLoader.loadImage("/images/pexels-photo-370799.jpeg");
 		storeButton = ImageLoader.loadImage("/images/storeButton.png");
 		arena = ImageLoader.loadImage("/images/Arena.png");
@@ -253,5 +255,44 @@ public class StatusBar extends JPanel {
 	
 	public void changeVisibility(boolean val) {
 		frame.setVisible(val);
+	}
+	
+	public void setNumberFighters(int number) {
+		
+		numberFighters = number;
+		repaint();
+	}
+	
+	public void setNumberDefenders(int number) {
+		
+		numberDefenders = number;
+		repaint();
+	}
+	
+	public void setNumberWarriors(int number) {
+		
+		numberWarriors = number;
+		repaint();
+	}
+	
+	public int getNumberFighters() {
+		
+		return numberFighters;
+	}
+	
+	public int getNumberDefenders() {
+		
+		return numberDefenders;
+	}
+	
+	public int getNumberWarriors() {
+		
+		return numberWarriors;
+	}
+	
+	public void setGold(int gold) {
+		
+		StatusBar.gold = gold;
+		repaint();
 	}
 }
