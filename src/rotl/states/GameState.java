@@ -26,7 +26,7 @@ public class GameState extends State {
 
 	private Rectangle east, west, south, north, southEast, southWest, northWest, northEast;
 
-	private double offsetAmount = 0.01;
+	private final double OFFSET_AMOUNT = 0.01;
 
 	private float cameraXOffset = 0, cameraYOffset = 0;
 
@@ -93,19 +93,19 @@ public class GameState extends State {
 
 				if (north.contains(mousePosition)) {
 					// handler.getGame().getGameCamera().move(0, (float)-offsetAmount);
-					cameraYOffset -= offsetAmount;
+					cameraYOffset -= OFFSET_AMOUNT;
 					return;
 				} else if (east.contains(mousePosition)) {
 					// handler.getGame().getGameCamera().move((float)offsetAmount, 0);
-					cameraXOffset -= offsetAmount + 0.009;
+					cameraXOffset -= OFFSET_AMOUNT;
 					return;
 				} else if (south.contains(mousePosition)) {
 					// handler.getGame().getGameCamera().move(0, (float)offsetAmount);
-					cameraYOffset += offsetAmount;
+					cameraYOffset += OFFSET_AMOUNT;
 					return;
 				} else if (west.contains(mousePosition)) {
 					// handler.getGame().getGameCamera().move((float)-offsetAmount, 0);
-					cameraXOffset += offsetAmount - 0.009;
+					cameraXOffset += OFFSET_AMOUNT;
 					return;
 				}
 
@@ -129,8 +129,8 @@ public class GameState extends State {
 	@Override
 	public void update() {
 
-		if (Math.abs(cameraXOffset) > 0.2) {
-			cameraXOffset = (float) 0.2 * (cameraXOffset < 0 ? -1 : 1);
+		if (Math.abs(cameraXOffset) > 1) {
+			cameraXOffset = (float) 1 * (cameraXOffset < 0 ? -1 : 1);
 		}
 		if (Math.abs(cameraYOffset) > 0.5) {
 			cameraYOffset = (float) 0.5 * (cameraYOffset < 0 ? -1 : 1);
