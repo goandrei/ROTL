@@ -2,6 +2,7 @@ package rotl.states;
 
 import rotl.buttons.ExitButton;
 import rotl.gfx.Assets;
+import rotl.gfx.GameCamera;
 import rotl.managers.TileManager;
 import rotl.statusBar.StatusBar;
 import rotl.utilities.Handler;
@@ -39,9 +40,11 @@ public class GameState extends State {
 
 	public GameState(int width, int height, Handler handler) {
 		super(handler);
-
+		
 		this.width = width;
 		this.height = height;
+		
+		handler.getGame().getGameCamera().setOffsets(0, 0);
 
 		tileManager = new TileManager();
 		XMLLoader load = new XMLLoader();
