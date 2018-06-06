@@ -127,20 +127,6 @@ public class Store extends JPanel {
 			System.err.println(ex.getMessage());
 		}
 		
-		frame.addFocusListener(new FocusListener() {		
-					
-			@Override		
-			public void focusGained(FocusEvent arg0) {	
-				// TODO Auto-generated method stub		
-						
-			}		
-						
-			@Override		
-			public void focusLost(FocusEvent arg0) {		
-				System.out.println("focus");		
-				frame.setVisible(false);		
-			}			
-		});
 
 		// get the parent screen size and get the modal's size
 		screenWidth = (handler.getGame().getWidth() * 2) / 3;
@@ -365,7 +351,7 @@ public class Store extends JPanel {
 		player.addSoldier(soldierType);
 		
 		if (Arena.isBuilt()) {
-			Arena.getInstance(handler).repaint();
+			Arena.getInstanceNonAbusive().repaint();
 		}
 	}
 }

@@ -129,6 +129,10 @@ public class Arena extends JPanel {
 		return instance;
 	}
 	
+	public static Arena getInstanceNonAbusive() {
+		return instance;
+	}
+	
 	private Arena(Handler handler) {
 
 		this.handler = handler;
