@@ -18,6 +18,7 @@ import rotl.menu.HallOfFame;
 import rotl.menu.Instructions;
 import rotl.menu.Options;
 import rotl.utilities.Handler;
+import rotl.utilities.ImageLoader;
 
 public class MenuState extends State {
 
@@ -39,7 +40,7 @@ public class MenuState extends State {
 
 	public MenuState(Handler handler) {
 		super(handler);
-
+		
 		Init();
 
 		start = true;
@@ -243,42 +244,12 @@ public class MenuState extends State {
 
 	private void Init() {
 
-		URL resourceBKImg = getClass().getResource("/images/Age-of-Empires-Menu.jpg");
-		try {
-			backgroundImg = ImageIO.read(resourceBKImg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		URL resourcePlayButton = getClass().getResource("/images/playButton.png");
-		try {
-			playButton = ImageIO.read(resourcePlayButton);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		URL resourceOptionButton = getClass().getResource("/images/optButton.png");
-		try {
-			optionsButton = ImageIO.read(resourceOptionButton);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		URL resourceInstructionButton = getClass().getResource("/images/instButton.png");
-		try {
-			instructionButton = ImageIO.read(resourceInstructionButton);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		URL resourceHighScoresButton = getClass().getResource("/images/HSButton.png");
-		try {
-			highScoreButton = ImageIO.read(resourceHighScoresButton);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		URL resourceExitButton = getClass().getResource("/images/exitButton.png");
-		try {
-			exitButton = ImageIO.read(resourceExitButton);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		backgroundImg = ImageLoader.loadImage("/images/Age-of-Empires-Menu.jpg");
+		playButton = ImageLoader.loadImage("/images/playButton.png");
+		optionsButton = ImageLoader.loadImage("/images/optButton.png");
+		instructionButton = ImageLoader.loadImage("/images/instButton.png");
+		highScoreButton = ImageLoader.loadImage("/images/HSButton.png");
+		exitButton = ImageLoader.loadImage("/images/exitButton.png");
 	}
 
 	public static void changeState() {
