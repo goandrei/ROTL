@@ -49,16 +49,12 @@ public class StatusBar extends JPanel {
 
 	private static String userName = "Player 1";
 	private static int gold = 1235;
-	private static int score = 1234567;
-	private static int waveNumber = 2;
-	private static int enamyScore = 12345;
 
 	private static Handler handler;
 	private static JDialog frame = new JDialog();
 
 	private static int screenWidth, screenHeight;
 
-	private static BufferedImage closeImg;
 	private static BufferedImage backgroundImg;
 	private static BufferedImage storeButton;
 	private static BufferedImage arena;
@@ -153,7 +149,7 @@ public class StatusBar extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				if (closeImg != null) {
+				if (storeButton != null) {
 					Point me = e.getPoint();
 					Rectangle bounds = new Rectangle(storeButtonPosition.x, storeButtonPosition.y,
 							storeButtonXDimenssion, storeButtonYDimenssion);
@@ -236,7 +232,6 @@ public class StatusBar extends JPanel {
 	private void Init() {
 
 		backgroundImg = ImageLoader.loadImage("/images/pexels-photo-370799.jpeg");
-		closeImg = ImageLoader.loadImage("/store/closeImg.png");
 		storeButton = ImageLoader.loadImage("/images/storeButton.png");
 		arena = ImageLoader.loadImage("/images/Arena.png");
 		

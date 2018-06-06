@@ -255,6 +255,7 @@ public class Store extends JPanel {
 			}
 		});
 	}
+	
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -363,7 +364,8 @@ public class Store extends JPanel {
 	
 		player.addSoldier(soldierType);
 		
-		if (Arena.isBuilt())
+		if (Arena.isBuilt()) {
 			Arena.getInstance(handler).repaint();
+		}
 	}
 }

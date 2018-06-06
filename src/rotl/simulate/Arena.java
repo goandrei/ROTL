@@ -149,7 +149,7 @@ public class Arena extends JPanel {
 
 		// get the parent screen size and get the modal's size
 		screenWidth = (handler.getGame().getWidth() * 8) / 10;
-		screenHeight = (handler.getGame().getHeight() * 8) / 10;
+		screenHeight = (handler.getGame().getHeight() * 77) / 100;
 
 		closeImgDimensionsX = (int) (screenWidth * 5.5 / 100);
 		closeImgDimensionsY = (int) (screenHeight * 9.8 / 100);
@@ -630,4 +630,5 @@ public class Arena extends JPanel {
 		frame.setVisible(false);
 		Fight.getInstance(handler);
 	}
+	
 }
