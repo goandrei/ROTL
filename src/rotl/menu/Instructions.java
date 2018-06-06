@@ -122,7 +122,7 @@ public class Instructions extends JPanel implements MenuOption {
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				System.out.println("focus");
+				
 				frame.setVisible(false);
 			}
 		});
@@ -185,7 +185,7 @@ public class Instructions extends JPanel implements MenuOption {
 					Rectangle bounds = new Rectangle(closeImgPosition.x, closeImgPosition.y, closeImgDimensionsX,
 							closeImgDimensionsY);
 					if (bounds.contains(me)) {
-						System.out.println("buton");
+						
 						frame.setVisible(false);
 					}
 				}

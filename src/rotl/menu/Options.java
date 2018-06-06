@@ -79,7 +79,7 @@ public class Options extends JPanel implements MenuOption {
 
 			@Override
 			public void focusLost(FocusEvent arg0) {
-				System.out.println("focus");
+				
 				frame.setVisible(false);
 			}
 		});

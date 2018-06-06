@@ -89,7 +89,7 @@ public class HallOfFame extends JPanel implements MenuOption {
 
 			@Override
 			public void focusLost(FocusEvent arg0) {
-				System.out.println("focus");
+				
 				frame.setVisible(false);
 			}
 		});
@@ -184,7 +184,7 @@ public class HallOfFame extends JPanel implements MenuOption {
 				history.add(aux);
 			}
 		} catch (FileNotFoundException e) {
-			System.out.println("Couldn't load text ...");
+			System.err.println("Couldn't load text ...");
 			e.printStackTrace();
 		}
 	}
