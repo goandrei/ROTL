@@ -51,12 +51,11 @@ public class GameState extends State {
 		NO_OF_LAYERS = load.getNoOfLayers();
 		a.init();
 
-		exitButton = new ExitButton(handler);
+		exitButton = new ExitButton(handler, this);
 
 		buildDirectionRectangles();
 		addEventListeners();
 
-		MenuState.changeState();
 		statusBar = StatusBar.getInstance(handler);
 
 		/** parse soldiers info **/

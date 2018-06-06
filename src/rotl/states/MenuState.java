@@ -22,8 +22,6 @@ import rotl.utilities.ImageLoader;
 
 public class MenuState extends State {
 
-	private static boolean inMenuState = true;
-
 	private static int MenuDimensionX;
 	private static int MenuDimensionY;
 	private static BufferedImage backgroundImg;
@@ -37,12 +35,18 @@ public class MenuState extends State {
 	private static int xMenu, yMenu;
 	private static int screenWidth, screenHeight;
 	private final int textSize = 48;
+	
+	private GameState gameState = null;
 
-	public MenuState(Handler handler) {
+	public MenuState(Handler handler, GameState gameState) {
 		super(handler);
 		
 		Init();
-
+		
+		if(gameState != null) {
+			this.gameState = gameState;
+		}
+		
 		start = true;
 		options = instructions = highScores = exit = false;
 
@@ -132,20 +136,24 @@ public class MenuState extends State {
 			@Override
 			public void mouseClicked(MouseEvent event) {
 
-				if (start && inMenuState) {
-					handler.getStateManager().setActualState(
-							new GameState(handler.getGame().getWidth(), handler.getGame().getHeight(), handler));
+				if (start) {
+					if(gameState == null) {
+						handler.getStateManager().setActualState(
+								new GameState(handler.getGame().getWidth(), handler.getGame().getHeight(), handler));
+					}else {
+						handler.getStateManager().setActualState(gameState);
+					}
 				}
-				if (options && inMenuState) {
+				if (options) {
 					Options.getOptions(handler);
 				}
-				if (instructions && inMenuState) {
+				if (instructions) {
 					Instructions.getInstructions(handler);
 				}
-				if (highScores && inMenuState) {
+				if (highScores) {
 					HallOfFame.getHallOfFame(handler);
 				}
-				if (exit && inMenuState) {
+				if (exit) {
 					System.exit(0);
 				}
 			}
@@ -250,9 +258,5 @@ public class MenuState extends State {
 		instructionButton = ImageLoader.loadImage("/images/instButton.png");
 		highScoreButton = ImageLoader.loadImage("/images/HSButton.png");
 		exitButton = ImageLoader.loadImage("/images/exitButton.png");
-	}
-
-	public static void changeState() {
-		inMenuState = !inMenuState;
 	}
 }

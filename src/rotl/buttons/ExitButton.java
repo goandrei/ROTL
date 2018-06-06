@@ -1,15 +1,18 @@
 package rotl.buttons;
 
-import rotl.states.MenuState;
-import rotl.statusBar.StatusBar;
-import rotl.utilities.Handler;
-import rotl.utilities.ImageLoader;
-
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+
+import rotl.states.GameState;
+import rotl.states.MenuState;
+import rotl.statusBar.StatusBar;
+import rotl.utilities.Handler;
+import rotl.utilities.ImageLoader;
 
 public class ExitButton implements Button {
 
@@ -22,9 +25,12 @@ public class ExitButton implements Button {
 	
 	private Handler handler;
 	
-	public ExitButton(Handler handler) {
+	private GameState gameState;
+	
+	public ExitButton(Handler handler, GameState gameState) {
 		
 		this.handler = handler;
+		this.gameState = gameState;
 		
 		icon = ImageLoader.loadImage("/images/goBack.png");
 		
@@ -44,8 +50,8 @@ public class ExitButton implements Button {
 				Point mousePosition = event.getPoint();
 
 				if(position.contains(mousePosition)){
-					handler.getStateManager().setActualState(new MenuState(handler));
-					MenuState.changeState();
+					MenuState menuState = new MenuState(handler, gameState);
+					handler.getStateManager().setActualState(menuState);
 					StatusBar.changeVisibility(false);
 				}
 			}

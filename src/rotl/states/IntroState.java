@@ -43,7 +43,7 @@ public class IntroState extends State {
 		}
 
 		if (animation.getFrame() == null) {
-			State menuState = new MenuState(handler);
+			State menuState = new MenuState(handler, null);
 			handler.getStateManager().setActualState(menuState);
 		}
 
