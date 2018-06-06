@@ -2,7 +2,6 @@ package rotl.states;
 
 import rotl.buttons.ExitButton;
 import rotl.gfx.Assets;
-import rotl.gfx.GameCamera;
 import rotl.managers.TileManager;
 import rotl.statusBar.StatusBar;
 import rotl.utilities.Handler;
@@ -91,7 +90,6 @@ public class GameState extends State {
 
 			@Override
 			public void mouseMoved(MouseEvent event) {
-
 				Point mousePosition = event.getPoint();
 
 				if (north.contains(mousePosition)) {
@@ -139,10 +137,21 @@ public class GameState extends State {
 			cameraYOffset = (float) 0.5 * (cameraYOffset < 0 ? -1 : 1);
 		}
 
-		if (statusBar.getArenaInstance() == null){
+		if (statusBar.getStoreInstance() == null && statusBar.getArenaInstance() == null) {
 			handler.getGame().getGameCamera().move(cameraXOffset, cameraYOffset);
-		} else if (!statusBar.getArenaInstance().isRunning()) {
-			handler.getGame().getGameCamera().move(cameraXOffset, cameraYOffset);
+		} else {
+			if (statusBar.getArenaInstance() != null && statusBar.getStoreInstance() == null &&
+					(!statusBar.getArenaInstance().isRunning())) {
+				handler.getGame().getGameCamera().move(cameraXOffset, cameraYOffset);
+			}
+			if (statusBar.getStoreInstance() != null && statusBar.getArenaInstance() == null &&
+					!statusBar.getStoreInstance().isRunning()) {
+				handler.getGame().getGameCamera().move(cameraXOffset, cameraYOffset);
+			}
+			if ((statusBar.getStoreInstance() != null && statusBar.getArenaInstance() != null) &&
+					(!statusBar.getArenaInstance().isRunning() && !statusBar.getStoreInstance().isRunning())) {
+				handler.getGame().getGameCamera().move(cameraXOffset, cameraYOffset);
+			}
 		}
 
 		exitButton.update();

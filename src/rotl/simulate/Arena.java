@@ -140,8 +140,6 @@ public class Arena extends JPanel {
 
 		this.handler = handler;
 
-		running = true;
-
 		// get the parent screen size and get the modal's size
 		screenWidth = (handler.getGame().getWidth() * 8) / 10;
 		screenHeight = (handler.getGame().getHeight() * 8) / 10;

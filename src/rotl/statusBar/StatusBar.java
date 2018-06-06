@@ -75,6 +75,7 @@ public class StatusBar extends JPanel {
 
 
 	private Arena arenaInstance;
+	private Store storeInstance;
 
 	public static StatusBar getInstance(Handler handler) {
 
@@ -83,6 +84,10 @@ public class StatusBar extends JPanel {
 		}
 		frame.setVisible(true);
 		return instance;
+	}
+
+	public Store getStoreInstance() {
+		return storeInstance;
 	}
 
 	private StatusBar(Handler handler) {
@@ -153,7 +158,7 @@ public class StatusBar extends JPanel {
 					Rectangle bounds = new Rectangle(storeButtonPosition.x, storeButtonPosition.y,
 							storeButtonXDimenssion, storeButtonYDimenssion);
 					if (bounds.contains(me)) {
-						Store.getInstance(handler);
+						storeInstance = Store.getInstance(handler);
 					}
 				}
 
