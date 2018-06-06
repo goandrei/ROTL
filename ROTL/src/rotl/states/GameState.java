@@ -96,7 +96,7 @@ public class GameState extends State {
 					return;
 				} else if (east.contains(mousePosition)) {
 					// handler.getGame().getGameCamera().move((float)offsetAmount, 0);
-					cameraXOffset -= offsetAmount;
+					cameraXOffset -= offsetAmount + 0.009;
 					return;
 				} else if (south.contains(mousePosition)) {
 					// handler.getGame().getGameCamera().move(0, (float)offsetAmount);
@@ -104,7 +104,7 @@ public class GameState extends State {
 					return;
 				} else if (west.contains(mousePosition)) {
 					// handler.getGame().getGameCamera().move((float)-offsetAmount, 0);
-					cameraXOffset += offsetAmount;
+					cameraXOffset += offsetAmount - 0.009;
 					return;
 				}
 
