@@ -121,7 +121,7 @@ public class Instructions extends JPanel implements MenuOption {
 			}
 
 			@Override
-			public void focusLost(FocusEvent arg0) {
+			public void focusLost(FocusEvent e) {
 				System.out.println("focus");
 				frame.setVisible(false);
 			}
