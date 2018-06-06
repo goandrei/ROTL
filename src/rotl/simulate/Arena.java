@@ -1,10 +1,14 @@
 package rotl.simulate;
 
-import rotl.utilities.Handler;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -12,6 +16,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import javax.imageio.ImageIO;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+
+import rotl.utilities.Handler;
+import rotl.utilities.ImageLoader;
 
 public class Arena extends JPanel {
 
@@ -523,24 +534,14 @@ public class Arena extends JPanel {
 
 	private void useForFight() {
 		if(index % 2 == 0) {
-			URL resourceSoldier1 = getClass()
-					.getResource("/store/" + soldiersSources.get(currentSoldier) + ".png");
-			try {
-				soldair1 = ImageIO.read(resourceSoldier1);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
+			soldair1 = ImageLoader.loadImage("/store/" + soldiersSources.get(currentSoldier) + ".png");
+			
 			repaint();
 			index1 = currentSoldier;
 		}
 		else {
-			URL resourceSoldier2 = getClass()
-					.getResource("/store/" + soldiersSources.get(currentSoldier) + ".png");
-			try {
-				soldair2 = ImageIO.read(resourceSoldier2);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
+			soldair2 = ImageLoader.loadImage("/store/" + soldiersSources.get(currentSoldier) + ".png");
+			
 			repaint();
 			index2 = currentSoldier;
 		}
