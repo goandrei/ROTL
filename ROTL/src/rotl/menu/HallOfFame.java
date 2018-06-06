@@ -11,6 +11,8 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -76,6 +78,20 @@ public class HallOfFame extends JPanel implements MenuOption {
 
 		setHallOfFame();
 
+		frame.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				System.out.println("focus");
+				frame.setVisible(false);
+			}	
+		});
 	}
 
 	public static HallOfFame getHallOfFame(Handler handler) {

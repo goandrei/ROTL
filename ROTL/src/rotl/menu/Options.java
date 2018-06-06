@@ -9,6 +9,9 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.Dialog.ModalityType;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -55,6 +58,8 @@ public class Options extends JPanel implements MenuOption {
 		frame.setLocationRelativeTo(null);
 		frame.setContentPane(this);
 		frame.setVisible(true);
+		
+		frame.setModalityType(ModalityType.APPLICATION_MODAL);
 
 		Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/cursor_final.png"));
 		Point hotspot = new Point(0, 0);
@@ -65,6 +70,20 @@ public class Options extends JPanel implements MenuOption {
 
 		setOptions();
 
+		frame.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				System.out.println("focus");
+				frame.setVisible(false);
+			}	
+		});
 	}
 
 	public static Options getOptions(Handler handler) {
