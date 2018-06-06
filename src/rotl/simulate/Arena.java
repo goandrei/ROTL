@@ -1,16 +1,10 @@
 package rotl.simulate;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import rotl.utilities.Handler;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -18,12 +12,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import javax.imageio.ImageIO;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-
-import rotl.utilities.Handler;
 
 public class Arena extends JPanel {
 
@@ -54,11 +42,11 @@ public class Arena extends JPanel {
 	private static int closeImgDimensionsX;
 	private static int closeImgDimensionsY;
 	private static Point closeImgPosition = new Point();
-	
+
 	private static int vsDimensionsX;
 	private static int vsDimensionsY;
 	private static Point vsPosition = new Point();
-	
+
 	private static int fightDimensionsX;
 	private static int fightDimensionsY;
 	private static Point fightPosition = new Point();
@@ -78,7 +66,7 @@ public class Arena extends JPanel {
 	private static int infoRectDimensionsX;
 	private static int infoRectDimensionsY;
 	private static Point infoRectPosition = new Point();
-	
+
 	private static int buttonsSectionDimensionsX;
 	private static int buttonsSectionDimensionsY;
 	private static Point buttonsSectionPosition = new Point();
@@ -86,13 +74,13 @@ public class Arena extends JPanel {
 	private static int upgradeButtonDimensionsX;
 	private static int upgradeButtonDimensionsY;
 	private static Point upgradeButtonPosition = new Point();
-	
+
 	private static int sellButtonDimensionsX;
 	private static int sellButtonDimensionsY;
 	private static Point sellButtonPosition = new Point();
-	
+
 	private static Point informationsAboutSell = new Point();
-	
+
 	private static int useForFightButtonDimensionsX;
 	private static int useForFightButtonDimensionsY;
 	private static Point useForFightButtonPosition = new Point();
@@ -100,7 +88,7 @@ public class Arena extends JPanel {
 	private static int otherDimensionsX;
 	private static int otherDimensionsY;
 	private static Point otherPosition = new Point();
-	
+
 	private static int resctSoldier1DimensionsX;
 	private static int resctSoldier1DimensionsY;
 	private static Point resctSoldier1Position = new Point();
@@ -131,9 +119,11 @@ public class Arena extends JPanel {
 	private static BufferedImage cashImg;
 	private static BufferedImage vs;
 	private static BufferedImage fight;
-	
+
 	private static BufferedImage soldair1 = null;
 	private static BufferedImage soldair2 = null;
+
+	private boolean running;
 
 	public static Arena getInstance(Handler handler) {
 
@@ -148,6 +138,8 @@ public class Arena extends JPanel {
 
 		this.handler = handler;
 
+		running = true;
+
 		// get the parent screen size and get the modal's size
 		screenWidth = (handler.getGame().getWidth() * 8) / 10;
 		screenHeight = (handler.getGame().getHeight() * 8) / 10;
@@ -155,7 +147,7 @@ public class Arena extends JPanel {
 		closeImgDimensionsX = (int) (screenWidth * 5.5 / 100);
 		closeImgDimensionsY = (int) (screenHeight * 9.8 / 100);
 		closeImgPosition.setLocation(screenWidth - closeImgDimensionsX, 0);
-		
+
 		resctSoldier1DimensionsX = (int) (screenWidth * 35 / 100);
 		resctSoldier1DimensionsY = (int) (screenHeight * 35 / 100);
 		resctSoldier1Position.setLocation((int) (screenWidth * 5.5 / 100), (int) (screenWidth * 7.5 / 100));
@@ -163,22 +155,22 @@ public class Arena extends JPanel {
 		vsDimensionsX = (int) (screenWidth * 11 / 100);
 		vsDimensionsY = (int) (screenHeight * 19 / 100);
 		vsPosition.setLocation(resctSoldier1Position.x + (int) (resctSoldier1DimensionsX * 1.1), resctSoldier1Position.y + 10);
-		
+
 		fightDimensionsX = (int) (screenWidth * 19 / 100);
 		fightDimensionsY = (int) (screenHeight * 19 / 100);
 		fightPosition.setLocation(resctSoldier1Position.x + (int) (resctSoldier1DimensionsX * 1), vsPosition.y + vsDimensionsY + 10);
-		
+
 		resctSoldier2DimensionsX = (int) (screenWidth * 35 / 100);
 		resctSoldier2DimensionsY = (int) (screenHeight * 35 / 100);
 		resctSoldier2Position.setLocation((int) (screenWidth * 59.5 / 100), (int) (screenWidth * 7.5 / 100));
-		
+
 		soldierRectDimensionsX = (int) (screenWidth * 89 / 100);
 		soldierRectDimensionsY = (int) (screenHeight * 40 / 100);
 		soldierRectPosition.setLocation((int) (screenWidth * 5.5 / 100), (int) (screenHeight * 50 / 100));
 
 		soldierDimensionsX = (int) (soldierRectDimensionsX * 25 / 100);
 		soldierDimensionsY = (int) (soldierRectDimensionsY * 90 / 100);
-		soldierPosition.setLocation((int) (soldierRectPosition.x * 1.4), 
+		soldierPosition.setLocation((int) (soldierRectPosition.x * 1.4),
 				(int) (soldierRectPosition.y * 1.025));
 
 		prevAndNextButtonDimensionsX = (int) (screenWidth * 7.5 / 100);
@@ -189,7 +181,7 @@ public class Arena extends JPanel {
 		infoRectDimensionsY = soldierRectDimensionsY;
 		infoRectPosition.setLocation(soldierRectPosition.x + soldierDimensionsX + (int) (screenWidth * 1 / 100),
 				soldierRectPosition.y);
-		
+
 		buttonsSectionDimensionsX = soldierRectDimensionsX - infoRectPosition.x - infoRectDimensionsX;
 		buttonsSectionDimensionsY = infoRectDimensionsY;
 		buttonsSectionPosition.setLocation(infoRectPosition.x + infoRectDimensionsX, infoRectPosition.y);
@@ -198,20 +190,20 @@ public class Arena extends JPanel {
 		upgradeButtonDimensionsY = (int) (buttonsSectionDimensionsY * 20 / 100);
 		upgradeButtonPosition.setLocation(buttonsSectionPosition.x + (int) (buttonsSectionPosition.x * 5 / 100),
 				buttonsSectionPosition.y + (buttonsSectionPosition.y * 5 / 100));
-		
+
 		sellButtonDimensionsX = (int) (buttonsSectionDimensionsX * 95 / 100);
 		sellButtonDimensionsY = (int) (buttonsSectionDimensionsY * 20 / 100);
 		sellButtonPosition.setLocation(buttonsSectionPosition.x + (int) (buttonsSectionPosition.x * 5 / 100),
 				buttonsSectionPosition.y + 2 * (buttonsSectionPosition.y * 5 / 100) + sellButtonDimensionsY);
-		
+
 		useForFightButtonDimensionsX = (int) (buttonsSectionDimensionsX * 95 / 100);
 		useForFightButtonDimensionsY = (int) (buttonsSectionDimensionsY * 20 / 100);
 		useForFightButtonPosition.setLocation(buttonsSectionPosition.x + (int) (buttonsSectionPosition.x * 5 / 100),
 				buttonsSectionPosition.y + 2 * (buttonsSectionPosition.y * 5 / 100) + 3 * sellButtonDimensionsY);
 
 		informationsAboutSell.setLocation(buttonsSectionPosition.x + (int) (buttonsSectionPosition.x * 7 / 100),
-				buttonsSectionPosition.y + 4 * (buttonsSectionPosition.y * 5 / 100) + 2 * sellButtonDimensionsY);	
-	
+				buttonsSectionPosition.y + 4 * (buttonsSectionPosition.y * 5 / 100) + 2 * sellButtonDimensionsY);
+
 		otherDimensionsX = (int) (screenWidth * 3 / 100);
 		otherDimensionsY = (int) (screenHeight * 5.2 / 100);
 		otherPosition.setLocation(infoRectPosition.x + (int) (infoRectDimensionsX * 5 / 100),
@@ -225,21 +217,6 @@ public class Arena extends JPanel {
 		frame.setLocationRelativeTo(null);
 		frame.setContentPane(this);
 		frame.setVisible(true);
-		
-		frame.addFocusListener(new FocusListener() {
-
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void focusLost(FocusEvent arg0) {
-				System.out.println("focus");
-				frame.setVisible(false);
-			}	
-		});
 
 		Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/cursor_final.png"));
 		Point hotspot = new Point(0, 0);
@@ -259,6 +236,7 @@ public class Arena extends JPanel {
 							closeImgDimensionsY);
 					if (bounds.contains(me)) {
 						frame.setVisible(false);
+						running = false;
 					}
 				}
 				if (PrevButton != null) {
@@ -333,29 +311,33 @@ public class Arena extends JPanel {
 		});
 	}
 
+	public boolean isRunning() {
+		return running;
+	}
+
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
 		g.drawImage(backgroundImg, 0, 0, screenWidth, screenHeight, this);
 		g.drawImage(vs, vsPosition.x, vsPosition.y, vsDimensionsX, vsDimensionsY, this);
-		
+
 		g.setFont(new Font("Neuropol X", Font.BOLD, 100));
 		g.setColor(Color.WHITE);
 		g.drawString("Arena", (int) (screenWidth * 40 / 100), 65);
 		g.drawImage(closeImg, closeImgPosition.x, closeImgPosition.y, closeImgDimensionsX, closeImgDimensionsY, this);
 		g.setColor(new Color(255, 255, 255, 100));
-		
+
 		g.fillRect(resctSoldier1Position.x, resctSoldier1Position.y, resctSoldier1DimensionsX, resctSoldier1DimensionsY);
-		g.drawImage(soldair1, resctSoldier1Position.x + (int) (resctSoldier1DimensionsX * 30/100), 
-				resctSoldier1Position.y + (int) (resctSoldier1Position.y * 5 /100), 
+		g.drawImage(soldair1, resctSoldier1Position.x + (int) (resctSoldier1DimensionsX * 30/100),
+				resctSoldier1Position.y + (int) (resctSoldier1Position.y * 5 /100),
 				(int) (resctSoldier1DimensionsY * 80 /100),
 				(int) (resctSoldier1DimensionsY * 90 /100), this);
 		g.fillRect(resctSoldier2Position.x, resctSoldier2Position.y, resctSoldier2DimensionsX, resctSoldier2DimensionsY);
-		g.drawImage(soldair2, resctSoldier2Position.x + (int) (resctSoldier2DimensionsX * 30/100), 
-				resctSoldier2Position.y + (int) (resctSoldier2Position.y * 5 /100), 
+		g.drawImage(soldair2, resctSoldier2Position.x + (int) (resctSoldier2DimensionsX * 30/100),
+				resctSoldier2Position.y + (int) (resctSoldier2Position.y * 5 /100),
 				(int) (resctSoldier2DimensionsY * 80 /100),
 				(int) (resctSoldier2DimensionsY * 90 /100), this);
-		
+
 		g.fillRect(soldierRectPosition.x, soldierRectPosition.y, soldierRectDimensionsX, soldierRectDimensionsY);
 		g.drawImage(SoldiersBKIMG, soldierPosition.x, soldierPosition.y, soldierDimensionsX, soldierDimensionsY, this);
 		g.drawImage(PrevButton, prevButtonPosition.x, prevButtonPosition.y, prevAndNextButtonDimensionsX,
@@ -373,7 +355,7 @@ public class Arena extends JPanel {
 		g.drawString("For this gold: " + soldiersSellMoney.get(currentSoldier), informationsAboutSell.x, informationsAboutSell.y);
 		g.drawImage(useForFightButton, useForFightButtonPosition.x, useForFightButtonPosition.y,
 				useForFightButtonDimensionsX, useForFightButtonDimensionsY, this);
-		
+
 		g.drawImage(lifeImg, otherPosition.x, otherPosition.y, otherDimensionsX, otherDimensionsY, this);
 		g.drawImage(damageImg, otherPosition.x,
 				otherPosition.y + otherDimensionsY + (int) (infoRectDimensionsY * 1 / 100), otherDimensionsX,
@@ -490,14 +472,14 @@ public class Arena extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		URL resourcesellButton = getClass().getResource("/store/SellButton.png");
 		try {
 			sellButton = ImageIO.read(resourcesellButton);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		URL resourceUseFFightButton = getClass().getResource("/store/UseforFightButton.png");
 		try {
 			useForFightButton = ImageIO.read(resourceUseFFightButton);
@@ -511,14 +493,14 @@ public class Arena extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		URL resourceVS = getClass().getResource("/images/vs.png");
 		try {
 			vs = ImageIO.read(resourceVS);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		URL resourceFight = getClass().getResource("/images/fight.png");
 		try {
 			fight = ImageIO.read(resourceFight);
@@ -526,19 +508,19 @@ public class Arena extends JPanel {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void updateInformations(ArrayList<Integer> soldiersHealthInput, 
-							              ArrayList<Integer> soldiersArmourInput,
-							              ArrayList<Integer> soldiersAttackInput,
-							              ArrayList<Integer> soldiersUpgradeCostInput,
-							              ArrayList<Integer> soldiersSellMoneyInput) {
+
+	public static void updateInformations(ArrayList<Integer> soldiersHealthInput,
+										  ArrayList<Integer> soldiersArmourInput,
+										  ArrayList<Integer> soldiersAttackInput,
+										  ArrayList<Integer> soldiersUpgradeCostInput,
+										  ArrayList<Integer> soldiersSellMoneyInput) {
 		soldiersHealth = soldiersHealthInput;
 		soldiersArmour = soldiersArmourInput;
 		soldiersAttack = soldiersAttackInput;
 		soldiersUpgradeCost  = soldiersUpgradeCostInput;
 		soldiersSellMoney = soldiersSellMoneyInput;
 	}
-	
+
 	private void useForFight() {
 		if(index % 2 == 0) {
 			URL resourceSoldier1 = getClass()
@@ -566,13 +548,13 @@ public class Arena extends JPanel {
 	}
 
 	private void upgrade() {
-		
+
 	}
 
 	private void sell() {
-		
+
 	}
-	
+
 	private void fight() {
 		frame.setVisible(false);
 		Fight.getInstance(handler);

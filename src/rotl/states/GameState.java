@@ -1,19 +1,18 @@
 package rotl.states;
 
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
-
 import rotl.buttons.ExitButton;
-//import rotl.buttons.ExitButton;
 import rotl.gfx.Assets;
 import rotl.managers.TileManager;
 import rotl.statusBar.StatusBar;
 import rotl.utilities.Handler;
 import rotl.utilities.XMLLoader;
 import rotl.utilities.XMLParser;
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+
+//import rotl.buttons.ExitButton;
 
 public class GameState extends State {
 
@@ -30,8 +29,10 @@ public class GameState extends State {
 	private double offsetAmount = 0.01;
 
 	private float cameraXOffset = 0, cameraYOffset = 0;
-	
+
 	private ExitButton exitButton;
+
+	private StatusBar statusBar;
 
 	private int[][][] layers;
 	Assets a = new Assets();
@@ -47,17 +48,17 @@ public class GameState extends State {
 		layers = load.loadXMLMaps("/maps/mapp.xml");
 		NO_OF_LAYERS = load.getNoOfLayers();
 		a.init();
-		
+
 		exitButton = new ExitButton(handler);
 
 		buildDirectionRectangles();
 		addEventListeners();
 
 		MenuState.changeState();
-		StatusBar.getInstance(handler);
-		
+		statusBar = StatusBar.getInstance(handler);
+
 		/** parse soldiers info **/
-		
+
 		final String soldiersPath = "resources\\entities_info\\soldiers.xml";
 		final String towersPath = "resources\\entities_info\\towers.xml";
 		XMLParser.parseSoldiersInfo(soldiersPath);
@@ -135,8 +136,12 @@ public class GameState extends State {
 			cameraYOffset = (float) 0.5 * (cameraYOffset < 0 ? -1 : 1);
 		}
 
-		handler.getGame().getGameCamera().move(cameraXOffset, cameraYOffset);
-		
+		if (statusBar.getArenaInstance() == null){
+			handler.getGame().getGameCamera().move(cameraXOffset, cameraYOffset);
+		} else if (!statusBar.getArenaInstance().isRunning()) {
+			handler.getGame().getGameCamera().move(cameraXOffset, cameraYOffset);
+		}
+
 		exitButton.update();
 	}
 
@@ -169,17 +174,17 @@ public class GameState extends State {
 		}
 
 		exitButton.render(g);
-		
+
 		/*
 		 * if(n) { g.fillRect(width / 4, 0, width / 2, height / 4); }else {
 		 * g.drawRect(width / 4, 0, width / 2, height / 4); }
-		 * 
+		 *
 		 * if(s) { g.fillRect(width / 4, (height / 4) * 3, width / 2, height / 4); }else
 		 * { g.drawRect(width / 4, (height / 4) * 3, width / 2, height / 4); }
-		 * 
+		 *
 		 * if(w) { g.fillRect((width / 4) * 3, height / 4, width / 4, height / 2); }else
 		 * { g.drawRect((width / 4) * 3, height / 4, width / 4, height / 2); }
-		 * 
+		 *
 		 * if(e) { g.fillRect(0, height / 4, width / 4, height / 2); }else {
 		 * g.drawRect(0, height / 4, width / 4, height / 2); }
 		 */

@@ -1,28 +1,15 @@
 package rotl.statusBar;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
-
-import javax.imageio.ImageIO;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-
 import rotl.simulate.Arena;
 import rotl.store.Store;
 import rotl.utilities.Handler;
 import rotl.utilities.ImageLoader;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 public class StatusBar extends JPanel {
 
@@ -51,7 +38,7 @@ public class StatusBar extends JPanel {
 	private static int stockinfoRectDimensionsX;
 	private static int stockinfoRectDimensionsY;
 	private static Point stockinfoRectPosition = new Point();
-	
+
 	private static int arenaDimensionsX;
 	private static int arenaDimensionsY;
 	private static Point arenaPosition = new Point();
@@ -71,6 +58,8 @@ public class StatusBar extends JPanel {
 	private static BufferedImage backgroundImg;
 	private static BufferedImage storeButton;
 	private static BufferedImage arena;
+
+	private Arena arenaInstance;
 
 	public static StatusBar getInstance(Handler handler) {
 
@@ -110,7 +99,7 @@ public class StatusBar extends JPanel {
 		stockinfoRectPosition.setLocation((int) (screenWidth * 46.5 / 100), (int) (screenHeight * 5 / 100));
 		stockinfoRectDimensionsX = (int) (screenWidth * 20 / 100);
 		stockinfoRectDimensionsY = (int) (screenHeight * 90 / 100);
-		
+
 		arenaPosition.setLocation((int) (screenWidth * 68 / 100), (int) (screenHeight * 5 / 100));
 		arenaDimensionsX = (int) (screenWidth * 10 / 100);
 		arenaDimensionsY = (int) (screenHeight * 90 / 100);
@@ -148,17 +137,21 @@ public class StatusBar extends JPanel {
 						Store.getInstance(handler);
 					}
 				}
-				
+
 				if (arena != null) {
 					Point me = e.getPoint();
 					Rectangle bounds = new Rectangle(arenaPosition.x, arenaPosition.y,
 							arenaDimensionsX, arenaDimensionsY);
 					if (bounds.contains(me)) {
-						Arena.getInstance(handler);
+						arenaInstance = Arena.getInstance(handler);
 					}
 				}
 			}
 		});
+	}
+
+	public Arena getArenaInstance() {
+		return arenaInstance;
 	}
 
 	public void paintComponent(Graphics g) {
@@ -202,7 +195,7 @@ public class StatusBar extends JPanel {
 				infoRectPosition.y + (int) (screenHeight * 60 / 100));
 		g.drawString("Cavalry: 1001", stockinfoRectPosition.x + (int) (screenWidth * 1 / 100),
 				infoRectPosition.y + (int) (screenHeight * 80 / 100));
-		
+
 		g.drawImage(arena, arenaPosition.x, arenaPosition.y, arenaDimensionsX, arenaDimensionsY, this);
 	}
 
@@ -220,7 +213,7 @@ public class StatusBar extends JPanel {
 		storeButton = ImageLoader.loadImage("/images/storeButton.png");
 		arena = ImageLoader.loadImage("/images/Arena.png");
 	}
-	
+
 	public static void changeVisibility(boolean val) {
 		frame.setVisible(val);
 	}
