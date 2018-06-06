@@ -42,6 +42,10 @@ public class StatusBar extends JPanel {
 	private static int arenaDimensionsX;
 	private static int arenaDimensionsY;
 	private static Point arenaPosition = new Point();
+	
+	private static int soldairDimensionsX;
+	private static int soldairDimensionsY;
+	private static Point soldairPosition = new Point();
 
 	private static String userName = "Player 1";
 	private static int gold = 1235;
@@ -58,6 +62,15 @@ public class StatusBar extends JPanel {
 	private static BufferedImage backgroundImg;
 	private static BufferedImage storeButton;
 	private static BufferedImage arena;
+	
+	public static int numberFighters = 100;
+	public static int numberDefenders = 150;
+	public static int numberWarriors = 77;
+	
+	private static BufferedImage Fighter;
+	private static BufferedImage Defender;
+	private static BufferedImage Warrior;
+
 
 	private Arena arenaInstance;
 
@@ -99,6 +112,10 @@ public class StatusBar extends JPanel {
 		stockinfoRectPosition.setLocation((int) (screenWidth * 46.5 / 100), (int) (screenHeight * 5 / 100));
 		stockinfoRectDimensionsX = (int) (screenWidth * 20 / 100);
 		stockinfoRectDimensionsY = (int) (screenHeight * 90 / 100);
+		
+		soldairDimensionsX = 30;
+		soldairDimensionsY = 30;
+		soldairPosition.setLocation(stockinfoRectPosition.x + 15, stockinfoRectPosition.y - 2);
 
 		arenaPosition.setLocation((int) (screenWidth * 68 / 100), (int) (screenHeight * 5 / 100));
 		arenaDimensionsX = (int) (screenWidth * 10 / 100);
@@ -186,15 +203,19 @@ public class StatusBar extends JPanel {
 		g.setColor(new Color(255, 255, 255, 100));
 		g.fillRect(stockinfoRectPosition.x, stockinfoRectPosition.y, stockinfoRectDimensionsX,
 				stockinfoRectDimensionsY);
+
 		g.setColor(Color.WHITE);
-		g.drawString("Infantry: 12", stockinfoRectPosition.x + (int) (screenWidth * 1 / 100),
-				infoRectPosition.y + (int) (screenHeight * 20 / 100));
-		g.drawString("Archers: 55 ", stockinfoRectPosition.x + (int) (screenWidth * 1 / 100),
-				infoRectPosition.y + (int) (screenHeight * 40 / 100));
-		g.drawString("Grenadier: 100", stockinfoRectPosition.x + (int) (screenWidth * 1 / 100),
-				infoRectPosition.y + (int) (screenHeight * 60 / 100));
-		g.drawString("Cavalry: 1001", stockinfoRectPosition.x + (int) (screenWidth * 1 / 100),
-				infoRectPosition.y + (int) (screenHeight * 80 / 100));
+		g.drawImage(Fighter, soldairPosition.x, soldairPosition.y, soldairDimensionsX, soldairDimensionsY, this);
+		g.drawString(" : " + numberFighters, soldairPosition.x + soldairDimensionsX,
+				soldairPosition.y + (int) (screenHeight * 21 / 100));
+		g.drawImage(Defender, soldairPosition.x, soldairPosition.y + soldairDimensionsY,
+				soldairDimensionsX, soldairDimensionsY, this);
+		g.drawString(" : " + numberDefenders, soldairPosition.x + soldairDimensionsX,
+				soldairPosition.y + (int) (screenHeight * 21 / 100) + soldairDimensionsY);
+		g.drawImage(Warrior, soldairPosition.x, soldairPosition.y + 2* soldairDimensionsY,
+				soldairDimensionsX, soldairDimensionsY, this);
+		g.drawString(" : " + numberWarriors, soldairPosition.x + soldairDimensionsX,
+				soldairPosition.y + (int) (screenHeight * 21 / 100) + 2* soldairDimensionsY);
 
 		g.drawImage(arena, arenaPosition.x, arenaPosition.y, arenaDimensionsX, arenaDimensionsY, this);
 	}
@@ -212,6 +233,11 @@ public class StatusBar extends JPanel {
 		closeImg = ImageLoader.loadImage("/store/closeImg.png");
 		storeButton = ImageLoader.loadImage("/images/storeButton.png");
 		arena = ImageLoader.loadImage("/images/Arena.png");
+		
+		Fighter = ImageLoader.loadImage("/store/Infantry.png");
+		Defender = ImageLoader.loadImage("/store/Knight_templar.png");
+		Warrior = ImageLoader.loadImage("/store/Teutonic_knight.png");
+
 	}
 
 	public static void changeVisibility(boolean val) {
