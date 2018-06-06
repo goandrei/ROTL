@@ -60,8 +60,6 @@ public class Options extends JPanel implements MenuOption {
 		frame.setContentPane(this);
 		frame.setVisible(true);
 
-		frame.setModalityType(ModalityType.APPLICATION_MODAL);
-
 		Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/cursor_final.png"));
 		Point hotspot = new Point(0, 0);
 		Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(image, hotspot, "pencil");
