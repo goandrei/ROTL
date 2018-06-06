@@ -6,6 +6,7 @@ import java.util.List;
 import rotl.entities.Defender;
 import rotl.entities.EntitiesException;
 import rotl.entities.Fighter;
+import rotl.entities.GameEntity;
 import rotl.entities.Soldier;
 import rotl.entities.SoldierFactory;
 import rotl.entities.SoldierType;
@@ -63,6 +64,15 @@ public class Player {
 				.withSoldierType(soldierType);
 		
 		return builder.build();
+	}
+	
+	public GameEntity getFighter(int index) {
+		
+		if (index < 0 || index >= soldiers.size())
+			throw new IllegalArgumentException();
+		
+		final Soldier soldier = soldiers.get(index);
+		return soldier;
 	}
 	
 	public void addSoldier(SoldierType soldierType) {

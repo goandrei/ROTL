@@ -23,9 +23,9 @@ public class Arena extends JPanel {
 
 	static int currentSoldier = -1;
 	
-	static int index = 0;
-	static int index1 = 0;
-	static int index2 = 0;
+	static int currentSelected = 0;
+	static int firstSelected = -1;
+	static int secondSelected = -1;
 	
 	private static final Player player = Player.getInstance();
 	private static final Map<SoldierType, String> soldiersSources = new HashMap<>();
@@ -344,6 +344,22 @@ public class Arena extends JPanel {
 		g.setColor(new Color(255, 255, 255, 100));
 		
 		g.fillRect(resctSoldier1Position.x, resctSoldier1Position.y, resctSoldier1DimensionsX, resctSoldier1DimensionsY);
+		g.fillRect(resctSoldier2Position.x, resctSoldier2Position.y, resctSoldier2DimensionsX, resctSoldier2DimensionsY);
+		
+		g.setColor(Color.RED);
+		
+		switch (currentSelected) {
+			
+			case 0:
+			
+				g.drawRect(resctSoldier1Position.x, resctSoldier1Position.y, resctSoldier1DimensionsX, resctSoldier1DimensionsY);
+				break;
+			case 1:
+				g.drawRect(resctSoldier2Position.x, resctSoldier2Position.y, resctSoldier2DimensionsX, resctSoldier2DimensionsY);
+				break;
+		}
+		
+		g.setColor(new Color(255, 255, 255, 100));
 		
 		if (soldier1 != null) {
 			
@@ -351,9 +367,9 @@ public class Arena extends JPanel {
 					resctSoldier1Position.y + (int) (resctSoldier1Position.y * 5 /100), 
 					(int) (resctSoldier1DimensionsY * 80 /100),
 					(int) (resctSoldier1DimensionsY * 90 /100), this);
+			
+			g.drawString(String.valueOf(firstSelected + 1), resctSoldier1Position.x + 10, resctSoldier1Position.y + resctSoldier1DimensionsY - 15);
 		}
-		
-		g.fillRect(resctSoldier2Position.x, resctSoldier2Position.y, resctSoldier2DimensionsX, resctSoldier2DimensionsY);
 		
 		if (soldier2 != null) {
 			
@@ -361,8 +377,9 @@ public class Arena extends JPanel {
 					resctSoldier2Position.y + (int) (resctSoldier2Position.y * 5 /100), 
 					(int) (resctSoldier2DimensionsY * 80 /100),
 					(int) (resctSoldier2DimensionsY * 90 /100), this);
+			g.drawString(String.valueOf(secondSelected + 1), resctSoldier2Position.x + 10, resctSoldier2Position.y + resctSoldier2DimensionsY - 15);
 		}
-		
+	
 		/** Soldier background **/
 		g.fillRect(soldierRectPosition.x, soldierRectPosition.y, soldierRectDimensionsX, soldierRectDimensionsY);
 		
@@ -578,29 +595,48 @@ public class Arena extends JPanel {
 	}
 	
 	private void useForFight() {
-		/*if(index % 2 == 0) {
-			URL resourceSoldier1 = getClass()
-					.getResource("/store/" + soldiersSources.get(currentSoldier) + ".png");
-			try {
-				soldier1 = ImageIO.read(resourceSoldier1);
-			} catch (IOException ex) {
-				ex.printStackTrace();
+		
+		if (currentSoldier != firstSelected && currentSoldier != secondSelected) {
+			
+			//** Get soldier info for arena **//*	
+			final SoldierInfoArena sInfo = player.getSoldierInfo(currentSoldier);
+			
+			switch (currentSelected) {
+			
+				case 0:
+					
+					firstSelected = currentSoldier;
+					
+					URL resourceSoldier1 = getClass()
+							.getResource("/store/" + soldiersSources.get(sInfo.getSoldierType()) + ".png");
+					try {
+						soldier1 = ImageIO.read(resourceSoldier1);
+					} catch (IOException ex) {
+						ex.printStackTrace();
+					}
+					
+					repaint();
+					
+					break;
+				case 1:
+					
+					secondSelected = currentSoldier;
+					
+					URL resourceSoldier2 = getClass()
+							.getResource("/store/" + soldiersSources.get(sInfo.getSoldierType()) + ".png");
+					try {
+						soldier2 = ImageIO.read(resourceSoldier2);
+					} catch (IOException ex) {
+						ex.printStackTrace();
+					}
+					
+					repaint();
+					
+					break;
 			}
-			repaint();
-			index1 = currentSoldier;
+			
+			currentSelected = (currentSelected + 1) % 2;
 		}
-		else {
-			URL resourceSoldier2 = getClass()
-					.getResource("/store/" + soldiersSources.get(currentSoldier) + ".png");
-			try {
-				soldier2 = ImageIO.read(resourceSoldier2);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			repaint();
-			index2 = currentSoldier;
-		}
-		index++;*/
 	}
 
 	private void upgrade() {
@@ -616,6 +652,42 @@ public class Arena extends JPanel {
 		
 		if (player.getNumberOfSoldiers() > 0) {
 			
+			if (currentSoldier == firstSelected) {
+				
+				if (secondSelected != -1) {
+					
+					soldier1 = soldier2;
+					firstSelected = ((secondSelected < currentSoldier) ? secondSelected : secondSelected - 1);
+					soldier2 = null;
+					secondSelected = -1;
+					
+					currentSelected = 1;
+					
+				} else {
+					
+					soldier1 = null;
+					firstSelected = -1;
+					
+					currentSelected = 0;
+				}
+				
+			} else if (currentSoldier == secondSelected) {
+				
+				firstSelected = ((firstSelected < currentSoldier) ? firstSelected : firstSelected - 1);
+				soldier2 = null;
+				secondSelected = -1;
+				
+				currentSelected = 1;
+				
+			} else {
+				
+				if (firstSelected != -1)
+					firstSelected = ((firstSelected < currentSoldier) ? firstSelected : firstSelected - 1);
+					
+				if (secondSelected != -1)
+					secondSelected = ((secondSelected < currentSoldier) ? secondSelected : secondSelected - 1);
+			}
+			
 			player.removeSoldier(currentSoldier);
 			
 			if (player.getNumberOfSoldiers() == 0) {
@@ -628,8 +700,8 @@ public class Arena extends JPanel {
 	
 	private void fight() {
 		
-		frame.setVisible(false);
-		Fight.getInstance(handler);
+		if (firstSelected != -1 && secondSelected != -1)
+			Fight.getInstance(handler, firstSelected, secondSelected);
 	}
 	
 	public boolean isVisible() {
