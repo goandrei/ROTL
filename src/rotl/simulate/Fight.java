@@ -33,7 +33,7 @@ public class Fight extends JPanel {
 	private static int indexPhotoSoldair2 = 1;
 	private static int HPSoldair1 = 90;       // trebuie sa fie procente intregi 
 	private static int HPSoldair2 = 100;       // (ca sa desenez bara de life si de armor)
-	private static int ArmourSoldair1 = 100;
+	private static int ArmourSoldair1 = 75;
 	private static int ArmourSoldair2 = 100;
 	
 	private static final ArrayList<String> soldiersSources = new ArrayList<>(
@@ -170,9 +170,24 @@ public class Fight extends JPanel {
 		HPSoldier1Position.setLocation(soldier1RectPosition.x, soldier1RectPosition.y + soldier1RectDimensionsY + 
 				(int) (screenHeight * 3 / 100));
 		
+		armourSoldier1DimensionsX = soldier1RectDimensionsX;
+		armourSoldier1DimensionsY = (int) (screenHeight * 5 / 100);
+		armourSoldier1Position.setLocation(soldier1RectPosition.x, HPSoldier1Position.y + HPSoldier1DimensionsY + 
+				(int) (screenHeight * 3 / 100));
+		
 		soldier2RectDimensionsX = soldier1RectDimensionsX;
 		soldier2RectDimensionsY = soldier1RectDimensionsY;
 		soldier2RectPosition.setLocation((int) (screenWidth * 52 / 100), (int) (screenHeight * 14 / 100));
+		
+		HPSoldier2DimensionsX = soldier2RectDimensionsX;
+		HPSoldier2DimensionsY = (int) (screenHeight * 5 / 100);
+		HPSoldier2Position.setLocation(soldier2RectPosition.x, soldier2RectPosition.y + soldier2RectDimensionsY + 
+				(int) (screenHeight * 3 / 100));
+		
+		armourSoldier2DimensionsX = soldier2RectDimensionsX;
+		armourSoldier2DimensionsY = (int) (screenHeight * 5 / 100);
+		armourSoldier2Position.setLocation(soldier2RectPosition.x, HPSoldier2Position.y + HPSoldier2DimensionsY + 
+				(int) (screenHeight * 3 / 100));
 		
 		rehealSoldier2DimensionsX = (int) (screenWidth * 20/ 100);
 		rehealSoldier2DimensionsY = (int) (screenHeight * 10 / 100);
@@ -319,13 +334,41 @@ public class Fight extends JPanel {
 		g.fillRect(soldier2RectPosition.x, soldier2RectPosition.y, soldier2RectDimensionsX, soldier2RectDimensionsY);
 		g.drawImage(soldier2, soldier2Position.x, soldier2Position.y,  soldier2DimensionsX,  soldier2DimensionsY, this);
 		
+		
+		g.setFont(new Font("Neuropol X", Font.BOLD, 30));
+		g.setColor(Color.WHITE);
+		g.drawString("HP         : ", HPSoldier1Position.x - (int) (screenWidth * 15 / 100), HPSoldier1Position.y + (int) (screenHeight * 3 / 100));
+		g.drawString("Armour : ", HPSoldier1Position.x - (int) (screenWidth * 15 / 100), HPSoldier1Position.y + (int) (screenHeight * 11 / 100));
 		g.setColor(new Color(41, 168, 222, 100));
 		g.fillRoundRect(HPSoldier1Position.x, HPSoldier1Position.y, 
 				HPSoldier1DimensionsX, HPSoldier1DimensionsY, 10, 25);
-		
 		g.setColor(new Color(0,255,0, 175));
 		g.fillRoundRect(HPSoldier1Position.x + 5, HPSoldier1Position.y + 2, 
 				(int) (HPSoldier1DimensionsX * HPSoldair1 / 100) - 10, HPSoldier1DimensionsY - 4, 10, 25);
+		g.setColor(new Color(41, 168, 222, 100));
+		g.fillRoundRect(HPSoldier2Position.x, HPSoldier2Position.y, 
+				HPSoldier2DimensionsX, HPSoldier2DimensionsY, 10, 25);
+		g.setColor(new Color(255,0,0, 175));
+		g.fillRoundRect(HPSoldier2Position.x + 5, HPSoldier2Position.y + 2, 
+				(int) (HPSoldier2DimensionsX * HPSoldair2 / 100) - 10, HPSoldier2DimensionsY - 4, 10, 25);
+		
+		
+		g.setFont(new Font("Neuropol X", Font.BOLD, 30));
+		g.setColor(Color.WHITE);
+		g.drawString(": HP", HPSoldier2Position.x + HPSoldier2DimensionsX + (int) (screenWidth * 3 / 100), HPSoldier1Position.y + (int) (screenHeight * 3 / 100));
+		g.drawString(": Armour", HPSoldier2Position.x + HPSoldier2DimensionsX + (int) (screenWidth * 3 / 100), HPSoldier1Position.y + (int) (screenHeight * 11 / 100));
+		g.setColor(new Color(41, 168, 222, 100));
+		g.fillRoundRect(armourSoldier1Position.x, armourSoldier1Position.y, 
+				armourSoldier1DimensionsX, armourSoldier1DimensionsY, 10, 25);
+		g.setColor(new Color(0,0,255, 175));
+		g.fillRoundRect(armourSoldier1Position.x + 5, armourSoldier1Position.y + 2, 
+				(int) (armourSoldier1DimensionsX * ArmourSoldair1 / 100) - 10, armourSoldier1DimensionsY - 4, 10, 25);
+		g.setColor(new Color(41, 168, 222, 100));
+		g.fillRoundRect(armourSoldier2Position.x, armourSoldier2Position.y, 
+				armourSoldier2DimensionsX, armourSoldier2DimensionsY, 10, 25);
+		g.setColor(new Color(255,153,0, 175));
+		g.fillRoundRect(armourSoldier2Position.x + 5, armourSoldier2Position.y + 2, 
+				(int) (armourSoldier2DimensionsX * ArmourSoldair2 / 100) - 10, armourSoldier2DimensionsY - 4, 10, 25);
 		
 		
 		g.drawImage(pauseContinueButton, pauseContinueButtonPosition.x, pauseContinueButtonPosition.y,  pauseContinueButtonDimensionsX,  pauseContinueButtonDimensionsY, this);
