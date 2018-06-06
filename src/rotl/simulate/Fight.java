@@ -1,14 +1,10 @@
 package rotl.simulate;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
+import rotl.utilities.Handler;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -16,12 +12,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import javax.imageio.ImageIO;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-
-import rotl.utilities.Handler;
 
 public class Fight extends JPanel {
 
@@ -247,6 +237,7 @@ public class Fight extends JPanel {
 							closeImgDimensionsY);
 					if (bounds.contains(me)) {
 						frame.setVisible(false);
+						Arena.getInstance(handler).setRunning(false);
 					}
 				}
 				if (rehealButton1 != null) {

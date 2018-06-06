@@ -1,18 +1,16 @@
 package rotl.buttons;
 
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.image.BufferedImage;
-
 import rotl.states.GameState;
 import rotl.states.MenuState;
 import rotl.statusBar.StatusBar;
 import rotl.utilities.Handler;
 import rotl.utilities.ImageLoader;
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 
 public class ExitButton implements Button {
 
