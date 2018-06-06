@@ -1,11 +1,13 @@
 package rotl.store;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
@@ -26,6 +28,7 @@ import javax.swing.JPanel;
 import rotl.entities.SoldierType;
 import rotl.player.Player;
 import rotl.simulate.Arena;
+import rotl.statusBar.StatusBar;
 import rotl.utilities.Handler;
 import rotl.utilities.ImageLoader;
 
@@ -109,6 +112,10 @@ public class Store extends JPanel {
 		return instance;
 	}
 	
+	public static Store getInstanceNonAbusive() {
+		return instance;
+	}
+	
 	public boolean isRunning() {
 		return running;		
 	}
@@ -118,31 +125,14 @@ public class Store extends JPanel {
 		this.handler = handler;
 		
 		try {
-		SoldiersInfoStore infoStore = new SoldiersInfoStore();
-		soldiersHealth = (ArrayList<Integer>) infoStore.getSoldiersHealthInput();
-		soldiersArmour = (ArrayList<Integer>) infoStore.getSoldiersArmorInput();
-		soldiersAttack = (ArrayList<Integer>) infoStore.getSoldiersAttackInput();
-		soldiersPurchaseCost = (ArrayList<Integer>) infoStore.getSoldiersPurchaseCostInput();
+			SoldiersInfoStore infoStore = new SoldiersInfoStore();
+			soldiersHealth = (ArrayList<Integer>) infoStore.getSoldiersHealthInput();
+			soldiersArmour = (ArrayList<Integer>) infoStore.getSoldiersArmorInput();
+			soldiersAttack = (ArrayList<Integer>) infoStore.getSoldiersAttackInput();
+			soldiersPurchaseCost = (ArrayList<Integer>) infoStore.getSoldiersPurchaseCostInput();
 		} catch (Exception ex) {
 			System.err.println(ex.getMessage());
 		}
-		
-		/*
-		frame.addFocusListener(new FocusListener() {		
-					
-			@Override		
-			public void focusGained(FocusEvent arg0) {	
-				// TODO Auto-generated method stub		
-						
-			}		
-						
-			@Override		
-			public void focusLost(FocusEvent arg0) {		
-				System.out.println("focus");		
-				frame.setVisible(false);		
-			}			
-		});
-		*/
 
 		// get the parent screen size and get the modal's size
 		screenWidth = (handler.getGame().getWidth() * 2) / 3;
@@ -186,13 +176,11 @@ public class Store extends JPanel {
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setContentPane(this);
-		frame.setVisible(true);
 
 		Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/cursor_final.png"));
 		Point hotspot = new Point(0, 0);
 		Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(image, hotspot, "pencil");
 		frame.setCursor(cursor);
-		frame.setAlwaysOnTop(true);
 
 		Init();
 
@@ -200,6 +188,7 @@ public class Store extends JPanel {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 				if (closeImg != null) {
 					Point me = e.getPoint();
 					Rectangle bounds = new Rectangle(closeImgPosition.x, closeImgPosition.y, closeImgDimensionsX,
@@ -369,5 +358,13 @@ public class Store extends JPanel {
 		if (Arena.isBuilt()) {
 			Arena.getInstanceNonAbusive().repaint();
 		}
+	}
+	
+	public boolean isVisible() {
+		return frame.isVisible();
+	}
+	
+	public void changeVisibility(boolean val) {
+		frame.setVisible(val);
 	}
 }

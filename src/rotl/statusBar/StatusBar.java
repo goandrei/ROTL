@@ -69,7 +69,6 @@ public class StatusBar extends JPanel {
 	private static BufferedImage Defender;
 	private static BufferedImage Warrior;
 
-
 	private Arena arenaInstance;
 	private Store storeInstance;
 
@@ -81,11 +80,19 @@ public class StatusBar extends JPanel {
 		frame.setVisible(true);
 		return instance;
 	}
+	
+	public static StatusBar getInstanceNonAbusive() {
+		return instance;
+	}
 
 	public Store getStoreInstance() {
 		return storeInstance;
 	}
 
+	public Arena getArenaInstance() {
+		return arenaInstance;
+	}
+	
 	private StatusBar(Handler handler) {
 
 		this.handler = handler;
@@ -131,7 +138,6 @@ public class StatusBar extends JPanel {
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setContentPane(this);
-		frame.setVisible(true);
 		frame.setLocation(position);
 
 		Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/cursor_final.png"));
@@ -154,6 +160,7 @@ public class StatusBar extends JPanel {
 					Rectangle bounds = new Rectangle(storeButtonPosition.x, storeButtonPosition.y,
 							storeButtonXDimenssion, storeButtonYDimenssion);
 					if (bounds.contains(me)) {
+						
 						storeInstance = Store.getInstance(handler);
 					}
 				}
@@ -163,15 +170,12 @@ public class StatusBar extends JPanel {
 					Rectangle bounds = new Rectangle(arenaPosition.x, arenaPosition.y,
 							arenaDimensionsX, arenaDimensionsY);
 					if (bounds.contains(me)) {
+					
 						arenaInstance = Arena.getInstance(handler);
 					}
 				}
 			}
 		});
-	}
-
-	public Arena getArenaInstance() {
-		return arenaInstance;
 	}
 
 	public void paintComponent(Graphics g) {
@@ -243,7 +247,11 @@ public class StatusBar extends JPanel {
 		goldImg = ImageLoader.loadImage("/store/Gold_pile.png");
 	}
 
-	public static void changeVisibility(boolean val) {
+	public boolean isVisible() {
+		return frame.isVisible();
+	}
+	
+	public void changeVisibility(boolean val) {
 		frame.setVisible(val);
 	}
 }

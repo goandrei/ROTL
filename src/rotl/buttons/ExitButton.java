@@ -1,8 +1,11 @@
 package rotl.buttons;
 
+import rotl.simulate.Arena;
+import rotl.simulate.Fight;
 import rotl.states.GameState;
 import rotl.states.MenuState;
 import rotl.statusBar.StatusBar;
+import rotl.store.Store;
 import rotl.utilities.Handler;
 import rotl.utilities.ImageLoader;
 
@@ -50,7 +53,27 @@ public class ExitButton implements Button {
 				if(position.contains(mousePosition)){
 					MenuState menuState = new MenuState(handler, gameState);
 					handler.getStateManager().setActualState(menuState);
-					StatusBar.changeVisibility(false);
+					
+					final StatusBar statusBar = StatusBar.getInstanceNonAbusive();
+					final Arena arena = Arena.getInstanceNonAbusive();
+					final Store store = Store.getInstanceNonAbusive();
+					final Fight fight = Fight.getInstanceNonAbusive();
+					
+					if (statusBar != null && statusBar.isVisible()) {
+						statusBar.changeVisibility(false);
+					}
+					
+					if (arena != null && arena.isVisible()) {
+						arena.changeVisibility(false);
+					}
+					
+					if (store != null && store.isVisible()) {
+						store.changeVisibility(false);
+					}
+					
+					if (fight != null && fight.isVisible()) {
+						fight.changeVisibility(false);
+					}
 				}
 			}
 			

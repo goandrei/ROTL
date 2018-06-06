@@ -1,5 +1,6 @@
 package rotl.simulate;
 
+import rotl.store.Store;
 import rotl.utilities.Handler;
 
 import javax.imageio.ImageIO;
@@ -120,6 +121,10 @@ public class Fight extends JPanel {
 			instance = new Fight(handler);
 		}
 		frame.setVisible(true);
+		return instance;
+	}
+	
+	public static Fight getInstanceNonAbusive() {
 		return instance;
 	}
 
@@ -494,4 +499,11 @@ public class Fight extends JPanel {
 			
 	}
 	
+	public boolean isVisible() {
+		return frame.isVisible();
+	}
+	
+	public void changeVisibility(boolean val) {
+		frame.setVisible(val);
+	}
 }

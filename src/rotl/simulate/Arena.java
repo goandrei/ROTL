@@ -217,13 +217,11 @@ public class Arena extends JPanel {
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setContentPane(this);
-		frame.setVisible(true);
 
 		Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/cursor_final.png"));
 		Point hotspot = new Point(0, 0);
 		Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(image, hotspot, "pencil");
 		frame.setCursor(cursor);
-		frame.setAlwaysOnTop(true);
 
 		Init();
 
@@ -629,4 +627,11 @@ public class Arena extends JPanel {
 		Fight.getInstance(handler);
 	}
 	
+	public boolean isVisible() {
+		return frame.isVisible();
+	}
+	
+	public void changeVisibility(boolean val) {
+		frame.setVisible(val);
+	}
 }
