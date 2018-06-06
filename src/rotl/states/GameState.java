@@ -72,10 +72,10 @@ public class GameState extends State {
 		south = new Rectangle(width / 4, (height / 4) * 3, width / 2, height / 4);
 		east = new Rectangle(0, height / 4, width / 4, height / 2);
 		west = new Rectangle((width / 4) * 3, height / 4, width / 4, height / 2);
-		northEast = new Rectangle(0, 0, width / 4, height / 4);
+		/*northEast = new Rectangle(0, 0, width / 4, height / 4);
 		southEast = new Rectangle(0, (height / 4) * 3, width / 4, height / 4);
 		northWest = new Rectangle((width / 4) * 3, 0, width / 4, height / 4);
-		southWest = new Rectangle((width / 4) * 3, (height / 4) * 3, width / 4, height / 4);
+		southWest = new Rectangle((width / 4) * 3, (height / 4) * 3, width / 4, height / 4);*/
 	}
 
 	private void addEventListeners() {
@@ -129,8 +129,8 @@ public class GameState extends State {
 	@Override
 	public void update() {
 
-		if (Math.abs(cameraXOffset) > 1) {
-			cameraXOffset = (float) 1 * (cameraXOffset < 0 ? -1 : 1);
+		if (Math.abs(cameraXOffset) > 0.3) {
+			cameraXOffset = (float) 0.3 * (cameraXOffset < 0 ? -1 : 1);
 		}
 		if (Math.abs(cameraYOffset) > 0.5) {
 			cameraYOffset = (float) 0.5 * (cameraYOffset < 0 ? -1 : 1);
