@@ -557,6 +557,7 @@ public class Arena extends JPanel {
 	}
 	
 	private void fight() {
+		frame.setVisible(false);
 		Fight.getInstance(handler);
 	}
 }

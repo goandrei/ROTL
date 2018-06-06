@@ -29,83 +29,81 @@ public class Fight extends JPanel {
 
 	private static Fight instance = null;
 
-	static int currentSoldier = 0;
-	static int index = 0;
-	static int index1 = 0;
-	static int index2 = 0;
-	static final int numberOfSoldiers = 3;
+	private static int indexPhotoSoldair1 = 0;
+	private static int indexPhotoSoldair2 = 1;
+	private static int HPSoldair1 = 90;       // trebuie sa fie procente intregi 
+	private static int HPSoldair2 = 100;       // (ca sa desenez bara de life si de armor)
+	private static int ArmourSoldair1 = 100;
+	private static int ArmourSoldair2 = 100;
+	
 	private static final ArrayList<String> soldiersSources = new ArrayList<>(
 			Arrays.asList("Infantry", "Knight_templar", "Teutonic_knight"));
 	private static final ArrayList<String> soldiersName = new ArrayList<>(
 			Arrays.asList("Fighter", "Defender", "Warrior"));
-	private static ArrayList<Integer> soldiersHealth = new ArrayList<>(
-			Arrays.asList(250, 100, 450));
-	private static ArrayList<Integer> soldiersArmour = new ArrayList<>(
-			Arrays.asList(4, 5, 6));
-	private static ArrayList<Integer> soldiersAttack = new ArrayList<>(
-			Arrays.asList(30, 35, 88));
-	private static ArrayList<Integer> soldiersUpgradeCost = new ArrayList<>(
-			Arrays.asList(1000, 1500, 2000));
-	private static ArrayList<Integer> soldiersSellMoney = new ArrayList<>(
-			Arrays.asList(2, 3, 4));
 
 	private static int closeImgDimensionsX;
 	private static int closeImgDimensionsY;
 	private static Point closeImgPosition = new Point();
-	
-	private static int vsDimensionsX;
-	private static int vsDimensionsY;
-	private static Point vsPosition = new Point();
-	
-	private static int fightDimensionsX;
-	private static int fightDimensionsY;
-	private static Point fightPosition = new Point();
 
-	private static int soldierRectDimensionsX;
-	private static int soldierRectDimensionsY;
-	private static Point soldierRectPosition = new Point();
-
-	private static int soldierDimensionsX;
-	private static int soldierDimensionsY;
-	private static Point soldierPosition = new Point();
-
-	private static int prevAndNextButtonDimensionsX;
-	private static int prevAndNextButtonDimensionsY;
-	private static Point prevButtonPosition = new Point();
-
-	private static int infoRectDimensionsX;
-	private static int infoRectDimensionsY;
-	private static Point infoRectPosition = new Point();
+	private static int soldier1RectDimensionsX;
+	private static int soldier1RectDimensionsY;
+	private static Point soldier1RectPosition = new Point();
 	
-	private static int buttonsSectionDimensionsX;
-	private static int buttonsSectionDimensionsY;
-	private static Point buttonsSectionPosition = new Point();
+	private static int soldier2RectDimensionsX;
+	private static int soldier2RectDimensionsY;
+	private static Point soldier2RectPosition = new Point();
 
-	private static int upgradeButtonDimensionsX;
-	private static int upgradeButtonDimensionsY;
-	private static Point upgradeButtonPosition = new Point();
+	private static int soldier1DimensionsX;
+	private static int soldier1DimensionsY;
+	private static Point soldier1Position = new Point();
 	
-	private static int sellButtonDimensionsX;
-	private static int sellButtonDimensionsY;
-	private static Point sellButtonPosition = new Point();
+	private static int soldier2DimensionsX;
+	private static int soldier2DimensionsY;
+	private static Point soldier2Position = new Point();
 	
-	private static Point informationsAboutSell = new Point();
-	
-	private static int useForFightButtonDimensionsX;
-	private static int useForFightButtonDimensionsY;
-	private static Point useForFightButtonPosition = new Point();
+	private static int rehealSoldier1DimensionsX;
+	private static int rehealSoldier1DimensionsY;
+	private static Point rehealSoldier1Position = new Point();
 
-	private static int otherDimensionsX;
-	private static int otherDimensionsY;
-	private static Point otherPosition = new Point();
+	private static int rehealSoldier2DimensionsX;
+	private static int rehealSoldier2DimensionsY;
+	private static Point rehealSoldier2Position = new Point();
 	
-	private static int resctSoldier1DimensionsX;
-	private static int resctSoldier1DimensionsY;
-	private static Point resctSoldier1Position = new Point();
+	private static int repairArmourSoldier1DimensionsX;
+	private static int repairArmourSoldier1DimensionsY;
+	private static Point repairArmourSoldier1Position = new Point();
 
-	private static int resctSoldier2DimensionsX;
-	private static int resctSoldier2DimensionsY;
-	private static Point resctSoldier2Position = new Point();
+	private static int repairArmourSoldier2DimensionsX;
+	private static int repairArmourSoldier2DimensionsY;
+	private static Point repairArmourSoldier2Position = new Point();
+	
+	private static int upgradeSoldier1DimensionsX;
+	private static int upgradeSoldier1DimensionsY;
+	private static Point upgradeSoldier1Position = new Point();
+
+	private static int upgradeSoldier2DimensionsX;
+	private static int upgradeSoldier2DimensionsY;
+	private static Point upgradeSoldier2Position = new Point();
+	
+	private static int HPSoldier1DimensionsX;
+	private static int HPSoldier1DimensionsY;
+	private static Point HPSoldier1Position = new Point();
+
+	private static int HPSoldier2DimensionsX;
+	private static int HPSoldier2DimensionsY;
+	private static Point HPSoldier2Position = new Point();
+	
+	private static int armourSoldier1DimensionsX;
+	private static int armourSoldier1DimensionsY;
+	private static Point armourSoldier1Position = new Point();
+
+	private static int armourSoldier2DimensionsX;
+	private static int armourSoldier2DimensionsY;
+	private static Point armourSoldier2Position = new Point();
+	
+	private static int pauseContinueButtonDimensionsX;
+	private static int pauseContinueButtonDimensionsY;
+	private static Point pauseContinueButtonPosition = new Point();
 
 	private static Handler handler;
 	private static JDialog frame = new JDialog();
@@ -114,24 +112,17 @@ public class Fight extends JPanel {
 
 	private static BufferedImage closeImg;
 	private static BufferedImage backgroundImg;
-	private static BufferedImage SoldiersBKIMG;
+	private static BufferedImage soldier1;
+	private static BufferedImage soldier2;
 
-	private static BufferedImage NextButton;
-	private static BufferedImage PrevButton;
-
-	private static BufferedImage lifeImg;
-	private static BufferedImage damageImg;
-	private static BufferedImage attackImg;
-	private static BufferedImage upgradeImg;
-	private static BufferedImage upgradeButton;
-	private static BufferedImage sellButton;
-	private static BufferedImage useForFightButton;
+	private static BufferedImage rehealButton1;
+	private static BufferedImage repairArmorButton1;
+	private static BufferedImage upgradeButton1;
+	private static BufferedImage rehealButton2;
+	private static BufferedImage repairArmorButton2;
+	private static BufferedImage upgradeButton2;
+	private static BufferedImage pauseContinueButton;
 	private static BufferedImage cashImg;
-	private static BufferedImage vs;
-	private static BufferedImage fight;
-	
-	private static BufferedImage soldair1 = null;
-	private static BufferedImage soldair2 = null;
 
 	public static Fight getInstance(Handler handler) {
 
@@ -154,66 +145,65 @@ public class Fight extends JPanel {
 		closeImgDimensionsY = (int) (screenHeight * 9.8 / 100);
 		closeImgPosition.setLocation(screenWidth - closeImgDimensionsX, 0);
 		
-		resctSoldier1DimensionsX = (int) (screenWidth * 35 / 100);
-		resctSoldier1DimensionsY = (int) (screenHeight * 35 / 100);
-		resctSoldier1Position.setLocation((int) (screenWidth * 5.5 / 100), (int) (screenWidth * 7.5 / 100));
-
-		vsDimensionsX = (int) (screenWidth * 11 / 100);
-		vsDimensionsY = (int) (screenHeight * 19 / 100);
-		vsPosition.setLocation(resctSoldier1Position.x + (int) (resctSoldier1DimensionsX * 1.1), resctSoldier1Position.y + 10);
+		rehealSoldier1DimensionsX = (int) (screenWidth * 20/ 100);
+		rehealSoldier1DimensionsY = (int) (screenHeight * 10 / 100);
+		rehealSoldier1Position.setLocation((int) (screenWidth * 5 / 100),
+				                           (int) (screenHeight * 17 / 100));
 		
-		fightDimensionsX = (int) (screenWidth * 19 / 100);
-		fightDimensionsY = (int) (screenHeight * 19 / 100);
-		fightPosition.setLocation(resctSoldier1Position.x + (int) (resctSoldier1DimensionsX * 1), vsPosition.y + vsDimensionsY + 10);
+		repairArmourSoldier1DimensionsX = (int) (screenWidth * 20/ 100);
+		repairArmourSoldier1DimensionsY = (int) (screenHeight * 10 / 100);
+		repairArmourSoldier1Position.setLocation((int) (screenWidth * 5 / 100),
+			(int) (screenHeight * 17 / 100) + (int) (screenHeight * 15 / 100));
 		
-		resctSoldier2DimensionsX = (int) (screenWidth * 35 / 100);
-		resctSoldier2DimensionsY = (int) (screenHeight * 35 / 100);
-		resctSoldier2Position.setLocation((int) (screenWidth * 59.5 / 100), (int) (screenWidth * 7.5 / 100));
+		upgradeSoldier1DimensionsX = (int) (screenWidth * 20/ 100);
+		upgradeSoldier1DimensionsY = (int) (screenHeight * 10 / 100);
+		upgradeSoldier1Position.setLocation((int) (screenWidth * 5 / 100),
+				(int) (screenHeight * 17 / 100) + 2*  (int) (screenHeight * 15 / 100));
 		
-		soldierRectDimensionsX = (int) (screenWidth * 89 / 100);
-		soldierRectDimensionsY = (int) (screenHeight * 40 / 100);
-		soldierRectPosition.setLocation((int) (screenWidth * 5.5 / 100), (int) (screenHeight * 50 / 100));
-
-		soldierDimensionsX = (int) (soldierRectDimensionsX * 25 / 100);
-		soldierDimensionsY = (int) (soldierRectDimensionsY * 90 / 100);
-		soldierPosition.setLocation((int) (soldierRectPosition.x * 1.4), 
-				(int) (soldierRectPosition.y * 1.025));
-
-		prevAndNextButtonDimensionsX = (int) (screenWidth * 7.5 / 100);
-		prevAndNextButtonDimensionsY = (int) (screenHeight * 10.5 / 100);
-		prevButtonPosition.setLocation((int) (screenWidth * 10 / 100), soldierRectDimensionsY + soldierRectPosition.y);
-
-		infoRectDimensionsX = (int) (screenWidth * 35 / 100);
-		infoRectDimensionsY = soldierRectDimensionsY;
-		infoRectPosition.setLocation(soldierRectPosition.x + soldierDimensionsX + (int) (screenWidth * 1 / 100),
-				soldierRectPosition.y);
 		
-		buttonsSectionDimensionsX = soldierRectDimensionsX - infoRectPosition.x - infoRectDimensionsX;
-		buttonsSectionDimensionsY = infoRectDimensionsY;
-		buttonsSectionPosition.setLocation(infoRectPosition.x + infoRectDimensionsX, infoRectPosition.y);
-
-		upgradeButtonDimensionsX = (int) (buttonsSectionDimensionsX * 95 / 100);
-		upgradeButtonDimensionsY = (int) (buttonsSectionDimensionsY * 20 / 100);
-		upgradeButtonPosition.setLocation(buttonsSectionPosition.x + (int) (buttonsSectionPosition.x * 5 / 100),
-				buttonsSectionPosition.y + (buttonsSectionPosition.y * 5 / 100));
+		soldier1RectDimensionsX = (int) (screenWidth * 24 / 100);
+		soldier1RectDimensionsY = (int) (screenHeight * 45 / 100);
+		soldier1RectPosition.setLocation((int) (screenWidth * 25 / 100), (int) (screenHeight * 14 / 100));
 		
-		sellButtonDimensionsX = (int) (buttonsSectionDimensionsX * 95 / 100);
-		sellButtonDimensionsY = (int) (buttonsSectionDimensionsY * 20 / 100);
-		sellButtonPosition.setLocation(buttonsSectionPosition.x + (int) (buttonsSectionPosition.x * 5 / 100),
-				buttonsSectionPosition.y + 2 * (buttonsSectionPosition.y * 5 / 100) + sellButtonDimensionsY);
+		HPSoldier1DimensionsX = soldier1RectDimensionsX;
+		HPSoldier1DimensionsY = (int) (screenHeight * 5 / 100);
+		HPSoldier1Position.setLocation(soldier1RectPosition.x, soldier1RectPosition.y + soldier1RectDimensionsY + 
+				(int) (screenHeight * 3 / 100));
 		
-		useForFightButtonDimensionsX = (int) (buttonsSectionDimensionsX * 95 / 100);
-		useForFightButtonDimensionsY = (int) (buttonsSectionDimensionsY * 20 / 100);
-		useForFightButtonPosition.setLocation(buttonsSectionPosition.x + (int) (buttonsSectionPosition.x * 5 / 100),
-				buttonsSectionPosition.y + 2 * (buttonsSectionPosition.y * 5 / 100) + 3 * sellButtonDimensionsY);
-
-		informationsAboutSell.setLocation(buttonsSectionPosition.x + (int) (buttonsSectionPosition.x * 7 / 100),
-				buttonsSectionPosition.y + 4 * (buttonsSectionPosition.y * 5 / 100) + 2 * sellButtonDimensionsY);	
+		soldier2RectDimensionsX = soldier1RectDimensionsX;
+		soldier2RectDimensionsY = soldier1RectDimensionsY;
+		soldier2RectPosition.setLocation((int) (screenWidth * 52 / 100), (int) (screenHeight * 14 / 100));
+		
+		rehealSoldier2DimensionsX = (int) (screenWidth * 20/ 100);
+		rehealSoldier2DimensionsY = (int) (screenHeight * 10 / 100);
+		rehealSoldier2Position.setLocation((int) (screenWidth * 76 / 100),
+				                           (int) (screenHeight * 17 / 100));
 	
-		otherDimensionsX = (int) (screenWidth * 3 / 100);
-		otherDimensionsY = (int) (screenHeight * 5.2 / 100);
-		otherPosition.setLocation(infoRectPosition.x + (int) (infoRectDimensionsX * 5 / 100),
-				infoRectPosition.y + (int) (screenHeight * 12 / 100));
+		repairArmourSoldier2DimensionsX = (int) (screenWidth * 20/ 100);
+		repairArmourSoldier2DimensionsY = (int) (screenHeight * 10 / 100);
+		repairArmourSoldier2Position.setLocation((int) (screenWidth * 76 / 100),
+			(int) (screenHeight * 17 / 100) + (int) (screenHeight * 15 / 100));
+		
+		upgradeSoldier2DimensionsX = (int) (screenWidth * 20/ 100);
+		upgradeSoldier2DimensionsY = (int) (screenHeight * 10 / 100);
+		upgradeSoldier2Position.setLocation((int) (screenWidth * 76 / 100),
+				(int) (screenHeight * 17 / 100) + 2 *  (int) (screenHeight * 15 / 100));
+
+		soldier1DimensionsX = (int) (soldier1RectDimensionsX * 80 / 100);
+		soldier1DimensionsY = (int) (soldier1RectDimensionsY * 80 / 100);
+		soldier1Position.setLocation(soldier1RectPosition.x + (int) (soldier1RectDimensionsX * 20 / 100),
+				soldier1RectPosition.y + (int) (soldier1RectDimensionsY * 5 / 100));
+		
+		soldier2DimensionsX = soldier1DimensionsX;
+		soldier2DimensionsY = soldier1DimensionsY;
+		soldier2Position.setLocation(soldier2RectPosition.x + (int) (soldier2RectDimensionsX * 20 / 100),
+				soldier2RectPosition.y + (int) (soldier2RectDimensionsY * 5 / 100));
+		
+		pauseContinueButtonDimensionsX = (int) (screenWidth * 20/ 100);
+		pauseContinueButtonDimensionsY = (int) (screenHeight * 10/ 100);
+		pauseContinueButtonPosition.setLocation((int) (screenWidth * 40 / 100),
+				(int) (screenHeight * 85 / 100));
+		
 
 		setModalSize();
 
@@ -244,72 +234,60 @@ public class Fight extends JPanel {
 						frame.setVisible(false);
 					}
 				}
-				if (PrevButton != null) {
+				if (rehealButton1 != null) {
 					Point me = e.getPoint();
-					Rectangle bounds = new Rectangle(prevButtonPosition.x, prevButtonPosition.y,
-							prevAndNextButtonDimensionsX, prevAndNextButtonDimensionsY);
+					Rectangle bounds = new Rectangle(rehealSoldier1Position.x, rehealSoldier1Position.y, rehealSoldier1DimensionsX,
+							rehealSoldier1DimensionsY);
 					if (bounds.contains(me)) {
-						currentSoldier--;
-						if (currentSoldier == -1) {
-							currentSoldier = numberOfSoldiers - 1;
-						}
-						URL resourceSoldiersBK = getClass()
-								.getResource("/store/" + soldiersSources.get(currentSoldier) + ".png");
-						try {
-							SoldiersBKIMG = ImageIO.read(resourceSoldiersBK);
-						} catch (IOException ex) {
-							ex.printStackTrace();
-						}
-						repaint();
+						reheal1();
 					}
 				}
-				if (NextButton != null) {
+				if (rehealButton2 != null) {
 					Point me = e.getPoint();
-					Rectangle bounds = new Rectangle(prevButtonPosition.x + prevAndNextButtonDimensionsX + 10,
-							prevButtonPosition.y, prevAndNextButtonDimensionsX, prevAndNextButtonDimensionsY);
+					Rectangle bounds = new Rectangle(rehealSoldier2Position.x, rehealSoldier2Position.y, rehealSoldier2DimensionsX,
+							rehealSoldier2DimensionsY);
 					if (bounds.contains(me)) {
-						currentSoldier++;
-						currentSoldier = currentSoldier % numberOfSoldiers;
-						URL resourceSoldiersBK = getClass()
-								.getResource("/store/" + soldiersSources.get(currentSoldier) + ".png");
-						try {
-							SoldiersBKIMG = ImageIO.read(resourceSoldiersBK);
-						} catch (IOException ex) {
-							ex.printStackTrace();
-						}
-						repaint();
+						reheal2();
 					}
 				}
-				if (upgradeButton != null) {
+				if (repairArmorButton1 != null) {
 					Point me = e.getPoint();
-					Rectangle bounds = new Rectangle(upgradeButtonPosition.x, upgradeButtonPosition.y,
-							upgradeButtonDimensionsX, upgradeButtonDimensionsY);
+					Rectangle bounds = new Rectangle(repairArmourSoldier1Position.x, repairArmourSoldier1Position.y, repairArmourSoldier1DimensionsX,
+							repairArmourSoldier1DimensionsY);
 					if (bounds.contains(me)) {
-						upgrade();
+						repairArmour1();
 					}
 				}
-				if (sellButton != null) {
+				if (repairArmorButton2 != null) {
 					Point me = e.getPoint();
-					Rectangle bounds = new Rectangle(sellButtonPosition.x, sellButtonPosition.y,
-							sellButtonDimensionsX, sellButtonDimensionsY);
+					Rectangle bounds = new Rectangle(repairArmourSoldier2Position.x, repairArmourSoldier2Position.y, repairArmourSoldier2DimensionsX,
+							repairArmourSoldier2DimensionsY);
 					if (bounds.contains(me)) {
-						sell();
+						repairArmour2();
 					}
 				}
-				if (useForFightButton != null) {
+				if (upgradeButton1 != null) {
 					Point me = e.getPoint();
-					Rectangle bounds = new Rectangle(useForFightButtonPosition.x, useForFightButtonPosition.y,
-							useForFightButtonDimensionsX, useForFightButtonDimensionsY);
+					Rectangle bounds = new Rectangle(upgradeSoldier1Position.x, upgradeSoldier1Position.y, upgradeSoldier1DimensionsX,
+							upgradeSoldier1DimensionsY);
 					if (bounds.contains(me)) {
-						useForFight();
+						upgrade1();
 					}
 				}
-				if (fight != null) {
+				if (upgradeButton2 != null) {
 					Point me = e.getPoint();
-					Rectangle bounds = new Rectangle(fightPosition.x, fightPosition.y,
-							fightDimensionsX, fightDimensionsY);
+					Rectangle bounds = new Rectangle(upgradeSoldier2Position.x, upgradeSoldier2Position.y, upgradeSoldier2DimensionsX,
+							upgradeSoldier2DimensionsY);
 					if (bounds.contains(me)) {
-						fight();
+						upgrade2();
+					}
+				}
+				if (pauseContinueButton != null) {
+					Point me = e.getPoint();
+					Rectangle bounds = new Rectangle(pauseContinueButtonPosition.x, pauseContinueButtonPosition.y, pauseContinueButtonDimensionsX,
+							pauseContinueButtonDimensionsY);
+					if (bounds.contains(me)) {
+						pauseContinue();
 					}
 				}
 			}
@@ -320,7 +298,6 @@ public class Fight extends JPanel {
 		super.paintComponent(g);
 
 		g.drawImage(backgroundImg, 0, 0, screenWidth, screenHeight, this);
-		g.drawImage(vs, vsPosition.x, vsPosition.y, vsDimensionsX, vsDimensionsY, this);
 		
 		g.setFont(new Font("Neuropol X", Font.BOLD, 100));
 		g.setColor(Color.WHITE);
@@ -328,71 +305,37 @@ public class Fight extends JPanel {
 		g.drawImage(closeImg, closeImgPosition.x, closeImgPosition.y, closeImgDimensionsX, closeImgDimensionsY, this);
 		g.setColor(new Color(255, 255, 255, 100));
 		
-		g.fillRect(resctSoldier1Position.x, resctSoldier1Position.y, resctSoldier1DimensionsX, resctSoldier1DimensionsY);
-		g.drawImage(soldair1, resctSoldier1Position.x + (int) (resctSoldier1DimensionsX * 30/100), 
-				resctSoldier1Position.y + (int) (resctSoldier1Position.y * 5 /100), 
-				(int) (resctSoldier1DimensionsY * 80 /100),
-				(int) (resctSoldier1DimensionsY * 90 /100), this);
-		g.fillRect(resctSoldier2Position.x, resctSoldier2Position.y, resctSoldier2DimensionsX, resctSoldier2DimensionsY);
-		g.drawImage(soldair2, resctSoldier2Position.x + (int) (resctSoldier2DimensionsX * 30/100), 
-				resctSoldier2Position.y + (int) (resctSoldier2Position.y * 5 /100), 
-				(int) (resctSoldier2DimensionsY * 80 /100),
-				(int) (resctSoldier2DimensionsY * 90 /100), this);
+		g.drawImage(rehealButton1,rehealSoldier1Position.x, rehealSoldier1Position.y,  rehealSoldier1DimensionsX,  rehealSoldier1DimensionsY, this);
+		g.drawImage(repairArmorButton1,repairArmourSoldier1Position.x, repairArmourSoldier1Position.y,  repairArmourSoldier1DimensionsX,  repairArmourSoldier1DimensionsY, this);
+		g.drawImage(upgradeButton1,upgradeSoldier1Position.x, upgradeSoldier1Position.y,  upgradeSoldier1DimensionsX,  upgradeSoldier1DimensionsY, this);
 		
-		g.fillRect(soldierRectPosition.x, soldierRectPosition.y, soldierRectDimensionsX, soldierRectDimensionsY);
-		g.drawImage(SoldiersBKIMG, soldierPosition.x, soldierPosition.y, soldierDimensionsX, soldierDimensionsY, this);
-		g.drawImage(PrevButton, prevButtonPosition.x, prevButtonPosition.y, prevAndNextButtonDimensionsX,
-				prevAndNextButtonDimensionsY, this);
-		g.drawImage(NextButton, prevButtonPosition.x + prevAndNextButtonDimensionsX + 10, prevButtonPosition.y,
-				prevAndNextButtonDimensionsX, prevAndNextButtonDimensionsY, this);
-		g.setColor(new Color(255, 255, 255, 100));
-		g.fillRect(infoRectPosition.x, infoRectPosition.y, infoRectDimensionsX, infoRectDimensionsY);
-		g.drawImage(upgradeButton, upgradeButtonPosition.x, upgradeButtonPosition.y,
-				upgradeButtonDimensionsX, upgradeButtonDimensionsY, this);
-		g.drawImage(sellButton, sellButtonPosition.x, sellButtonPosition.y,
-				sellButtonDimensionsX, sellButtonDimensionsY, this);
-		g.setColor(new Color(255, 255, 255));
-		g.setFont(new Font("Neuropol", Font.BOLD, 15));
-		g.drawString("For this gold: " + soldiersSellMoney.get(currentSoldier), informationsAboutSell.x, informationsAboutSell.y);
-		g.drawImage(useForFightButton, useForFightButtonPosition.x, useForFightButtonPosition.y,
-				useForFightButtonDimensionsX, useForFightButtonDimensionsY, this);
+		g.fillRect(soldier1RectPosition.x, soldier1RectPosition.y, soldier1RectDimensionsX, soldier1RectDimensionsY);
+		g.drawImage(soldier1, soldier1Position.x, soldier1Position.y,  soldier1DimensionsX,  soldier1DimensionsY, this);
 		
-		g.drawImage(lifeImg, otherPosition.x, otherPosition.y, otherDimensionsX, otherDimensionsY, this);
-		g.drawImage(damageImg, otherPosition.x,
-				otherPosition.y + otherDimensionsY + (int) (infoRectDimensionsY * 1 / 100), otherDimensionsX,
-				otherDimensionsY, this);
-		g.drawImage(attackImg, otherPosition.x,
-				otherPosition.y + 2 * otherDimensionsY + 2 * (int) (infoRectDimensionsY * 1 / 100), otherDimensionsX,
-				otherDimensionsY, this);
-		g.drawImage(upgradeImg, otherPosition.x,
-				otherPosition.y + 3 * otherDimensionsY + 3 * (int) (infoRectDimensionsY * 1 / 100), otherDimensionsX,
-				otherDimensionsY, this);
-		g.setColor(new Color(255, 255, 255));
-		g.setFont(new Font("Neuropol", Font.BOLD, 30));
-		g.drawString(soldiersName.get(currentSoldier), infoRectPosition.x + (int) (infoRectDimensionsX * 5 / 100),
-				infoRectPosition.y + (int) (infoRectDimensionsY * 20 / 100));
-		g.setFont(new Font("Neuropol X", Font.BOLD, 30));
-		g.drawString("Health: " + soldiersHealth.get(currentSoldier),
-				otherPosition.x + otherDimensionsX + (int) (infoRectDimensionsX * 5 / 100),
-				otherPosition.y + (int) (infoRectDimensionsY * 7 / 100));
-		g.drawString("Armour: " + soldiersArmour.get(currentSoldier),
-				otherPosition.x + otherDimensionsX + (int) (infoRectDimensionsX * 5 / 100),
-				otherPosition.y + (int) (infoRectDimensionsY * 7 / 100) + otherDimensionsY
-						+ (int) (infoRectDimensionsY * 1 / 100));
-		g.drawString("Attack: " + soldiersAttack.get(currentSoldier),
-				otherPosition.x + otherDimensionsX + (int) (infoRectDimensionsX * 5 / 100),
-				otherPosition.y + (int) (infoRectDimensionsY * 7 / 100) + 2 * otherDimensionsY
-						+ 2 * (int) (infoRectDimensionsY * 1 / 100));
-		g.drawString("Upgrade cost: " + soldiersUpgradeCost.get(currentSoldier) + " $",
-				otherPosition.x + otherDimensionsX + (int) (infoRectDimensionsX * 5 / 100),
-				otherPosition.y + (int) (infoRectDimensionsY * 7 / 100) + 3 * otherDimensionsY
-						+ 3 * (int) (infoRectDimensionsY * 1 / 100));
+		g.drawImage(rehealButton2,rehealSoldier2Position.x, rehealSoldier2Position.y,  rehealSoldier2DimensionsX,  rehealSoldier2DimensionsY, this);
+		g.drawImage(repairArmorButton2,repairArmourSoldier2Position.x, repairArmourSoldier2Position.y,  repairArmourSoldier2DimensionsX,  repairArmourSoldier2DimensionsY, this);
+		g.drawImage(upgradeButton2,upgradeSoldier2Position.x, upgradeSoldier2Position.y,  upgradeSoldier2DimensionsX,  upgradeSoldier2DimensionsY, this);
+		
+		g.fillRect(soldier2RectPosition.x, soldier2RectPosition.y, soldier2RectDimensionsX, soldier2RectDimensionsY);
+		g.drawImage(soldier2, soldier2Position.x, soldier2Position.y,  soldier2DimensionsX,  soldier2DimensionsY, this);
+		
+		g.setColor(new Color(41, 168, 222, 100));
+		g.fillRoundRect(HPSoldier1Position.x, HPSoldier1Position.y, 
+				HPSoldier1DimensionsX, HPSoldier1DimensionsY, 10, 25);
+		
+		g.setColor(new Color(0,255,0, 175));
+		g.fillRoundRect(HPSoldier1Position.x + 5, HPSoldier1Position.y + 2, 
+				(int) (HPSoldier1DimensionsX * HPSoldair1 / 100) - 10, HPSoldier1DimensionsY - 4, 10, 25);
+		
+		
+		g.drawImage(pauseContinueButton, pauseContinueButtonPosition.x, pauseContinueButtonPosition.y,  pauseContinueButtonDimensionsX,  pauseContinueButtonDimensionsY, this);
+		
 		g.drawImage(cashImg, screenWidth - (int) (screenWidth * 8 / 100),
 				screenHeight - (int) (screenHeight * 11 / 100), (int) (screenWidth * 6 / 100),
 				(int) (screenHeight * 10 / 100), this);
 		g.setFont(new Font("Neuropol X", Font.BOLD, 30));
+		g.setColor(Color.WHITE);
 		g.drawString("100000000 $ : ", (int) (screenWidth * 70 / 100), (int) (screenHeight * 95 / 100));
-		g.drawImage(fight, fightPosition.x, fightPosition.y, fightDimensionsX, fightDimensionsY, this);
 	}
 
 	private void setModalSize() {
@@ -404,7 +347,7 @@ public class Fight extends JPanel {
 
 	private void Init() {
 
-		URL resourceBKImg = getClass().getResource("/images/Age-of-Empires-Arena.jpg");
+		URL resourceBKImg = getClass().getResource("/images/Age-of-Empires-Fight2.jpg");
 		try {
 			backgroundImg = ImageIO.read(resourceBKImg);
 		} catch (IOException e) {
@@ -418,72 +361,65 @@ public class Fight extends JPanel {
 			e.printStackTrace();
 		}
 
-		URL resourceSoldiersBK = getClass().getResource("/store/" + soldiersSources.get(currentSoldier) + ".png");
+		URL resourceSoldier1 = getClass().getResource("/store/" + soldiersSources.get(indexPhotoSoldair1) + ".png");
 		try {
-			SoldiersBKIMG = ImageIO.read(resourceSoldiersBK);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourcePrevButton = getClass().getResource("/store/TriangleButtonL.png");
-		try {
-			PrevButton = ImageIO.read(resourcePrevButton);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourceNextButton = getClass().getResource("/store/TriangleButtonR.png");
-		try {
-			NextButton = ImageIO.read(resourceNextButton);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourcelife = getClass().getResource("/store/heart.png");
-		try {
-			lifeImg = ImageIO.read(resourcelife);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourcedamage = getClass().getResource("/store/Damage_boost.png");
-		try {
-			damageImg = ImageIO.read(resourcedamage);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourceattack = getClass().getResource("/store/Attack.png");
-		try {
-			attackImg = ImageIO.read(resourceattack);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourceupgrade = getClass().getResource("/store/Apple.png");
-		try {
-			upgradeImg = ImageIO.read(resourceupgrade);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourceupgradeButton = getClass().getResource("/store/Upgrade-Now-Button.png");
-		try {
-			upgradeButton = ImageIO.read(resourceupgradeButton);
+			soldier1 = ImageIO.read(resourceSoldier1);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		URL resourcesellButton = getClass().getResource("/store/SellButton.png");
+		URL resourceSoldier2 = getClass().getResource("/store/" + soldiersSources.get(indexPhotoSoldair2) + ".png");
 		try {
-			sellButton = ImageIO.read(resourcesellButton);
+			soldier2 = ImageIO.read(resourceSoldier2);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		URL resourceupgradeButton1 = getClass().getResource("/store/UpgradeButton.png");
+		try {
+			upgradeButton1 = ImageIO.read(resourceupgradeButton1);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		URL resourceUseFFightButton = getClass().getResource("/store/UseforFightButton.png");
+		URL resourcerehealButton1 = getClass().getResource("/store/RehealButton.png");
 		try {
-			useForFightButton = ImageIO.read(resourceUseFFightButton);
+			rehealButton1 = ImageIO.read(resourcerehealButton1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		URL resourcerepairArmourButton1 = getClass().getResource("/store/RepairArmorButton.png");
+		try {
+			repairArmorButton1 = ImageIO.read(resourcerepairArmourButton1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		URL resourceupgradeButton2 = getClass().getResource("/store/UpgradeButton.png");
+		try {
+			upgradeButton2 = ImageIO.read(resourceupgradeButton2);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		URL resourcerehealButton2 = getClass().getResource("/store/RehealButton.png");
+		try {
+			rehealButton2 = ImageIO.read(resourcerehealButton2);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		URL resourcerepairArmourButton2 = getClass().getResource("/store/RepairArmorButton.png");
+		try {
+			repairArmorButton2 = ImageIO.read(resourcerepairArmourButton2);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		URL resourcepauseContinueButton = getClass().getResource("/store/PauseContinueButton.png");
+		try {
+			pauseContinueButton = ImageIO.read(resourcepauseContinueButton);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -494,69 +430,34 @@ public class Fight extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		URL resourceVS = getClass().getResource("/images/vs.png");
-		try {
-			vs = ImageIO.read(resourceVS);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		URL resourceFight = getClass().getResource("/images/fight.png");
-		try {
-			fight = ImageIO.read(resourceFight);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
-	public static void updateInformations(ArrayList<Integer> soldiersHealthInput, 
-							              ArrayList<Integer> soldiersArmourInput,
-							              ArrayList<Integer> soldiersAttackInput,
-							              ArrayList<Integer> soldiersUpgradeCostInput,
-							              ArrayList<Integer> soldiersSellMoneyInput) {
-		soldiersHealth = soldiersHealthInput;
-		soldiersArmour = soldiersArmourInput;
-		soldiersAttack = soldiersAttackInput;
-		soldiersUpgradeCost  = soldiersUpgradeCostInput;
-		soldiersSellMoney = soldiersSellMoneyInput;
+	private void reheal1() {
+			
 	}
 	
-	private void useForFight() {
-		if(index % 2 == 0) {
-			URL resourceSoldier1 = getClass()
-					.getResource("/store/" + soldiersSources.get(currentSoldier) + ".png");
-			try {
-				soldair1 = ImageIO.read(resourceSoldier1);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			repaint();
-			index1 = currentSoldier;
-		}
-		else {
-			URL resourceSoldier2 = getClass()
-					.getResource("/store/" + soldiersSources.get(currentSoldier) + ".png");
-			try {
-				soldair2 = ImageIO.read(resourceSoldier2);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			repaint();
-			index2 = currentSoldier;
-		}
-		index++;
-	}
-
-	private void upgrade() {
+	private void repairArmour1() {
 		
 	}
 
-	private void sell() {
+	private void upgrade1() {
 		
 	}
 	
-	private void fight() {
+	private void reheal2() {
 		
 	}
+	
+	private void repairArmour2() {
+		
+	}
+
+	private void upgrade2() {
+		
+	}
+	
+	private void pauseContinue() {
+			
+	}
+	
 }
