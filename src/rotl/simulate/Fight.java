@@ -506,4 +506,5 @@ public class Fight extends JPanel {
 	public void changeVisibility(boolean val) {
 		frame.setVisible(val);
 	}
+
 }

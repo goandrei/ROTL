@@ -119,6 +119,10 @@ public class Store extends JPanel {
 	public boolean isRunning() {
 		return running;		
 	}
+	
+	public void setRunning(boolean running) {
+		this.running = running;
+	}
 
 	private Store(Handler handler) {
 

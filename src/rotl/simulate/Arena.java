@@ -634,4 +634,5 @@ public class Arena extends JPanel {
 	public void changeVisibility(boolean val) {
 		frame.setVisible(val);
 	}
+	
 }

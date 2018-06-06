@@ -65,10 +65,12 @@ public class ExitButton implements Button {
 					
 					if (arena != null && arena.isVisible()) {
 						arena.changeVisibility(false);
+						arena.setRunning(false);
 					}
 					
 					if (store != null && store.isVisible()) {
 						store.changeVisibility(false);
+						store.setRunning(false);
 					}
 					
 					if (fight != null && fight.isVisible()) {
