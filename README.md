@@ -30,3 +30,7 @@ The structure is described by the following UMLs. :rocket:
   >  * [Lupascu Marian](https://github.com/marianlupascu)
   >  * [Nita Stefan](https://github.com/stefannita01)
   >  * [Anghelache Bogdan](https://github.com/BogdanAngh)
+  
+### Credits
+>  * [OpenGameArt.org](https://opengameart.org/content/isometric-64x64-outside-tileset) - textures
+>  * [Castle Siege](https://www.castlesiegegame.com/) - backgrounds and soldiers

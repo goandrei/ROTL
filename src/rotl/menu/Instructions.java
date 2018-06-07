@@ -14,6 +14,10 @@ import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import rotl.utilities.Handler;
@@ -38,50 +42,65 @@ public final class Instructions extends JPanel implements MenuOption {
 
 	private static Instructions single_instance = null;
 
-	private static String content1 = "    Jocul se bazeaza pe ideea de wave;\r\n"
-			+ "    - Initial, amandoi jucatorii pornesc doar cu turnurile din baza, toate la\r\n"
-			+ "nivelul 1, fara turnuri inafara bazei si fara nici o trupa de soldati;\r\n"
-			+ "    - Initial, amandoi jucatorii primesc o cantitate de aur pe baza careia pot\r\n"
-			+ "opera asa cum se prezinta in capitolul Store si Player pentru a obtine o\r\n"
-			+ "armata mai puternica si o aparare mai buna, si pentru a obtine un scor\r\n"
-			+ "cat mai bun intr-un wave;\r\n"
-			+ "    - Exista un time standard de pregatire inainte de fiecare lupta, in care\r\n"
-			+ "jucatorul isi poate pregati armata;\r\n" + "- Dupa expirarea timpului standard, lupta incepe:\r\n"
-			+ "        o Se iau de la fiecare jucator doar trupele pentru care a fost setat\r\n"
-			+ "explicit poarta de parasire a bazei si se trimit pe drumul care\r\n" + "pleaca din acea poarta;\r\n"
-			+ "        o Trupele se misca prin campul de lupta pe baza unor algoritmi de\r\n"
-			+ "decizie in vederea ajungerii la zidul bazei inamice;\r\n"
-			+ "        o Pe drum, se pot intalni cu trupe inamice, caz in care se simuleaza\r\n"
-			+ "batalia intre ele. Trupa care supravietuieste(daca exista) isi\r\n"
-			+ "continua drumul prin campul de lupta;\r\n";
-	private static String content2 = "        o Pe drum se pot intalni cu turnuri inamice, caz in care se simuleaza\r\n"
-			+ "batalia intre ele. Trupa de soldati isi continua drumul prin campul\r\n"
-			+ "de lupta, doar daca a reusit sa distruga turnul (sa elibereze calea);\r\n"
-			+ "        o Ajunse la zidul inamic, trupele provoaca daune zidului pana la\r\n"
-			+ "caderea acestuia, apoi intra in baza inamica si avanseaza spre\r\n"
-			+ "castel; in interior pe fiecare drum va exista cate un turn, care\r\n"
-			+ "respecta aceeasi interactiune cu trupele cum este prezentat\r\n" + "anterior;\r\n"
-			+ "        o Trupa trecuta si de turnul interior, pe un drum, ajunge la castel,\r\n"
-			+ "unde provoaca daune, pana la distrugerea castelului;\r\n"
-			+ "        o Distrugerea castelului inamic aduce victoria jucatorului care a\r\n"
-			+ "realizat acest lucru;\r\n"
-			+ "    - Pentru un wave exista un timp standard; la terminarea timpului pentru\r\n"
-			+ "un wave, toate trupele se intorc instant in baza de unde provin si toate\r\n"
-			+ "daunele provocate de-a lungul wave-ul terminat se pastreaza, fiind\r\n"
-			+ "datoria jucatorului sa isi refaca turnurile si armata; castelul si zidul nu pot\r\n"
-			+ "fi refacute !!!\r\n";
-	private static String content3 = "    - Dupa terminarea wave-ului (bataliei), se reinstaureaza starea de\r\n"
-			+ "pregatire, descrisa anterior;\r\n" + "- Scopul jocului presupune distrugerea castelului inamicului;\r\n"
-			+ "    - Nu exista limite pentru numarul de wave-uri, nivelul armatei sau al\r\n"
-			+ "turnurilor, totul poate deveni cat de INSANE este posibil !!";
+	private static String content1 = "";
+	private static String content2 = "";
+	private static String content3 = "";
 
 	private static int screenWidth, screenHeight;
 
 	private static BufferedImage backgroundImg;
 	private static BufferedImage closeImg;
 	private static BufferedImage nextButton;
+	
+	private void readInstructions(String string) {
+		
+		Scanner scanner;
+		if(string.equals("content1")) {
+			
+			try {
+				scanner = new Scanner(new File("./resources/files/"+string + "Instructions.txt"));
+				while (scanner.hasNextLine()) {
+					content1 = content1 + scanner.nextLine() + '\n';
+				}
+			} catch (FileNotFoundException e) {
+				System.err.println("Couldn't load text ...");
+				e.printStackTrace();
+			}
+			return;
+		}
+		if(string.equals("content2")) {
+			
+			try {
+				scanner = new Scanner(new File("./resources/files/"+string + "Instructions.txt"));
+				while (scanner.hasNextLine()) {
+					content2 = content2 + scanner.nextLine() + '\n';
+				}
+			} catch (FileNotFoundException e) {
+				System.err.println("Couldn't load text ...");
+				e.printStackTrace();
+			}
+			return;
+		}
+		if(string.equals("content3")) {
+			
+			try {
+				scanner = new Scanner(new File("./resources/files/"+string + "Instructions.txt"));
+				while (scanner.hasNextLine()) {
+					content3 = content3 + scanner.nextLine() + '\n';
+				}
+			} catch (FileNotFoundException e) {
+				System.err.println("Couldn't load text ...");
+				e.printStackTrace();
+			}
+			return;
+		}
+	}
 
 	private Instructions(Handler handler) {
+		
+		readInstructions("content1");
+		readInstructions("content2");
+		readInstructions("content3");
 
 		Instructions.handler = handler;
 		screenWidth = (handler.getGame().getWidth() * 2) / 3;
