@@ -184,15 +184,15 @@ public class GameState extends State {
 			}
 		}
 			
-		int startHeightt = (int)(startHeight + handler.getGame().getGameCamera().getYOffset());
-		int finalHeightt = startHeightt + height / 16 + 2;
+		int _startHeight = (int)(startHeight + handler.getGame().getGameCamera().getYOffset());
+		int _finalHeight = _startHeight + height / 16 + 2;
 		
-		int startWidthh = (int)(startWidth + handler.getGame().getGameCamera().getXOffset());
-		int finalWidthh = startWidthh + width / 64 + 2;
+		int _startWidth = (int)(startWidth + handler.getGame().getGameCamera().getXOffset());
+		int _finalWidth = _startWidth + width / 64 + 2;
 		
 		
 		exitButton.render(g);
-		soldierAnimation.render(g, startHeightt, finalHeightt, 
-								   startWidthh, finalWidthh);
+		soldierAnimation.render(g, _startHeight, _finalHeight, 
+								   _startWidth, _finalWidth);
 	}
 }

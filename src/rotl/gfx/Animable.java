@@ -1,6 +1,6 @@
 package rotl.gfx;
 
-public interface Animable {
+interface Animable {
 
 	public void updatePosition();
 }

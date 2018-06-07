@@ -21,7 +21,7 @@ public final class Animation {
 		this.limit = delays.length;
 	}
 	
-	public Animation(BufferedImage[] frames, Integer[] delays, Animable animator) {
+	Animation(BufferedImage[] frames, Integer[] delays, Animable animator) {
 		
 		this.frames = frames;
 		this.delays = delays;

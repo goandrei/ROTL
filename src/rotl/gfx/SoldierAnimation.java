@@ -4,21 +4,22 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class SoldierAnimation implements Animable{
+public final class SoldierAnimation implements Animable {
 
-	private final int WIDTH = 32, HEIGHT = 64;
-	
-	private BufferedImage[] soldierFrames;
-	private Animation defenderAnimation, fighterAnimation, warriorAnimation, actualAnimation = null;
+	private final Animation defenderAnimation, fighterAnimation, warriorAnimation;
+	private Animation actualAnimation = null;
 	private Integer[] delays = {200, 200, 200};
+	
 	private int soldierInitialX = 52, soldierInitialY = 144;
-	private int soldierFinalX = 41, soldierFinalY = 144;
+	//private int soldierFinalX = 41, soldierFinalY = 144;
+	
 	private int soldierActualX, soldierActualY;
-	float offset = 0;
+	
+	private float offset = 0;
 	
 	private boolean running;
 	
-	private Random rand;
+	private final Random rand = new Random();
 	
 	public SoldierAnimation() {
 		
@@ -31,23 +32,13 @@ public class SoldierAnimation implements Animable{
 		Integer[] indexes2 = {34, 35, 36};
 		warriorAnimation = new Animation(getSoldierFrames(indexes2), delays, this);
 		
-		rand = new Random();
 		init();
-	}
-	
-	private Integer[] arrayProduct(Integer[] array, int m) {
-		
-		for(int i = 0;i < array.length; ++i) {
-			array[i] *= m;
-		}
-		
-		return array;
 	}
 	
 	private BufferedImage[] getSoldierFrames(Integer[] removeIndexes) {
 		
-		BufferedImage[] soldiersFrames = Assets.getInstance().getSoldierFrames();
-		BufferedImage[] aux = new BufferedImage[3];
+		final BufferedImage[] soldiersFrames = Assets.getInstance().getSoldierFrames();
+		final BufferedImage[] aux = new BufferedImage[3];
 	
 		for(int j = 0;j < 3; ++j) {
 			aux[j] = soldiersFrames[removeIndexes[j]];
@@ -56,7 +47,7 @@ public class SoldierAnimation implements Animable{
 		return aux;
 	}
 	
-	public void init() {
+	private void init() {
 		
 		soldierActualX = soldierInitialX;
 		soldierActualY = soldierInitialY;
@@ -64,6 +55,7 @@ public class SoldierAnimation implements Animable{
 	}
 	
 	private void stopAnimation() {
+		
 		running = false;
 		offset = 0;
 		actualAnimation.stop();
@@ -71,18 +63,16 @@ public class SoldierAnimation implements Animable{
 	
 	public void render(Graphics g, int startHeight, int finalHeight, int startWidth, int finalWidth) {
 		
-		//if(soldierActualX == soldierFinalX && soldierActualY == soldierFinalY) {
-			//stopAnimation();
-			//return;
-		//}
-		
 		if(offset / 32 > 21) {
+			
 			stopAnimation();
 			return;
 		}
 		
 		if ((actualAnimation != null && !actualAnimation.hasStarted()) || (actualAnimation == null)) {
-			int generator = rand.nextInt(3);
+			
+			final int generator = rand.nextInt(3);
+			
 			switch(generator) {
 				case 0:
 					actualAnimation = defenderAnimation;
@@ -92,15 +82,18 @@ public class SoldierAnimation implements Animable{
 					break;
 				case 2:
 					actualAnimation = warriorAnimation;
+					break;
 			}
+			
 			init();
 			actualAnimation.start();
 		}
 
-		BufferedImage frame = actualAnimation.getPeriodFrame();
+		final BufferedImage frame = actualAnimation.getPeriodFrame();
 
-		if(frame != null) {
-			if(isBetween(startHeight, finalHeight, soldierActualY) && isBetween(startWidth, finalWidth, soldierActualX)) {
+		if (frame != null) {
+			
+			if (isBetween(startHeight, finalHeight, soldierActualY) && isBetween(startWidth, finalWidth, soldierActualX)) {
 				offset += 1.5;
 				g.drawImage(actualAnimation.getPeriodFrame(), (soldierActualX - startWidth) * 64 - (int)(offset), (soldierActualY - startHeight - 3) * 16, null);
 			}
