@@ -114,6 +114,14 @@ public final class Fight extends JPanel {
 	private static BufferedImage repairArmorButton2;
 	private static BufferedImage upgradeButton2;
 	private static BufferedImage pauseContinueButton;
+	
+	private static BufferedImage rehealButton1Pause;
+	private static BufferedImage repairArmorButton1Pause;
+	private static BufferedImage upgradeButton1Pause;
+	private static BufferedImage rehealButton2Pause;
+	private static BufferedImage repairArmorButton2Pause;
+	private static BufferedImage upgradeButton2Pause;
+	private static BufferedImage pauseContinueButtonPause;
 	private static BufferedImage cashImg;
 	
 	private static int firstLife;
@@ -346,26 +354,36 @@ public final class Fight extends JPanel {
 		g.setColor(new Color(255, 255, 255, 100));
 		
 		/** First fighter **/
-		g.drawImage(rehealButton1,rehealSoldier1Position.x, rehealSoldier1Position.y,  rehealSoldier1DimensionsX,  rehealSoldier1DimensionsY, this);
-		g.drawImage(repairArmorButton1,repairArmorSoldier1Position.x, repairArmorSoldier1Position.y,  repairArmorSoldier1DimensionsX,  repairArmorSoldier1DimensionsY, this);
-		g.drawImage(upgradeButton1,upgradeSoldier1Position.x, upgradeSoldier1Position.y,  upgradeSoldier1DimensionsX,  upgradeSoldier1DimensionsY, this);
-		
+		if(isActive) {
+			g.drawImage(rehealButton1,rehealSoldier1Position.x, rehealSoldier1Position.y,  rehealSoldier1DimensionsX,  rehealSoldier1DimensionsY, this);
+			g.drawImage(repairArmorButton1,repairArmorSoldier1Position.x, repairArmorSoldier1Position.y,  repairArmorSoldier1DimensionsX,  repairArmorSoldier1DimensionsY, this);
+			g.drawImage(upgradeButton1,upgradeSoldier1Position.x, upgradeSoldier1Position.y,  upgradeSoldier1DimensionsX,  upgradeSoldier1DimensionsY, this);
+		} else {
+			g.drawImage(rehealButton1Pause,rehealSoldier1Position.x, rehealSoldier1Position.y,  rehealSoldier1DimensionsX,  rehealSoldier1DimensionsY, this);
+			g.drawImage(repairArmorButton1Pause,repairArmorSoldier1Position.x, repairArmorSoldier1Position.y,  repairArmorSoldier1DimensionsX,  repairArmorSoldier1DimensionsY, this);
+			g.drawImage(upgradeButton1Pause,upgradeSoldier1Position.x, upgradeSoldier1Position.y,  upgradeSoldier1DimensionsX,  upgradeSoldier1DimensionsY, this);
+		}
 		g.fillRect(soldier1RectPosition.x, soldier1RectPosition.y, soldier1RectDimensionsX, soldier1RectDimensionsY);
 		g.drawImage(soldier1, soldier1Position.x, soldier1Position.y,  soldier1DimensionsX,  soldier1DimensionsY, this);
 		
 		/** Second fighter **/
-		g.drawImage(rehealButton2,rehealSoldier2Position.x, rehealSoldier2Position.y,  rehealSoldier2DimensionsX,  rehealSoldier2DimensionsY, this);
-		g.drawImage(repairArmorButton2,repairArmorSoldier2Position.x, repairArmorSoldier2Position.y,  repairArmorSoldier2DimensionsX,  repairArmorSoldier2DimensionsY, this);
-		g.drawImage(upgradeButton2,upgradeSoldier2Position.x, upgradeSoldier2Position.y,  upgradeSoldier2DimensionsX,  upgradeSoldier2DimensionsY, this);
-		
+		if(isActive) {
+			g.drawImage(rehealButton2,rehealSoldier2Position.x, rehealSoldier2Position.y,  rehealSoldier2DimensionsX,  rehealSoldier2DimensionsY, this);
+			g.drawImage(repairArmorButton2,repairArmorSoldier2Position.x, repairArmorSoldier2Position.y,  repairArmorSoldier2DimensionsX,  repairArmorSoldier2DimensionsY, this);
+			g.drawImage(upgradeButton2,upgradeSoldier2Position.x, upgradeSoldier2Position.y,  upgradeSoldier2DimensionsX,  upgradeSoldier2DimensionsY, this);
+		} else {
+			g.drawImage(rehealButton2Pause,rehealSoldier2Position.x, rehealSoldier2Position.y,  rehealSoldier2DimensionsX,  rehealSoldier2DimensionsY, this);
+			g.drawImage(repairArmorButton2Pause,repairArmorSoldier2Position.x, repairArmorSoldier2Position.y,  repairArmorSoldier2DimensionsX,  repairArmorSoldier2DimensionsY, this);
+			g.drawImage(upgradeButton2Pause,upgradeSoldier2Position.x, upgradeSoldier2Position.y,  upgradeSoldier2DimensionsX,  upgradeSoldier2DimensionsY, this);
+		}
 		g.fillRect(soldier2RectPosition.x, soldier2RectPosition.y, soldier2RectDimensionsX, soldier2RectDimensionsY);
 		g.drawImage(soldier2, soldier2Position.x, soldier2Position.y,  soldier2DimensionsX,  soldier2DimensionsY, this);
 		
 		
 		g.setFont(new Font("Neuropol X", Font.BOLD, 30));
 		g.setColor(Color.WHITE);
-		g.drawString("HP         : ", HPSoldier1Position.x - (int) (screenWidth * 15 / 100), HPSoldier1Position.y + (int) (screenHeight * 3 / 100));
-		g.drawString("Armor : ", HPSoldier1Position.x - (int) (screenWidth * 15 / 100), HPSoldier1Position.y + (int) (screenHeight * 11 / 100));
+		g.drawString("HP      : ", HPSoldier1Position.x - (int) (screenWidth * 10 / 100), HPSoldier1Position.y + (int) (screenHeight * 3 / 100));
+		g.drawString("Armor : ", HPSoldier1Position.x - (int) (screenWidth * 10 / 100), HPSoldier1Position.y + (int) (screenHeight * 11 / 100));
 		
 		/** First HP **/
 		g.setColor(new Color(41, 168, 222, 100));
@@ -374,6 +392,9 @@ public final class Fight extends JPanel {
 		g.setColor(new Color(0,255,0, 175));
 		g.fillRoundRect(HPSoldier1Position.x + 5, HPSoldier1Position.y + 2, 
 				(int) (HPSoldier1DimensionsX * firstLife / 100) - 10, HPSoldier1DimensionsY - 4, 10, 25);
+		g.setFont(new Font("Neuropol X", Font.BOLD, 25));
+		g.setColor(Color.WHITE);
+		g.drawString("77.7", HPSoldier1Position.x + (int)(HPSoldier1DimensionsX / 2) - 20, HPSoldier1Position.y + 20);
 		
 		/** Second HP **/
 		g.setColor(new Color(41, 168, 222, 100));
@@ -382,7 +403,9 @@ public final class Fight extends JPanel {
 		g.setColor(new Color(255,0,0, 175));
 		g.fillRoundRect(HPSoldier2Position.x + 5, HPSoldier2Position.y + 2, 
 				(int) (HPSoldier2DimensionsX * secondLife / 100) - 10, HPSoldier2DimensionsY - 4, 10, 25);
-		
+		g.setFont(new Font("Neuropol X", Font.BOLD, 25));
+		g.setColor(Color.WHITE);
+		g.drawString("99.9", HPSoldier2Position.x + (int)(HPSoldier2DimensionsX / 2) - 20, HPSoldier2Position.y + 20);
 		
 		g.setFont(new Font("Neuropol X", Font.BOLD, 30));
 		g.setColor(Color.WHITE);
@@ -397,6 +420,9 @@ public final class Fight extends JPanel {
 		g.setColor(new Color(0,0,255, 175));
 		g.fillRoundRect(armorSoldier1Position.x + 5, armorSoldier1Position.y + 2, 
 				(int) (armorSoldier1DimensionsX * firstArmor / 100) - 10, armorSoldier1DimensionsY - 4, 10, 25);
+		g.setFont(new Font("Neuropol X", Font.BOLD, 25));
+		g.setColor(Color.WHITE);
+		g.drawString("8.88", armorSoldier1Position.x + (int)(armorSoldier1DimensionsX / 2) - 20, armorSoldier1Position.y + 20);
 		
 		/** Second armor **/
 		g.setColor(new Color(41, 168, 222, 100));
@@ -405,7 +431,9 @@ public final class Fight extends JPanel {
 		g.setColor(new Color(255,153,0, 175));
 		g.fillRoundRect(armorSoldier2Position.x + 5, armorSoldier2Position.y + 2, 
 				(int) (armorSoldier2DimensionsX * secondArmor / 100) - 10, armorSoldier2DimensionsY - 4, 10, 25);
-		
+		g.setFont(new Font("Neuropol X", Font.BOLD, 25));
+		g.setColor(Color.WHITE);
+		g.drawString("8.88", armorSoldier2Position.x + (int)(armorSoldier2DimensionsX / 2) - 20, armorSoldier2Position.y + 20);
 		
 		g.drawImage(pauseContinueButton, pauseContinueButtonPosition.x, pauseContinueButtonPosition.y,  pauseContinueButtonDimensionsX,  pauseContinueButtonDimensionsY, this);
 		
@@ -438,6 +466,14 @@ public final class Fight extends JPanel {
 		rehealButton2 = ImageLoader.loadImage("/store/RehealButton.png");
 		repairArmorButton2 = ImageLoader.loadImage("/store/RepairArmorButton.png");
 		pauseContinueButton = ImageLoader.loadImage("/store/PauseContinueButton.png");
+		
+		upgradeButton1Pause = ImageLoader.loadImage("/store/UpgradeButtonPause.png");
+		rehealButton1Pause = ImageLoader.loadImage("/store/RehealButtonPause.png");
+		repairArmorButton1Pause = ImageLoader.loadImage("/store/RepairArmorButtonPause.png");
+		upgradeButton2Pause = ImageLoader.loadImage("/store/UpgradeButtonPause.png");
+		rehealButton2Pause = ImageLoader.loadImage("/store/RehealButtonPause.png");
+		repairArmorButton2Pause = ImageLoader.loadImage("/store/RepairArmorButtonPause.png");
+		pauseContinueButtonPause = ImageLoader.loadImage("/store/PauseContinueButtonPause.png");
 		cashImg = ImageLoader.loadImage("/store/cash-icon.png");
 	}
 	
@@ -492,6 +528,7 @@ public final class Fight extends JPanel {
 	private void pauseContinue() {
 		
 		isActive = !isActive;
+		repaint();
 	}
 	
 	public boolean isVisible() {
