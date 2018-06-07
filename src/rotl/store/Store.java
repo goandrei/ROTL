@@ -17,6 +17,7 @@ import java.util.Arrays;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import rotl.entities.SoldierType;
+import rotl.gfx.Sound;
 import rotl.player.Player;
 import rotl.simulate.Arena;
 import rotl.utilities.Handler;
@@ -180,6 +181,9 @@ public final class Store extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				
 				if (closeImg != null) {
+					
+					Sound.battleMusic.stop();
+					Sound.gameMusic.loop();
 					Point me = e.getPoint();
 					Rectangle bounds = new Rectangle(closeImgPosition.x, closeImgPosition.y, closeImgDimensionsX,
 							closeImgDimensionsY);

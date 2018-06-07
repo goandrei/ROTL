@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import rotl.gfx.Animation;
 import rotl.gfx.Assets;
+import rotl.gfx.Sound;
 import rotl.utilities.Handler;
 
 public class IntroState extends State {
@@ -34,11 +35,13 @@ public class IntroState extends State {
 		}
 
 		if (animation.getFrame() == null) {
+			
 			State menuState = new MenuState(handler, null);
 			handler.getStateManager().setActualState(menuState);
 		}
 
 		g.drawImage(animation.getFrame(), 0, 0, screenWidth, screenHeight, null);
 	}
+
 
 }

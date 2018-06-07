@@ -1,6 +1,7 @@
 package rotl.states;
 
 import rotl.buttons.ExitButton;
+import rotl.gfx.Sound;
 import rotl.managers.TileManager;
 import rotl.statusBar.StatusBar;
 import rotl.utilities.Handler;
@@ -27,7 +28,8 @@ public class GameState extends State {
 	private ExitButton exitButton;
 
 	private StatusBar statusBar;
-
+	
+	
 	private int[][][] layers;
 
 	public GameState(int width, int height, Handler handler) {
@@ -52,8 +54,11 @@ public class GameState extends State {
 
 		final String soldiersPath = "resources\\entities_info\\soldiers.xml";
 		XMLParser.parseSoldiersInfo(soldiersPath);
+		
+		
 	}
-
+	
+	
 	private void buildDirectionRectangles() {
 
 		north = new Rectangle(width / 4, 0, width / 2, height / 4);

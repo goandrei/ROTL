@@ -1,5 +1,6 @@
 package rotl.buttons;
 
+import rotl.gfx.Sound;
 import rotl.simulate.Arena;
 import rotl.simulate.Fight;
 import rotl.states.GameState;
@@ -49,7 +50,7 @@ public class ExitButton implements Button {
 			@Override
 			public void mouseClicked(MouseEvent event) {
 				Point mousePosition = event.getPoint();
-
+				Sound.gameMusic.stop();
 				if(position.contains(mousePosition)) {
 					
 					MenuState menuState = new MenuState(handler, gameState);
@@ -78,6 +79,8 @@ public class ExitButton implements Button {
 						fight.changeVisibility(false);
 					}
 				}
+				
+				
 			}
 			
 			@Override

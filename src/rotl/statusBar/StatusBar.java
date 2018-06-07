@@ -1,5 +1,6 @@
 package rotl.statusBar;
 
+import rotl.gfx.Sound;
 import rotl.player.Player;
 import rotl.simulate.Arena;
 import rotl.store.Store;
@@ -170,6 +171,8 @@ public class StatusBar extends JPanel {
 					Point me = e.getPoint();
 					Rectangle bounds = new Rectangle(arenaPosition.x, arenaPosition.y,
 							arenaDimensionsX, arenaDimensionsY);
+					Sound.gameMusic.stop();
+					Sound.battleMusic.loop();
 					if (bounds.contains(me)) {
 					
 						arenaInstance = Arena.getInstance(handler);
