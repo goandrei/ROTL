@@ -157,8 +157,10 @@ public final class Player {
 		int upgradeGold = UpgradeUnit.upgradeEntity(soldier, UnitOp.FEE);
 		
 		if (this.gold >= upgradeGold) {
+			
 			int pastStatus = soldier.getLife();
 			UpgradeUnit.upgradeEntity(soldier, UnitOp.DO);
+			
 			if(pastStatus != soldier.getLife())
 				this.setGold(this.gold - upgradeGold);
 		}
@@ -178,7 +180,9 @@ public final class Player {
 		if (this.gold >= healGold) {
 			
 			int pastHeal = soldier.getLife();
+			
 			RepairUnit.healSoldier(soldier, UnitOp.DO);
+			
 			if(pastHeal != soldier.getLife())
 				this.setGold(this.gold - healGold);
 		}
@@ -197,9 +201,9 @@ public final class Player {
 		
 		if (this.gold >= repairGold) {
 			
-			int pastArmour = soldier.getArmor();
+			int pastArmor = soldier.getArmor();
 			RepairUnit.repairArmor(soldier, UnitOp.DO);
-			if(pastArmour != soldier.getArmor())
+			if(pastArmor != soldier.getArmor())
 				this.setGold(this.gold - repairGold);
 		}
 	}
