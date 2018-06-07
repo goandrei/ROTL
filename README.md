@@ -34,3 +34,6 @@ The structure is described by the following UMLs. :rocket:
 ### Credits
 >  * [OpenGameArt.org](https://opengameart.org/content/isometric-64x64-outside-tileset) - textures
 >  * [Castle Siege](https://www.castlesiegegame.com/) - backgrounds and soldiers
+>  * [Stronghold](http://fireflyworlds.com/games/stronghold/) - Game music
+>  * [God of War (2005)](https://godofwar.playstation.com/) - Menu music
+>  * [Serious Sam: The Second Encounter](http://www.croteam.com) - Arena and Store music
