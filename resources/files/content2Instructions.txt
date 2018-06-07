@@ -1,0 +1,16 @@
+        o Pe drum se pot intalni cu turnuri inamice, caz in care se simuleaza
+batalia intre ele. Trupa de soldati isi continua drumul prin campul
+de lupta, doar daca a reusit sa distruga turnul (sa elibereze calea);
+        o Ajunse la zidul inamic, trupele provoaca daune zidului pana la
+caderea acestuia, apoi intra in baza inamica si avanseaza spre
+castel; in interior pe fiecare drum va exista cate un turn, care
+respecta aceeasi interactiune cu trupele cum este prezentat\r\n" + "anterior;
+        o Trupa trecuta si de turnul interior, pe un drum, ajunge la castel,
+unde provoaca daune, pana la distrugerea castelului;
+        o Distrugerea castelului inamic aduce victoria jucatorului care a
+realizat acest lucru;
+    - Pentru un wave exista un timp standard; la terminarea timpului pentru
+un wave, toate trupele se intorc instant in baza de unde provin si toate
+daunele provocate de-a lungul wave-ul terminat se pastreaza, fiind
+datoria jucatorului sa isi refaca turnurile si armata; castelul si zidul nu pot
+fi refacute !!!

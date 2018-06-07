@@ -18,7 +18,7 @@ import rotl.entities.SoldiersInfo.S_Info;
 
 public final class XMLParser {
 
-	private static final int MAP_WIDTH = 1000, MAP_HEIGHT = 1000, NO_OF_LAYERS = 3;
+	private static final int MAP_WIDTH = 1000, MAP_HEIGHT = 400, NO_OF_LAYERS = 3;
 
 	public static int[][][] loadXMLMaps(String path) {
 

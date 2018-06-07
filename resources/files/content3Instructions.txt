@@ -1,0 +1,5 @@
+    - Dupa terminarea wave-ului (bataliei), se reinstaureaza starea de
+pregatire, descrisa anterior;
+    - Scopul jocului presupune distrugerea castelului inamicului;
+    - Nu exista limite pentru numarul de wave-uri, nivelul armatei sau al
+turnurilor, totul poate deveni cat de INSANE este posibil !!
