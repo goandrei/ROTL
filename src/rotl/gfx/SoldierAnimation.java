@@ -104,7 +104,7 @@ public class SoldierAnimation implements Animable{
 				offset += 1.5;
 				g.drawImage(actualAnimation.getPeriodFrame(), (soldierActualX - startWidth) * 64 - (int)(offset), (soldierActualY - startHeight - 3) * 16, null);
 			}
-		}else {System.out.println("stop");
+		}else {
 			stopAnimation();
 		}
 	}
