@@ -10,7 +10,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
-import rotl.gfx.Sound;
+import rotl.gfx.Sounds;
 import rotl.menu.HallOfFame;
 import rotl.menu.Instructions;
 import rotl.menu.Options;
@@ -37,7 +37,10 @@ public class MenuState extends State {
 	
 	
 	public MenuState(Handler handler, GameState gameState) {
+		
 		super(handler);
+		
+		Sounds.getInstance().loopMenuMusic();
 		
 		Init();
 		
@@ -58,8 +61,6 @@ public class MenuState extends State {
 		MenuDimensionY = (int) (screenHeight * 60 / 100);
 
 		addHandlers();
-		
-		Sound.menuMusic.loop();
 	}
 	
 
@@ -140,8 +141,7 @@ public class MenuState extends State {
 			public void mouseClicked(MouseEvent event) {
 
 				if (start) {
-					Sound.menuMusic.stop();
-					Sound.gameMusic.loop();
+					
 					if(gameState == null) {
 						
 						handler.getStateManager().setActualState(
@@ -149,6 +149,9 @@ public class MenuState extends State {
 					}else {
 						handler.getStateManager().setActualState(gameState);
 					}
+					
+					Sounds.getInstance().stopMenuMusic();
+					Sounds.getInstance().loopGameMusic();
 				}
 				if (options) {
 					Options.getOptions(handler);

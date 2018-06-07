@@ -1,7 +1,7 @@
 package rotl.simulate;
 
 import rotl.entities.SoldierType;
-import rotl.gfx.Sound;
+import rotl.gfx.Sounds;
 import rotl.player.Player;
 import rotl.utilities.Handler;
 import rotl.utilities.ImageLoader;
@@ -239,13 +239,12 @@ public final class Arena extends JPanel {
 				
 				if (closeImg != null) {
 					
-					Sound.battleMusic.stop();
-					Sound.gameMusic.loop();
 					Point me = e.getPoint();
 					Rectangle bounds = new Rectangle(closeImgPosition.x, closeImgPosition.y, closeImgDimensionsX,
 							closeImgDimensionsY);
 					
 					if (bounds.contains(me)) {
+						
 						frame.setVisible(false);
 						running = false;
 						
@@ -258,6 +257,9 @@ public final class Arena extends JPanel {
 						firstSelected = -1;
 						secondSelected = -1;
 						currentSelected = 0;
+						
+						Sounds.getInstance().stopBattleMusic();
+						Sounds.getInstance().loopGameMusic();
 					}
 				}
 				

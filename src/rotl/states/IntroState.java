@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import rotl.gfx.Animation;
 import rotl.gfx.Assets;
-import rotl.gfx.Sound;
+import rotl.gfx.Sounds;
 import rotl.utilities.Handler;
 
 public class IntroState extends State {

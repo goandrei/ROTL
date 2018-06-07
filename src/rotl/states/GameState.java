@@ -1,7 +1,7 @@
 package rotl.states;
 
 import rotl.buttons.ExitButton;
-import rotl.gfx.Sound;
+import rotl.gfx.Sounds;
 import rotl.managers.TileManager;
 import rotl.statusBar.StatusBar;
 import rotl.utilities.Handler;
