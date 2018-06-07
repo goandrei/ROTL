@@ -6,12 +6,20 @@ import rotl.simulate.Arena;
 import rotl.store.Store;
 import rotl.utilities.Handler;
 import rotl.utilities.ImageLoader;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
 
 public class StatusBar extends JPanel {
 
@@ -49,7 +57,7 @@ public class StatusBar extends JPanel {
 	private static int soldairDimensionsY;
 	private static Point soldairPosition = new Point();
 
-	private static String userName = "Player 1";
+	private static String userName = "Arthur";
 	private static int gold = 0;
 
 	private static Handler handler;

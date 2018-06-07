@@ -277,7 +277,7 @@ public final class Store extends JPanel {
 		g.drawString(soldiersName.get(currentSoldier), infoRectPosition.x + (int) (infoRectDimensionsX * 5 / 100),
 				infoRectPosition.y + (int) (infoRectDimensionsY * 10 / 100));
 		g.setFont(new Font("Neuropol X", Font.BOLD, 30));
-		g.drawString("Health: " + soldiersHealth.get(currentSoldier),
+		g.drawString("Life: " + soldiersHealth.get(currentSoldier),
 				otherPosition.x + otherDimensionsX + (int) (infoRectDimensionsX * 5 / 100),
 				otherPosition.y + (int) (infoRectDimensionsY * 7 / 100));
 		g.drawString("Armor: " + soldiersArmour.get(currentSoldier),
@@ -288,7 +288,7 @@ public final class Store extends JPanel {
 				otherPosition.x + otherDimensionsX + (int) (infoRectDimensionsX * 5 / 100),
 				otherPosition.y + (int) (infoRectDimensionsY * 7 / 100) + 2 * otherDimensionsY
 						+ 2 * (int) (infoRectDimensionsY * 1 / 100));
-		g.drawString("Purchase cost: " + soldiersPurchaseCost.get(currentSoldier) + " $",
+		g.drawString("Price: " + soldiersPurchaseCost.get(currentSoldier) + " $",
 				otherPosition.x + otherDimensionsX + (int) (infoRectDimensionsX * 5 / 100),
 				otherPosition.y + (int) (infoRectDimensionsY * 7 / 100) + 3 * otherDimensionsY
 						+ 3 * (int) (infoRectDimensionsY * 1 / 100));
