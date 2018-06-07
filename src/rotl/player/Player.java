@@ -75,7 +75,7 @@ public final class Player {
 		return soldier;
 	}
 	
-	public void addSoldier(SoldierType soldierType) {
+	public int addSoldier(SoldierType soldierType) {
 		
 		try {
 			
@@ -99,10 +99,13 @@ public final class Player {
 						break;
 				}
 			}
+			
+			return soldiers.size() - 1;
 		
 		} catch (EntitiesException ex) {
 			
 			ex.printStackTrace();
+			return -1;
 		}
 	}
 	

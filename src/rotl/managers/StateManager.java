@@ -12,7 +12,5 @@ public final class StateManager {
 
 	public void setActualState(State actualState) {
 		this.actualState = actualState;
-	
-		
 	}
 }
