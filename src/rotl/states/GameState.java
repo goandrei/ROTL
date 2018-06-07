@@ -192,7 +192,7 @@ public class GameState extends State {
 		
 		
 		exitButton.render(g);
-		soldierAnimation.render(g, startHeightt, finalHeightt, 
-								   startWidthh, finalWidthh);
+		//soldierAnimation.render(g, startHeightt, finalHeightt, 
+				//				   startWidthh, finalWidthh);
 	}
 }
