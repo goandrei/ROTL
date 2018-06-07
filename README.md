@@ -16,6 +16,7 @@ The structure is described by the following UMLs. :rocket:
 * [UML State](https://github.com/smiiguel/ROTL/blob/master/Metadata/UML/UML%20Stari.pdf)
 * [UML UseCase](https://github.com/smiiguel/ROTL/blob/master/Metadata/UML/UML%20Use%20Cases.pdf)
 ### Sample
+![Gif](https://github.com/smiiguel/ROTL/blob/master/Metadata/ForReadmeMD/gif.GIF?raw=true)
 ![Menu](https://github.com/smiiguel/ROTL/blob/master/Metadata/ForReadmeMD/Menu.PNG?raw=true)
 ![HallOfFame](https://github.com/smiiguel/ROTL/blob/master/Metadata/ForReadmeMD/HallOfFlame.PNG?raw=true)
 ![Instructions](https://github.com/smiiguel/ROTL/blob/master/Metadata/ForReadmeMD/Instructions.PNG?raw=true)
