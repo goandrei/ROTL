@@ -185,7 +185,6 @@ public class StatusBar extends JPanel {
 							arenaDimensionsX, arenaDimensionsY);
 					
 					if (bounds.contains(me)) {
-						
 						arenaInstance = Arena.getInstance(handler);
 						
 						if(Options.getStateArray()[2] == 1) { //Arena music is unmuted
