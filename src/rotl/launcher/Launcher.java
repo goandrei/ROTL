@@ -6,6 +6,6 @@ public final class Launcher {
 
 	public static void main(String args[]) {
 		
-		new Game("ROTL").start();
+		new Game("ROTL").start();	
 	}
 }
