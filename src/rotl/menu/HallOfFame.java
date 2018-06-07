@@ -40,14 +40,14 @@ public final class HallOfFame extends JPanel implements MenuOption {
 	private static Handler handler;
 	private static JDialog frame = new JDialog();
 	private static HallOfFame single_instance = null;
-	private static String content1 = "", content2 = "";
+	private static StringBuilder content = new StringBuilder("");
 
 	private static int screenWidth, screenHeight;
 
 	private static BufferedImage backgroundImg;
 	private static BufferedImage closeImg;
 
-	private static List<Pair<String, Integer>> history = new ArrayList<Pair<String, Integer>>();
+	private static List<String> history = new ArrayList<>();
 
 	private HallOfFame(Handler handler) {
 
@@ -113,11 +113,11 @@ public final class HallOfFame extends JPanel implements MenuOption {
 		g.drawImage(backgroundImg, 0, 0, screenWidth, screenHeight, this);
 		g.setFont(new Font("Neuropol X", Font.BOLD, titleFontSize));
 		g.setColor(Color.WHITE);
-		g.drawString("HallOfFame", (int) (screenWidth * 30 / 100), (int) (screenHeight * 15 / 100));
+		g.drawString("Hall Of Fame", (int) (screenWidth * 25 / 100), (int) (screenHeight * 15 / 100));
 		g.drawImage(closeImg, closeImgPosition.x, closeImgPosition.y, closeImgDimensionsX, closeImgDimensionsY, this);
 		g.setFont(new Font("Neuropol X", Font.BOLD, (int) (fontSize * 1.5)));
-		drawString(g, content1, (int) (screenWidth * 5 / 100), (int) (screenHeight * 25 / 100));
-		drawString(g, content2, (int) (screenWidth * 65 / 100), (int) (screenHeight * 25 / 100));
+		
+		drawString(g, content.toString(), (int) (screenWidth * 15 / 100), (int) (screenHeight * 25 / 100));
 	}
 
 	private void setHallOfFame() {
@@ -150,47 +150,32 @@ public final class HallOfFame extends JPanel implements MenuOption {
 		closeImg = ImageLoader.loadImage("/images/closeImg.png");
 
 		readHistory();
-
-		processingHistory();
-
-		for (Integer i = 0; i < min(history.size(), 10); ++i) {
-
-			Pair<String, Integer> aux = history.get(i);
-			content1 += i + 1;
-			content1 += ".  ";
-			content1 += aux.getKey();
-			content1 += '\n';
-
-			content2 += aux.getValue();
-			content2 += '\n';
-		}
+		
+		history.stream()
+				.map(str -> str + "\n")
+				.forEach(content::append);
+		
+		System.out.println(content);
 	}
 
 	private void readHistory() {
 
-		String s = null;
-		Scanner scanner;
+		String buffer = null;
+		final Scanner scanner;
+		
 		try {
+			
 			scanner = new Scanner(new File("./resources/files/HallOfFames.txt"));
+			
 			while (scanner.hasNextLine()) {
-				s = scanner.nextLine();
-
-				Pair<String, Integer> aux = new Pair<String, Integer>(s.substring(0, s.indexOf('#') - 1),
-						Integer.parseInt(s.substring(s.indexOf('#') + 1, s.lastIndexOf('#'))));
-				history.add(aux);
+				
+				buffer = scanner.nextLine();
+				history.add(buffer);
 			}
+			
 		} catch (FileNotFoundException e) {
 			System.err.println("Couldn't load text ...");
 			e.printStackTrace();
 		}
-	}
-
-	private void processingHistory() {
-
-		final Comparator<Pair<String, Integer>> comparator = (o1, o2) -> {
-			return -(o1.getValue().compareTo(o2.getValue()));
-		};
-		
-		Collections.sort(history, comparator);
 	}
 }
