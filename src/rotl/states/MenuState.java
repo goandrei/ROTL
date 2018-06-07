@@ -140,14 +140,12 @@ public class MenuState extends State {
 			public void mouseClicked(MouseEvent event) {
 
 				if (start) {
-					
+					Sound.menuMusic.stop();
+					Sound.gameMusic.loop();
 					if(gameState == null) {
 						
 						handler.getStateManager().setActualState(
 								new GameState(handler.getGame().getWidth(), handler.getGame().getHeight(), handler));
-						Sound.menuMusic.stop();
-						Sound.gameMusic.loop();
-						
 					}else {
 						handler.getStateManager().setActualState(gameState);
 					}
