@@ -40,8 +40,9 @@ public class MenuState extends State {
 		
 		super(handler);
 		
-		Sounds.getInstance().loopMenuMusic();
-		
+		if(Options.getStateArray()[0] == 1) {
+			Sounds.getInstance().loopMenuMusic();
+		}
 		Init();
 		
 		if(gameState != null) {
@@ -151,7 +152,9 @@ public class MenuState extends State {
 					}
 					
 					Sounds.getInstance().stopMenuMusic();
-					Sounds.getInstance().loopGameMusic();
+					if(Options.getStateArray()[1] == 1) {
+						Sounds.getInstance().loopGameMusic();
+					}
 				}
 				if (options) {
 					Options.getOptions(handler);
@@ -192,6 +195,11 @@ public class MenuState extends State {
 
 	@Override
 	public void update() {
+		if(Options.getStateArray()[0] == 1) {
+			Sounds.getInstance().loopMenuMusic();
+		}else {
+			Sounds.getInstance().stopMenuMusic();
+		}
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package rotl.simulate;
 
 import rotl.entities.SoldierType;
 import rotl.gfx.Sounds;
+import rotl.menu.Options;
 import rotl.player.Player;
 import rotl.utilities.Handler;
 import rotl.utilities.ImageLoader;
@@ -259,7 +260,9 @@ public final class Arena extends JPanel {
 						currentSelected = 0;
 						
 						Sounds.getInstance().stopBattleMusic();
-						Sounds.getInstance().loopGameMusic();
+						if(Options.getStateArray()[1] == 1) {
+							Sounds.getInstance().loopGameMusic();
+						}
 					}
 				}
 				

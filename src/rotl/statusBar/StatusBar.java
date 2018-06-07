@@ -1,6 +1,7 @@
 package rotl.statusBar;
 
 import rotl.gfx.Sounds;
+import rotl.menu.Options;
 import rotl.player.Player;
 import rotl.simulate.Arena;
 import rotl.store.Store;
@@ -178,8 +179,11 @@ public class StatusBar extends JPanel {
 					if (bounds.contains(me)) {
 						
 						arenaInstance = Arena.getInstance(handler);
-						Sounds.getInstance().stopGameMusic();
-						Sounds.getInstance().loopBattleMusic();
+						
+						if(Options.getStateArray()[2] == 1) { //Arena music is unmuted
+							Sounds.getInstance().stopGameMusic();
+							Sounds.getInstance().loopBattleMusic();
+						}
 					}
 				}
 			}
