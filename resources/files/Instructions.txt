@@ -1,0 +1,19 @@
+        Return of the legends (ROTL) is a fighting simulator for medieval 
+soldiers, which also gives the player the possibility to explore a medieval land
+in which these battles take place.
+
+        There are three types of soldiers that you can buy from the Store: 
+Fighters, Defenders and Warriors. They all have different attributes, 
+which make them special in a battle.
+	
+        You can buy as many as you want from each type, upgrade them to 
+any level between 1 and 50 in the Arena and simulate fights between two
+soldiers in the Fight section (pressing the fight button).
+	
+        The simulator lets you stop the fight whenever you decide 
+in order to heal the soldiers, repair their armors or even 
+upgrade them to a superior level in order to
+make the fights more exciting.
+	
+        Note that you enter the game with a fix amount of money and you have to
+spend it carefully, even if it is a big one. 
