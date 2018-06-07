@@ -11,11 +11,15 @@ public final class GameCamera {
 	}
 
 	public void move(float xAmount, float yAmount) {
+	
 		xOffset += xAmount;
 		yOffset += yAmount;
 
 		xOffset = Math.max((float) 0, xOffset);
 		yOffset = Math.max((float) 0, yOffset);
+		
+		xOffset = Math.min((float) 100, xOffset);
+		yOffset = Math.min((float) 300, yOffset);
 	}
 
 	public float getXOffset() {
