@@ -95,7 +95,7 @@ public final class Options extends JPanel implements MenuOption {
 		g.drawImage(backgroundImg, 0, 0, screenWidth, screenHeight, this);
 		g.setFont(new Font("Neuropol X", Font.BOLD, titleFontSize));
 		g.setColor(Color.WHITE);
-		g.drawString("Options", (int) (screenWidth * 35 / 100), (int) (screenHeight * 15 / 100));
+		g.drawString("Settings", (int) (screenWidth * 35 / 100), (int) (screenHeight * 15 / 100));
 		g.drawImage(closeImg, closeImgPosition.x, closeImgPosition.y, closeImgDimensionsX, closeImgDimensionsY, this);
 	}
 

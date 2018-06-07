@@ -29,7 +29,6 @@ public class GameState extends State {
 
 	private StatusBar statusBar;
 	
-	
 	private int[][][] layers;
 
 	public GameState(int width, int height, Handler handler) {
@@ -55,9 +54,8 @@ public class GameState extends State {
 		final String soldiersPath = "resources\\entities_info\\soldiers.xml";
 		XMLParser.parseSoldiersInfo(soldiersPath);
 		
-		
+		Sounds.getInstance();
 	}
-	
 	
 	private void buildDirectionRectangles() {
 

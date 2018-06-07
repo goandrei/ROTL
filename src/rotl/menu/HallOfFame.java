@@ -154,8 +154,6 @@ public final class HallOfFame extends JPanel implements MenuOption {
 		history.stream()
 				.map(str -> str + "\n")
 				.forEach(content::append);
-		
-		System.out.println(content);
 	}
 
 	private void readHistory() {

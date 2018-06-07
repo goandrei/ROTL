@@ -68,6 +68,7 @@ public final class Instructions extends JPanel implements MenuOption {
 			}
 			return;
 		}
+		
 		if(string.equals("content2")) {
 			
 			try {
