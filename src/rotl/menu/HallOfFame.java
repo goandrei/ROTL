@@ -66,9 +66,9 @@ public final class HallOfFame extends JPanel implements MenuOption {
 		frame.setContentPane(this);
 		frame.setVisible(true);
 
-		Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/cursor_final.png"));
-		Point hotspot = new Point(0, 0);
-		Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(image, hotspot, "pencil");
+		final Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/cursor_final.png"));
+		final Point hotspot = new Point(0, 0);
+		final Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(image, hotspot, "pencil");
 		frame.setCursor(cursor);
 
 		this.init();
@@ -91,12 +91,13 @@ public final class HallOfFame extends JPanel implements MenuOption {
 	}
 
 	public static HallOfFame getHallOfFame(Handler handler) {
+		
 		if (single_instance == null) {
 			single_instance = new HallOfFame(handler);
 		}
 
 		frame.setVisible(true);
-
+		
 		return single_instance;
 	}
 

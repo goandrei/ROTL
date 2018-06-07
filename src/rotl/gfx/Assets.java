@@ -3,7 +3,7 @@ package rotl.gfx;
 import java.awt.image.BufferedImage;
 import rotl.utilities.ImageLoader;
 
-public class Assets {
+public final class Assets {
 
 	private static BufferedImage[] outsideTiles;
 	private static BufferedImage[] buildingTiles;

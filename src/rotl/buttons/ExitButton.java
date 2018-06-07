@@ -50,7 +50,8 @@ public class ExitButton implements Button {
 			public void mouseClicked(MouseEvent event) {
 				Point mousePosition = event.getPoint();
 
-				if(position.contains(mousePosition)){
+				if(position.contains(mousePosition)) {
+					
 					MenuState menuState = new MenuState(handler, gameState);
 					handler.getStateManager().setActualState(menuState);
 					

@@ -2,24 +2,25 @@ package rotl.gfx;
 
 import java.awt.image.BufferedImage;
 
-public class Animation {
+public final class Animation {
 
-	private BufferedImage[] frames;
-	private Integer[] delays;
+	private final BufferedImage[] frames;
+	private final Integer[] delays;
 	private int index = 1;
-	private int limit;
+	private final int limit;
 	private long last;
 	private long now;
 	private boolean started = false;
 
 	public Animation(BufferedImage[] frames, Integer[] delays) {
+		
 		this.frames = frames;
 		this.delays = delays;
-
-		limit = delays.length;
+		this.limit = delays.length;
 	}
 
 	public void start() {
+		
 		started = true;
 		last = System.currentTimeMillis();
 	}
@@ -42,5 +43,4 @@ public class Animation {
 
 		return frames[index];
 	}
-
 }

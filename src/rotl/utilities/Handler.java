@@ -5,8 +5,8 @@ import rotl.managers.StateManager;
 
 public class Handler {
 
-	private StateManager stateManager;
-	private Game game;
+	private final StateManager stateManager;
+	private final Game game;
 
 	public Handler(StateManager stateManager, Game game) {
 		this.stateManager = stateManager;

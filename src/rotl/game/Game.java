@@ -12,7 +12,7 @@ import rotl.states.State;
 import rotl.utilities.Handler;
 
 public class Game implements Runnable {
-
+	
 	private int screenHeight;
 	private int screenWidth;
 
@@ -27,13 +27,13 @@ public class Game implements Runnable {
 	private State introState;
 
 	private Display display;
-
+	
 	private BufferStrategy bufferStrategy;
-
+	
 	private Graphics g;
-
+	
 	private GameCamera gameCamera;
-
+	
 	public Game(String title) {
 
 		gameCamera = new GameCamera(0, 0);
@@ -49,7 +49,6 @@ public class Game implements Runnable {
 		screenHeight = display.getHeight();
 		screenWidth = display.getWidth();
 
-		// introState = new GameState(screenWidth, screenHeight, handler);
 		introState = new IntroState(handler);
 		stateManager.setActualState(introState);
 	}
@@ -63,7 +62,6 @@ public class Game implements Runnable {
 		thread = new Thread(this);
 		thread.start();
 		running = true;
-
 	}
 
 	// stop the thread
@@ -105,9 +103,9 @@ public class Game implements Runnable {
 	@Override
 	public void run() {
 
-		int fps = 60;
+		final int fps = 60;
 		long last = System.nanoTime();
-		double frameTime = 1000000000 / fps;
+		final double frameTime = 1000000000 / fps;
 		double delta = 0;
 		double time = 0;
 

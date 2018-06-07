@@ -2,7 +2,7 @@ package rotl.managers;
 
 import rotl.states.State;
 
-public class StateManager {
+public final class StateManager {
 
 	private State actualState;
 

@@ -3,7 +3,7 @@ package rotl.managers;
 import java.awt.Graphics;
 import rotl.gfx.Assets;
 
-public class TileManager {
+public final class TileManager {
 
 	private static TileManager instance = null;
 	private TileManager() {}

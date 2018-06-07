@@ -2,9 +2,9 @@ package rotl.gfx;
 
 import java.awt.image.BufferedImage;
 
-class SpriteSheet {
+final class SpriteSheet {
 
-	private BufferedImage sheet;
+	private final BufferedImage sheet;
 
 	SpriteSheet(BufferedImage sheet) {
 		this.sheet = sheet;

@@ -189,7 +189,5 @@ public class GameState extends State {
 		 * if(e) { g.fillRect(0, height / 4, width / 4, height / 2); }else {
 		 * g.drawRect(0, height / 4, width / 4, height / 2); }
 		 */
-
 	}
-
 }

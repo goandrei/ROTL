@@ -96,7 +96,7 @@ public class StatusBar extends JPanel {
 	
 	private StatusBar(Handler handler) {
 
-		this.handler = handler;
+		StatusBar.handler = handler;
 
 		// get the parent screen size and get the modal's size
 		screenWidth = (handler.getGame().getWidth() * 3) / 4;
