@@ -1,7 +1,7 @@
 
 
 # ROTL :game_die: 
-## This repository contains our MSD project :gem: 
+## This repository contains our MDS project :gem: 
 
 ### Summary 
 
@@ -25,8 +25,8 @@ The structure is described by the following UMLs. :rocket:
 ![Fight](https://github.com/smiiguel/ROTL/blob/master/Metadata/ForReadmeMD/Fight.PNG?raw=true)
 
 ### Contributors: :v: 
-  >  * Gorneanu Andrei
-  >  * Slevoaca Stefan
-  >  * Lupascu Marian
-  >  * Nita Stefan
-  >  * Anghelache Bogdan
+  >  * [Gorneanu Andrei](https://github.com/smiiguel)
+  >  * [Slevoaca Stefan](https://github.com/Slevy97)
+  >  * [Lupascu Marian](https://github.com/marianlupascu)
+  >  * [Nita Stefan](https://github.com/stefannita01)
+  >  * [Anghelache Bogdan](https://github.com/BogdanAngh)
