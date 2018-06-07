@@ -9,6 +9,8 @@ public final class Assets {
 	private static BufferedImage[] buildingTiles;
 	private static BufferedImage[] introFrames;
 	
+	private static BufferedImage[] soldiersFrames;
+	
 	private static final int TILE_WIDTH = 64;
 	private static final int TILE_HEIGHT = 32;
 	
@@ -52,6 +54,20 @@ public final class Assets {
 						TILE_HEIGHT);
 			}
 		}
+		
+		lines = 12;
+		columns = 3;
+		
+		soldiersFrames = new BufferedImage[lines * columns + 1];
+		sheet = new SpriteSheet(ImageLoader.loadImage("/textures/soldiers.png"));
+			
+		for(int i = 0;i < lines; ++i) {
+			for(int j = 0;j < columns; ++j) {
+				soldiersFrames[i * columns + j + 1] = sheet.crop(j * TILE_HEIGHT, i * TILE_WIDTH, TILE_HEIGHT, 
+						TILE_WIDTH);
+			}
+		}
+		
 	}
 	
 	public static Assets getInstance() {
@@ -72,5 +88,9 @@ public final class Assets {
 	
 	public BufferedImage[] getIntroFrames() {
 		return Assets.introFrames;
+	}
+	
+	public BufferedImage[] getSoldierFrames() {
+		return Assets.soldiersFrames;
 	}
 }

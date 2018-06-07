@@ -52,9 +52,10 @@ public class ExitButton implements Button {
 				
 				final Point mousePosition = event.getPoint();
 				
-				Sounds.getInstance().stopGameMusic();
-				
 				if(position.contains(mousePosition)) {
+					
+					Sounds.getInstance().stopGameMusic();
+					Sounds.getInstance().stopBattleMusic();
 					
 					MenuState menuState = new MenuState(handler, gameState);
 					handler.getStateManager().setActualState(menuState);
