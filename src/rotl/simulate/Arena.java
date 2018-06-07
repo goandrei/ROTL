@@ -3,29 +3,35 @@ package rotl.simulate;
 import rotl.entities.SoldierType;
 import rotl.player.Player;
 import rotl.utilities.Handler;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
+import rotl.utilities.ImageLoader;
+import javax.swing.JPanel;
+import javax.swing.JDialog;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Cursor;
+import java.awt.Toolkit;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Arena extends JPanel {
+public final class Arena extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
 	private static Arena instance = null;
 
-	static int currentSoldier = -1;
+	private static int currentSoldier = -1;
 	
-	static int currentSelected = 0;
-	static int firstSelected = -1;
-	static int secondSelected = -1;
+	private static int currentSelected = 0;
+	private static int firstSelected = -1;
+	private static int secondSelected = -1;
 	
 	private static final Player player = Player.getInstance();
 	private static final Map<SoldierType, String> soldiersSources = new HashMap<>();
@@ -97,8 +103,8 @@ public class Arena extends JPanel {
 	private static BufferedImage backgroundImg = null;
 	private static BufferedImage SoldiersBKIMG = null;
 
-	private static BufferedImage NextButton = null;
-	private static BufferedImage PrevButton = null;
+	private static BufferedImage nextButton = null;
+	private static BufferedImage prevButton = null;
 
 	private static BufferedImage lifeImg = null;
 	private static BufferedImage armorImg = null;
@@ -135,7 +141,7 @@ public class Arena extends JPanel {
 	
 	private Arena(Handler handler) {
 
-		this.handler = handler;
+		Arena.handler = handler;
 		
 		soldiersSources.put(SoldierType.FIGHTER, "Infantry");
 		soldiersSources.put(SoldierType.DEFENDER, "Knight_templar");
@@ -239,14 +245,20 @@ public class Arena extends JPanel {
 					if (bounds.contains(me)) {
 						frame.setVisible(false);
 						running = false;
+						
 						/** reset some properties **/
+						currentSoldier = -1;
+						
+						/** Select for fight info **/
 						soldier1 = null;
 						soldier2 = null;
-						currentSoldier = -1;
+						firstSelected = -1;
+						secondSelected = -1;
+						currentSelected = 0;
 					}
 				}
 				
-				if (PrevButton != null) {
+				if (prevButton != null) {
 					
 					Point me = e.getPoint();
 					Rectangle bounds = new Rectangle(prevButtonPosition.x, prevButtonPosition.y,
@@ -263,7 +275,7 @@ public class Arena extends JPanel {
 					}
 				}
 				
-				if (NextButton != null) {
+				if (nextButton != null) {
 					
 					Point me = e.getPoint();
 					Rectangle bounds = new Rectangle(prevButtonPosition.x + prevAndNextButtonDimensionsX + 10,
@@ -383,10 +395,10 @@ public class Arena extends JPanel {
 		/** Soldier background **/
 		g.fillRect(soldierRectPosition.x, soldierRectPosition.y, soldierRectDimensionsX, soldierRectDimensionsY);
 		
-		g.drawImage(PrevButton, prevButtonPosition.x, prevButtonPosition.y, prevAndNextButtonDimensionsX,
+		g.drawImage(prevButton, prevButtonPosition.x, prevButtonPosition.y, prevAndNextButtonDimensionsX,
 				prevAndNextButtonDimensionsY, this);
 		
-		g.drawImage(NextButton, prevButtonPosition.x + prevAndNextButtonDimensionsX + 10, prevButtonPosition.y,
+		g.drawImage(nextButton, prevButtonPosition.x + prevAndNextButtonDimensionsX + 10, prevButtonPosition.y,
 				prevAndNextButtonDimensionsX, prevAndNextButtonDimensionsY, this);
 		g.setColor(new Color(255, 255, 255, 100));
 		
@@ -402,13 +414,7 @@ public class Arena extends JPanel {
 				currentSoldier = 0;
 				
 			final SoldierInfoArena sInfo = player.getSoldierInfo(currentSoldier);
-
-			URL resourceSoldiersBK = getClass().getResource("/store/" + soldiersSources.get(sInfo.getSoldierType()) + ".png");
-			try {
-				SoldiersBKIMG = ImageIO.read(resourceSoldiersBK);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			SoldiersBKIMG = ImageLoader.loadImage("/store/" + soldiersSources.get(sInfo.getSoldierType()) + ".png");
 			
 			if (SoldiersBKIMG != null)
 				g.drawImage(SoldiersBKIMG, soldierPosition.x, soldierPosition.y, soldierDimensionsX, soldierDimensionsY, this);
@@ -495,103 +501,20 @@ public class Arena extends JPanel {
 
 	private void Init() {
 
-		URL resourceBKImg = getClass().getResource("/images/Age-of-Empires-Arena.jpg");
-		try {
-			backgroundImg = ImageIO.read(resourceBKImg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourceCloseImg = getClass().getResource("/store/closeImg.png");
-		try {
-			closeImg = ImageIO.read(resourceCloseImg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourcePrevButton = getClass().getResource("/store/TriangleButtonL.png");
-		try {
-			PrevButton = ImageIO.read(resourcePrevButton);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourceNextButton = getClass().getResource("/store/TriangleButtonR.png");
-		try {
-			NextButton = ImageIO.read(resourceNextButton);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourcelife = getClass().getResource("/store/heart.png");
-		try {
-			lifeImg = ImageIO.read(resourcelife);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourceArmor = getClass().getResource("/store/Armor.png");
-		try {
-			armorImg = ImageIO.read(resourceArmor);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourceattack = getClass().getResource("/store/Attack.png");
-		try {
-			attackImg = ImageIO.read(resourceattack);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourceupgrade = getClass().getResource("/store/Apple.png");
-		try {
-			upgradeImg = ImageIO.read(resourceupgrade);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourceupgradeButton = getClass().getResource("/store/Upgrade-Now-Button.png");
-		try {
-			upgradeButton = ImageIO.read(resourceupgradeButton);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		URL resourcesellButton = getClass().getResource("/store/SellButton.png");
-		try {
-			sellButton = ImageIO.read(resourcesellButton);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		URL resourceUseFFightButton = getClass().getResource("/store/UseforFightButton.png");
-		try {
-			useForFightButton = ImageIO.read(resourceUseFFightButton);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourceMyCash = getClass().getResource("/store/cash-icon.png");
-		try {
-			cashImg = ImageIO.read(resourceMyCash);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		URL resourceVS = getClass().getResource("/images/vs.png");
-		try {
-			vs = ImageIO.read(resourceVS);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		URL resourceFight = getClass().getResource("/images/fight.png");
-		try {
-			fight = ImageIO.read(resourceFight);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		backgroundImg = ImageLoader.loadImage("/images/Age-of-Empires-Arena.jpg");
+		closeImg = ImageLoader.loadImage("/store/closeImg.png");
+		prevButton = ImageLoader.loadImage("/store/TriangleButtonL.png");
+		nextButton = ImageLoader.loadImage("/store/TriangleButtonR.png");
+		lifeImg = ImageLoader.loadImage("/store/heart.png");
+		armorImg = ImageLoader.loadImage("/store/Armor.png");
+		attackImg = ImageLoader.loadImage("/store/Attack.png");
+		upgradeImg = ImageLoader.loadImage("/store/Apple.png");
+		upgradeButton = ImageLoader.loadImage("/store/Upgrade-Now-Button.png");
+		sellButton = ImageLoader.loadImage("/store/SellButton.png");
+		useForFightButton = ImageLoader.loadImage("/store/UseforFightButton.png");
+		cashImg = ImageLoader.loadImage("/store/cash-icon.png");
+		vs = ImageLoader.loadImage("/images/vs.png");
+		fight = ImageLoader.loadImage("/images/fight.png");
 	}
 	
 	private void useForFight() {
@@ -604,34 +527,14 @@ public class Arena extends JPanel {
 			switch (currentSelected) {
 			
 				case 0:
-					
 					firstSelected = currentSoldier;
-					
-					URL resourceSoldier1 = getClass()
-							.getResource("/store/" + soldiersSources.get(sInfo.getSoldierType()) + ".png");
-					try {
-						soldier1 = ImageIO.read(resourceSoldier1);
-					} catch (IOException ex) {
-						ex.printStackTrace();
-					}
-					
+					soldier1 = ImageLoader.loadImage("/store/" + soldiersSources.get(sInfo.getSoldierType()) + ".png");
 					repaint();
-					
 					break;
 				case 1:
-					
 					secondSelected = currentSoldier;
-					
-					URL resourceSoldier2 = getClass()
-							.getResource("/store/" + soldiersSources.get(sInfo.getSoldierType()) + ".png");
-					try {
-						soldier2 = ImageIO.read(resourceSoldier2);
-					} catch (IOException ex) {
-						ex.printStackTrace();
-					}
-					
+					soldier2 = ImageLoader.loadImage("/store/" + soldiersSources.get(sInfo.getSoldierType()) + ".png");					
 					repaint();
-					
 					break;
 			}
 			
@@ -711,5 +614,4 @@ public class Arena extends JPanel {
 	public void changeVisibility(boolean val) {
 		frame.setVisible(val);
 	}
-	
 }

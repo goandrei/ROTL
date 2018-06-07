@@ -7,16 +7,14 @@ import rotl.entities.Soldier;
 import rotl.entities.SoldierType;
 import rotl.entities.SoldiersInfo;
 import rotl.entities.SoldiersInfo.S_Info;
-import rotl.entities.Tower;
-import rotl.entities.TowersInfo;
 import rotl.entities.Warrior;
 
-public class RepairUnit implements GameUnit {
+final class RepairUnit implements GameUnit {
 
 	private RepairUnit() {
 	}
 
-	public static int healSoldier(Soldier soldier, UnitOp unit) {
+	static int healSoldier(Soldier soldier, UnitOp unit) {
 
 		try {
 
@@ -75,7 +73,7 @@ public class RepairUnit implements GameUnit {
 		}
 	}
 
-	public static int repairArmor(Soldier soldier, UnitOp unit) {
+	static int repairArmor(Soldier soldier, UnitOp unit) {
 
 		try {
 
@@ -122,54 +120,6 @@ public class RepairUnit implements GameUnit {
 				return maxGold / 6;
 			case DO:
 				soldier.setArmor(maxArmor);
-				return 0;
-			default:
-				return 0;
-			}
-
-		} catch (Exception ex) {
-
-			ex.printStackTrace();
-			return 0;
-		}
-	}
-
-	public static int repairArmor(Tower tower, UnitOp unit) {
-
-		try {
-
-			if (unit == null)
-				unit = UnitOp.FEE;
-
-			if (tower == null)
-				throw new EntitiesException("Invalid tower !");
-
-			TowersInfo tInfo = TowersInfo.getInstance();
-
-			int barmor = tInfo.getBArmor();
-			double uarmor = tInfo.getUArmor();
-
-			int bgold = tInfo.getBGold();
-			double ugold = tInfo.getUGold();
-
-			int level = tower.getLevel();
-
-			if ((barmor == TowersInfo.ERROR_CODE) || (uarmor == TowersInfo.ERROR_CODE)
-					|| (bgold == TowersInfo.ERROR_CODE) || (ugold == TowersInfo.ERROR_CODE))
-				throw new EntitiesException("Invalid tower info !!");
-
-			double armorValue = barmor * GameUnit.pow(uarmor, level - 1);
-			int maxArmor = ((armorValue > Integer.MAX_VALUE * 1.0) ? Integer.MAX_VALUE : (int) armorValue);
-
-			double goldValue = bgold * GameUnit.pow(ugold, level - 1);
-			int maxGold = ((goldValue > Integer.MAX_VALUE * 1.0) ? Integer.MAX_VALUE : (int) goldValue);
-
-			switch (unit) {
-
-			case FEE:
-				return maxGold / 2;
-			case DO:
-				tower.setArmor(maxArmor);
 				return 0;
 			default:
 				return 0;

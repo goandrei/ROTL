@@ -2,7 +2,6 @@ package rotl.menu;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -15,17 +14,12 @@ import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
-
-import javax.imageio.ImageIO;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-
 import rotl.utilities.Handler;
 import rotl.utilities.ImageLoader;
 
-public class Options extends JPanel implements MenuOption {
+public final class Options extends JPanel implements MenuOption {
 
 	private static final long serialVersionUID = 1L;
 
@@ -45,7 +39,7 @@ public class Options extends JPanel implements MenuOption {
 
 	private Options(Handler handler) {
 
-		this.handler = handler;
+		Options.handler = handler;
 		screenWidth = (handler.getGame().getWidth() * 2) / 3;
 		screenHeight = (handler.getGame().getHeight() * 2) / 3;
 
@@ -65,9 +59,8 @@ public class Options extends JPanel implements MenuOption {
 		Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(image, hotspot, "pencil");
 		frame.setCursor(cursor);
 
-		Init();
-
-		setOptions();
+		this.init();
+		this.setOptions();
 
 		frame.addFocusListener(new FocusListener() {
 
@@ -106,7 +99,7 @@ public class Options extends JPanel implements MenuOption {
 		g.drawImage(closeImg, closeImgPosition.x, closeImgPosition.y, closeImgDimensionsX, closeImgDimensionsY, this);
 	}
 
-	public void setOptions() {
+	private void setOptions() {
 
 		closeImgDimensionsX = (int) (screenWidth * 5.5 / 100);
 		closeImgDimensionsY = (int) (screenHeight * 9.8 / 100);
@@ -130,7 +123,7 @@ public class Options extends JPanel implements MenuOption {
 	}
 
 	@Override
-	public void Init() {
+	public void init() {
 
 		backgroundImg = ImageLoader.loadImage("/images/BGoption.jpg");
 		closeImg = ImageLoader.loadImage("/images/closeImg.png");

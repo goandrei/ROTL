@@ -1,9 +1,7 @@
 package rotl.states;
 
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Toolkit;
-
 import rotl.gfx.Animation;
 import rotl.gfx.Assets;
 import rotl.utilities.Handler;
@@ -12,10 +10,6 @@ public class IntroState extends State {
 
 	private int screenWidth = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private int screenHeight = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-	private Image image;
-	private Assets assets;
-	private boolean isRunning = false;
-	private int frames = 19;
 	private Integer[] delays = { 0, 500, 500, 500, 100, 50, 100, 100, 100, 100, 50, 50, 50, 50, 50, 50, 50, 50, 50,
 			50 };
 
@@ -24,10 +18,7 @@ public class IntroState extends State {
 	public IntroState(Handler handler) {
 		super(handler);
 
-		assets = new Assets();
-		assets.init();
-
-		animation = new Animation(assets.introFrames, delays);
+		animation = new Animation(Assets.getInstance().getIntroFrames(), delays);
 	}
 
 	@Override

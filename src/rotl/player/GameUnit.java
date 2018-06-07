@@ -2,7 +2,7 @@ package rotl.player;
 
 import rotl.entities.GameEntity;
 
-public interface GameUnit {
+interface GameUnit {
 
 	public static double pow(double base, int power) {
 

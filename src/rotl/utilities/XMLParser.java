@@ -15,10 +15,51 @@ import org.w3c.dom.NodeList;
 import rotl.entities.SoldierType;
 import rotl.entities.SoldiersInfo;
 import rotl.entities.SoldiersInfo.S_Info;
-import rotl.entities.TowersInfo;
 
-public class XMLParser {
+public final class XMLParser {
 
+	private static final int MAP_WIDTH = 1000, MAP_HEIGHT = 1000, NO_OF_LAYERS = 3;
+
+	public static int[][][] loadXMLMaps(String path) {
+
+		int[][][] layers = new int[MAP_HEIGHT][MAP_WIDTH][NO_OF_LAYERS];
+
+		try {
+			
+			File inputFile = new File(path);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse("resources" + inputFile);
+			doc.getDocumentElement().normalize();
+			NodeList nList = doc.getElementsByTagName("layer");
+
+			for (int i = 0; i < NO_OF_LAYERS; ++i) {
+				Node nNode = nList.item(i);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+					String parts[] = (eElement.getElementsByTagName("data").item(0).getTextContent()).split(",");
+
+					for (int j = 0; j < MAP_HEIGHT; ++j) {
+						for (int k = 0; k < MAP_WIDTH; ++k) {
+							layers[j][k][i] = Integer.parseInt((parts[j * MAP_WIDTH + k]).trim());
+						}
+					}
+				}
+			}
+
+			return layers;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return layers;
+	}
+
+	public static int getNoOfLayers() {
+		return NO_OF_LAYERS;
+	}
+	
 	private static S_Info getSoldierInfo(Element node) {
 
 		S_Info info = new S_Info();
@@ -135,65 +176,6 @@ public class XMLParser {
 		} catch (Exception ex) {
 
 			System.err.println("Soldiers XML parsing error !!!");
-			ex.printStackTrace();
-		}
-	}
-
-	private static void addTowersInfo(Element node) {
-
-		TowersInfo tInfo = TowersInfo.getInstance();
-
-		try {
-
-			Element buy = (Element) node.getElementsByTagName("buy").item(0);
-			Element upgrade = (Element) node.getElementsByTagName("upgrade").item(0);
-
-			String[] attributes = { "armor", "attack", "gold" };
-
-			/** Buy **/
-			List<Integer> bStatus = new ArrayList<>();
-			List<Double> uStatus = new ArrayList<>();
-
-			/** Buy **/
-			for (String attr : attributes)
-				bStatus.add(Integer.parseInt(buy.getElementsByTagName(attr).item(0).getTextContent().trim()));
-
-			tInfo.setBArmor(bStatus.get(0));
-			tInfo.setBAttack(bStatus.get(1));
-			tInfo.setBGold(bStatus.get(2));
-
-			/** Upgrade **/
-
-			for (String attr : attributes)
-				uStatus.add(Double.parseDouble(upgrade.getElementsByTagName(attr).item(0).getTextContent().trim()));
-
-			tInfo.setUArmor(uStatus.get(0));
-			tInfo.setUAttack(uStatus.get(1));
-			tInfo.setUGold(uStatus.get(2));
-
-		} catch (Exception ex) {
-
-			System.err.println("Wrong Towers XML format !!!");
-			ex.printStackTrace();
-		}
-	}
-
-	public static void parseTowersInfo(String path) {
-
-		try {
-
-			File inputFile = new File(path);
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(inputFile);
-			doc.getDocumentElement().normalize();
-
-			Element root = doc.getDocumentElement();
-			addTowersInfo(root);
-
-		} catch (Exception ex) {
-
-			System.err.println("Towers XML parsing error !!!");
 			ex.printStackTrace();
 		}
 	}

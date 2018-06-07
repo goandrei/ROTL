@@ -12,7 +12,7 @@ public abstract class Soldier implements GameEntity {
 	protected int criticalRate;
 
 	/** Constructors **/
-	public Soldier(int _life, int _armor, int _attack, int _miss, int _dodge, int _critical) {
+	Soldier(int _life, int _armor, int _attack, int _miss, int _dodge, int _critical) {
 
 		this.level = 1;
 		this.setLife(_life);

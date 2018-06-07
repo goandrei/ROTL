@@ -18,22 +18,18 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URL;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
-import java.util.Vector;
-
-import javax.imageio.ImageIO;
+import java.util.List;
+import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-
 import javafx.util.Pair;
 import rotl.utilities.Handler;
 import rotl.utilities.ImageLoader;
 
-public class HallOfFame extends JPanel implements MenuOption {
+public final class HallOfFame extends JPanel implements MenuOption {
 
 	private static final long serialVersionUID = 1L;
 
@@ -51,11 +47,11 @@ public class HallOfFame extends JPanel implements MenuOption {
 	private static BufferedImage backgroundImg;
 	private static BufferedImage closeImg;
 
-	private static Vector<Pair<String, Integer>> history = new Vector<Pair<String, Integer>>();
+	private static List<Pair<String, Integer>> history = new ArrayList<Pair<String, Integer>>();
 
 	private HallOfFame(Handler handler) {
 
-		this.handler = handler;
+		HallOfFame.handler = handler;
 		screenWidth = (handler.getGame().getWidth() * 2) / 3;
 		screenHeight = (handler.getGame().getHeight() * 2) / 3;
 
@@ -75,9 +71,8 @@ public class HallOfFame extends JPanel implements MenuOption {
 		Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(image, hotspot, "pencil");
 		frame.setCursor(cursor);
 
-		Init();
-
-		setHallOfFame();
+		this.init();
+		this.setHallOfFame();
 
 		frame.addFocusListener(new FocusListener() {
 
@@ -124,7 +119,7 @@ public class HallOfFame extends JPanel implements MenuOption {
 		drawString(g, content2, (int) (screenWidth * 65 / 100), (int) (screenHeight * 25 / 100));
 	}
 
-	public void setHallOfFame() {
+	private void setHallOfFame() {
 
 		closeImgDimensionsX = (int) (screenWidth * 5.5 / 100);
 		closeImgDimensionsY = (int) (screenHeight * 9.8 / 100);
@@ -148,7 +143,7 @@ public class HallOfFame extends JPanel implements MenuOption {
 	}
 
 	@Override
-	public void Init() {
+	public void init() {
 
 		backgroundImg = ImageLoader.loadImage("/images/BGHallOfFame.jpg");
 		closeImg = ImageLoader.loadImage("/images/closeImg.png");
@@ -191,13 +186,10 @@ public class HallOfFame extends JPanel implements MenuOption {
 
 	private void processingHistory() {
 
-		Comparator<Pair<String, Integer>> comparator = new PairComparator();
+		final Comparator<Pair<String, Integer>> comparator = (o1, o2) -> {
+			return -(o1.getValue().compareTo(o2.getValue()));
+		};
+		
 		Collections.sort(history, comparator);
-	}
-}
-
-class PairComparator implements Comparator<Pair<String, Integer>> {
-	public int compare(Pair<String, Integer> o1, Pair<String, Integer> o2) {
-		return -(o1.getValue().compareTo(o2.getValue()));
 	}
 }

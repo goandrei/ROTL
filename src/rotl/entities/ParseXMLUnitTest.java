@@ -9,9 +9,7 @@ public class ParseXMLUnitTest {
 		long startTime = System.currentTimeMillis();
 
 		String soldiersPath = "resources\\entities_info\\soldiers.xml";
-		String towersPath = "resources\\entities_info\\towers.xml";
 		XMLParser.parseSoldiersInfo(soldiersPath);
-		XMLParser.parseTowersInfo(towersPath);
 		
 		SoldiersInfo sInfo = SoldiersInfo.getInstance();
 
@@ -38,21 +36,8 @@ public class ParseXMLUnitTest {
 			System.out.println(s_info.getUCritical());
 		}
 
-		TowersInfo tInfo = TowersInfo.getInstance();
-
-		System.out.println("Tower");
-		System.out.println("Buy: ");
-		System.out.println(tInfo.getBArmor());
-		System.out.println(tInfo.getBAttack());
-		System.out.println(tInfo.getBGold());
-		System.out.println("Upgrade: ");
-		System.out.println(tInfo.getUArmor());
-		System.out.println(tInfo.getUAttack());
-		System.out.println(tInfo.getUGold());
-
 		long endTime = System.currentTimeMillis();
 		System.out.println("Time: " + (endTime - startTime));
-		
 	}
 	
 }

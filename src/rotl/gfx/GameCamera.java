@@ -1,6 +1,6 @@
 package rotl.gfx;
 
-public class GameCamera {
+public final class GameCamera {
 
 	private float xOffset, yOffset;
 

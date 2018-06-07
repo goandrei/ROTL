@@ -14,27 +14,28 @@ public class Display {
 	private JFrame frame;
 	private Canvas canvas;
 
-	private String title;
+	private final String title;
 	private int screenWidth, screenHeight;
 
 	public Display(String title) {
+		
 		this.title = title;
-		createDisplay();
+		this.createDisplay();
 	}
 
 	private void createDisplay() {
 
 		// get the screen's max resolution
-		Dimension screenMaxResolution = Toolkit.getDefaultToolkit().getScreenSize();
+		final Dimension screenMaxResolution = Toolkit.getDefaultToolkit().getScreenSize();
 		screenWidth = (int) screenMaxResolution.getWidth();
 		screenHeight = (int) screenMaxResolution.getHeight();
 
 		frame = new JFrame(title);
 
 		// change the cursor
-		Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/cursor_final.png"));
-		Point hotspot = new Point(0, 0);
-		Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(image, hotspot, "pencil");
+		final Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/cursor_final.png"));
+		final Point hotspot = new Point(0, 0);
+		final Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(image, hotspot, "pencil");
 		frame.setCursor(cursor);
 
 		setFrameSize(screenWidth, screenHeight);
@@ -53,14 +54,14 @@ public class Display {
 		frame.add(canvas);
 	}
 
-	public void setCanvasSize(int width, int height) {
+	private void setCanvasSize(int width, int height) {
 
 		canvas.setPreferredSize(new Dimension(width, height));
 		canvas.setMinimumSize(new Dimension(width, height));
 		canvas.setMaximumSize(new Dimension(width, height));
 	}
 
-	public void setFrameSize(int width, int height) {
+	private void setFrameSize(int width, int height) {
 
 		frame.setPreferredSize(new Dimension(width, height));
 		frame.setMinimumSize(new Dimension(width, height));

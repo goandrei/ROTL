@@ -2,14 +2,14 @@ package rotl.entities;
 
 import java.util.Random;
 
-public class Warrior extends Soldier {
+public final class Warrior extends Soldier {
 
-	public Warrior(int _life, int _armor, int _attack, int _miss, int _dodge, int _critical) {
+	Warrior(int _life, int _armor, int _attack, int _miss, int _dodge, int _critical) {
 
 		super(_life, _armor, _attack, _miss, _dodge, _critical);
 	}
 
-	public Warrior() {
+	Warrior() {
 
 		this(0, 0, 0, 0, 0, 0);
 	}

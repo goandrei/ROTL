@@ -1,22 +1,16 @@
 package rotl.states;
 
 import rotl.buttons.ExitButton;
-import rotl.gfx.Assets;
 import rotl.managers.TileManager;
 import rotl.statusBar.StatusBar;
 import rotl.utilities.Handler;
-import rotl.utilities.XMLLoader;
 import rotl.utilities.XMLParser;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
-//import rotl.buttons.ExitButton;
-
 public class GameState extends State {
-
-	private TileManager tileManager;
 
 	private final int NO_OF_LAYERS;
 
@@ -35,21 +29,17 @@ public class GameState extends State {
 	private StatusBar statusBar;
 
 	private int[][][] layers;
-	Assets a = new Assets();
 
 	public GameState(int width, int height, Handler handler) {
+		
 		super(handler);
 		
 		this.width = width;
 		this.height = height;
 		
 		handler.getGame().getGameCamera().setOffsets(0, 0);
-
-		tileManager = new TileManager();
-		XMLLoader load = new XMLLoader();
-		layers = load.loadXMLMaps("/maps/mapp.xml");
-		NO_OF_LAYERS = load.getNoOfLayers();
-		a.init();
+		layers = XMLParser.loadXMLMaps("/maps/mapp.xml");
+		NO_OF_LAYERS = XMLParser.getNoOfLayers();
 
 		exitButton = new ExitButton(handler, this);
 
@@ -61,9 +51,7 @@ public class GameState extends State {
 		/** parse soldiers info **/
 
 		final String soldiersPath = "resources\\entities_info\\soldiers.xml";
-		final String towersPath = "resources\\entities_info\\towers.xml";
 		XMLParser.parseSoldiersInfo(soldiersPath);
-		XMLParser.parseTowersInfo(towersPath);
 	}
 
 	private void buildDirectionRectangles() {
@@ -167,12 +155,14 @@ public class GameState extends State {
 		for (int k = 0; k < NO_OF_LAYERS; ++k) {
 			for (int i = startHeight; i <= (startHeight + height / 16 + 2); ++i) {
 				for (int j = startWidth; j <= (startWidth + width / 64 + 2); ++j) {
+					
 					int offset;
 					if ((int) (handler.getGame().getGameCamera().getYOffset() + i) % 2 == 0)
 						offset = 0;
 					else
 						offset = 32;
-					tileManager.render(g,
+					
+					TileManager.getInstance().render(g,
 							-32 + offset + (int) (j * TILE_WIDTH - handler.getGame().getGameCamera().getXOffset()),
 							-16 + (int) ((i * (TILE_HEIGHT / 2)) - handler.getGame().getGameCamera().getYOffset()),
 							layers[(int) (handler.getGame().getGameCamera().getYOffset() + i)][(int) (j

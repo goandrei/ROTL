@@ -14,17 +14,12 @@ import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
-
-import javax.imageio.ImageIO;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-
 import rotl.utilities.Handler;
 import rotl.utilities.ImageLoader;
 
-public class Instructions extends JPanel implements MenuOption {
+public final class Instructions extends JPanel implements MenuOption {
 
 	private static final long serialVersionUID = 1L;
 
@@ -88,7 +83,7 @@ public class Instructions extends JPanel implements MenuOption {
 
 	private Instructions(Handler handler) {
 
-		this.handler = handler;
+		Instructions.handler = handler;
 		screenWidth = (handler.getGame().getWidth() * 2) / 3;
 		screenHeight = (handler.getGame().getHeight() * 2) / 3;
 
@@ -108,9 +103,8 @@ public class Instructions extends JPanel implements MenuOption {
 		Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(image, hotspot, "pencil");
 		frame.setCursor(cursor);
 
-		Init();
-
-		setInstructions();
+		this.init();
+		this.setInstructions();
 
 		frame.addFocusListener(new FocusListener() {
 
@@ -165,7 +159,7 @@ public class Instructions extends JPanel implements MenuOption {
 				nextButtonDimensionsY, this);
 	}
 
-	public void setInstructions() {
+	private void setInstructions() {
 
 		closeImgDimensionsX = (int) (screenWidth * 5.5 / 100);
 		closeImgDimensionsY = (int) (screenHeight * 9.8 / 100);
@@ -206,7 +200,7 @@ public class Instructions extends JPanel implements MenuOption {
 	}
 
 	@Override
-	public void Init() {
+	public void init() {
 		backgroundImg = ImageLoader.loadImage("/images/BGinstruction.jpg");
 		closeImg = ImageLoader.loadImage("/images/closeImg.png");
 		nextButton = ImageLoader.loadImage("/images/Next.png");

@@ -2,23 +2,26 @@ package rotl.simulate;
 
 import rotl.entities.SoldierType;
 import rotl.player.Player;
-import rotl.store.Store;
 import rotl.utilities.Handler;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
+import rotl.utilities.ImageLoader;
+import javax.swing.JPanel;
+import javax.swing.JDialog;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Cursor;
+import java.awt.Toolkit;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Fight extends JPanel {
+public final class Fight extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -126,19 +129,8 @@ public class Fight extends JPanel {
 			final SoldierInfoArena sInfo1 = player.getSoldierInfo(indexFirst);
 			final SoldierInfoArena sInfo2 = player.getSoldierInfo(indexSecond);
 	
-			URL resourceSoldier1 = getClass().getResource("/store/" + soldiersSources.get(sInfo1.getSoldierType()) + ".png");
-			try {
-				soldier1 = ImageIO.read(resourceSoldier1);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			URL resourceSoldier2 = getClass().getResource("/store/" + soldiersSources.get(sInfo2.getSoldierType()) + ".png");
-			try {
-				soldier2 = ImageIO.read(resourceSoldier2);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			soldier1 = ImageLoader.loadImage("/store/" + soldiersSources.get(sInfo1.getSoldierType()) + ".png");
+			soldier2 = ImageLoader.loadImage("/store/" + soldiersSources.get(sInfo2.getSoldierType()) + ".png");
 		}
 	}
 	
@@ -162,7 +154,7 @@ public class Fight extends JPanel {
 
 	private Fight(Handler handler) {
 
-		this.handler = handler;
+		Fight.handler = handler;
 		
 		soldiersSources.put(SoldierType.FIGHTER, "Infantry");
 		soldiersSources.put(SoldierType.DEFENDER, "Knight_templar");
@@ -434,78 +426,19 @@ public class Fight extends JPanel {
 	}
 
 	private void Init() {
-
-		URL resourceBKImg = getClass().getResource("/images/Age-of-Empires-Fight2.jpg");
-		try {
-			backgroundImg = ImageIO.read(resourceBKImg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourceCloseImg = getClass().getResource("/store/closeImg.png");
-		try {
-			closeImg = ImageIO.read(resourceCloseImg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
+		backgroundImg = ImageLoader.loadImage("/images/Age-of-Empires-Fight2.jpg");
+		closeImg = ImageLoader.loadImage("/store/closeImg.png"); 
 		
 		this.loadFighters();
-
-		URL resourceupgradeButton1 = getClass().getResource("/store/UpgradeButton.png");
-		try {
-			upgradeButton1 = ImageIO.read(resourceupgradeButton1);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		URL resourcerehealButton1 = getClass().getResource("/store/RehealButton.png");
-		try {
-			rehealButton1 = ImageIO.read(resourcerehealButton1);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		URL resourcerepairArmorButton1 = getClass().getResource("/store/RepairArmorButton.png");
-		try {
-			repairArmorButton1 = ImageIO.read(resourcerepairArmorButton1);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		URL resourceupgradeButton2 = getClass().getResource("/store/UpgradeButton.png");
-		try {
-			upgradeButton2 = ImageIO.read(resourceupgradeButton2);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		URL resourcerehealButton2 = getClass().getResource("/store/RehealButton.png");
-		try {
-			rehealButton2 = ImageIO.read(resourcerehealButton2);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		URL resourcerepairArmorButton2 = getClass().getResource("/store/RepairArmorButton.png");
-		try {
-			repairArmorButton2 = ImageIO.read(resourcerepairArmorButton2);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		URL resourcepauseContinueButton = getClass().getResource("/store/PauseContinueButton.png");
-		try {
-			pauseContinueButton = ImageIO.read(resourcepauseContinueButton);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		URL resourceMyCash = getClass().getResource("/store/cash-icon.png");
-		try {
-			cashImg = ImageIO.read(resourceMyCash);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		upgradeButton1 = ImageLoader.loadImage("/store/UpgradeButton.png");
+		rehealButton1 = ImageLoader.loadImage("/store/RehealButton.png");
+		repairArmorButton1 = ImageLoader.loadImage("/store/RepairArmorButton.png");
+		upgradeButton2 = ImageLoader.loadImage("/store/UpgradeButton.png");
+		rehealButton2 = ImageLoader.loadImage("/store/RehealButton.png");
+		repairArmorButton2 = ImageLoader.loadImage("/store/RepairArmorButton.png");
+		pauseContinueButton = ImageLoader.loadImage("/store/PauseContinueButton.png");
+		cashImg = ImageLoader.loadImage("/store/cash-icon.png");
 	}
 	
 	private void reheal1() {

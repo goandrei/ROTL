@@ -1,6 +1,6 @@
 package rotl.player;
 
-public enum UnitOp {
+enum UnitOp {
 
 	FEE, DO
 }

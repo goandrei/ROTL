@@ -1,27 +1,24 @@
 package rotl.gfx;
 
 import java.awt.image.BufferedImage;
-
 import rotl.utilities.ImageLoader;
 
 public class Assets {
 
-	public static BufferedImage[] outsideTiles;
-	public static BufferedImage[] buildingTiles;
-	public static BufferedImage[] introFrames;
-	public static BufferedImage cursor;
-	private final int TILE_WIDTH = 64;
-	private final int TILE_HEIGHT = 32;
-
-	public void init() {
-
-		int lines, columns;
+	private static BufferedImage[] outsideTiles;
+	private static BufferedImage[] buildingTiles;
+	private static BufferedImage[] introFrames;
+	
+	private static final int TILE_WIDTH = 64;
+	private static final int TILE_HEIGHT = 32;
+	
+	private static Assets instance = null;
+	
+	private Assets() {
 
 		// load the outside tiles
-		lines = 32;
-		columns = 10;
-
-		cursor = ImageLoader.loadImage("/images/cursor_final.png");
+		int lines = 32;
+		int columns = 10;
 
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/iso-64x64-outside.png"));
 		outsideTiles = new BufferedImage[lines * columns + 1];
@@ -55,5 +52,25 @@ public class Assets {
 						TILE_HEIGHT);
 			}
 		}
+	}
+	
+	public static Assets getInstance() {
+		
+		if (instance == null)
+			instance = new Assets();
+		
+		return instance;
+	}
+	
+	public BufferedImage[] getOutsideTiles() {
+		return Assets.outsideTiles;
+	}
+	
+	public BufferedImage[] getBuildingTiles() {
+		return Assets.buildingTiles;
+	}
+	
+	public BufferedImage[] getIntroFrames() {
+		return Assets.introFrames;
 	}
 }

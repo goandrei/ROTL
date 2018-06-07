@@ -13,7 +13,6 @@ import rotl.utilities.Handler;
 
 public class Game implements Runnable {
 
-	private String title;
 	private int screenHeight;
 	private int screenWidth;
 
@@ -33,18 +32,13 @@ public class Game implements Runnable {
 
 	private Graphics g;
 
-	private Assets assets;
-
 	private GameCamera gameCamera;
 
 	public Game(String title) {
 
-		this.title = title;
-
 		gameCamera = new GameCamera(0, 0);
 
-		assets = new Assets();
-		assets.init();
+		Assets.getInstance();
 
 		display = new Display(title);
 
@@ -73,7 +67,7 @@ public class Game implements Runnable {
 	}
 
 	// stop the thread
-	public synchronized void stop() {
+	private synchronized void stop() {
 
 		// if the thread isn't running,don't stop the thread
 		if (!running)
@@ -87,12 +81,13 @@ public class Game implements Runnable {
 	}
 
 	private void update() {
-
+		
 		if (stateManager.getActualState() != null)
 			stateManager.getActualState().update();
 	}
 
 	private void render() {
+		
 		bufferStrategy = display.getCanvas().getBufferStrategy();
 		if (bufferStrategy == null) {
 			display.getCanvas().createBufferStrategy(3);
@@ -115,9 +110,9 @@ public class Game implements Runnable {
 		double frameTime = 1000000000 / fps;
 		double delta = 0;
 		double time = 0;
-		int ticks = 0;
 
 		while (running) {
+			
 			long now = System.nanoTime();
 			delta += (now - last) / frameTime;
 			time += now - last;
@@ -126,16 +121,14 @@ public class Game implements Runnable {
 			// if delta >= 1,then the frame exceeded the frameTime and we can update/render
 			// another frame
 			if (delta >= 1) {
+				
 				update();
 				render();
 				--delta;
-				++ticks;
 			}
 
 			// if time >= 1s,then we reset the values
 			if (time >= 1000000000) {
-				// System.out.println("FPS: " + ticks);
-				ticks = 0;
 				time = 0;
 			}
 		}

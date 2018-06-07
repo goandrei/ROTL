@@ -1,45 +1,35 @@
 package rotl.store;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import javax.imageio.ImageIO;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-
 import rotl.entities.SoldierType;
 import rotl.player.Player;
 import rotl.simulate.Arena;
-import rotl.statusBar.StatusBar;
 import rotl.utilities.Handler;
 import rotl.utilities.ImageLoader;
 
-public class Store extends JPanel {
+public final class Store extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
 	private static Store instance = null;
 	
-	static int currentSoldier = 0;
-	static final int numberOfSoldiers = 3;
+	private static int currentSoldier = 0;
+	private static final int numberOfSoldiers = 3;
 	private static final ArrayList<String> soldiersSources = new ArrayList<>(
 			Arrays.asList("Infantry", "Knight_templar", "Teutonic_knight"));
 	private static final ArrayList<String> soldiersName = new ArrayList<>(
@@ -122,7 +112,7 @@ public class Store extends JPanel {
 
 	private Store(Handler handler) {
 
-		this.handler = handler;
+		Store.handler = handler;
 		
 		try {
 			SoldiersInfoStore infoStore = new SoldiersInfoStore();
@@ -198,45 +188,47 @@ public class Store extends JPanel {
 						running = false;
 					}
 				}
+				
 				if (PrevButton != null) {
-					Point me = e.getPoint();
-					Rectangle bounds = new Rectangle(prevButtonPosition.x, prevButtonPosition.y,
+					
+					final Point me = e.getPoint();
+					
+					final Rectangle bounds = new Rectangle(prevButtonPosition.x, prevButtonPosition.y,
 							prevAndNextButtonDimensionsX, prevAndNextButtonDimensionsY);
+					
 					if (bounds.contains(me)) {
+						
 						currentSoldier--;
 						if (currentSoldier == -1) {
 							currentSoldier = numberOfSoldiers - 1;
 						}
-						URL resourceSoldiersBK = getClass()
-								.getResource("/store/" + soldiersSources.get(currentSoldier) + ".png");
-						try {
-							SoldiersBKIMG = ImageIO.read(resourceSoldiersBK);
-						} catch (IOException ex) {
-							ex.printStackTrace();
-						}
+						
+						SoldiersBKIMG = ImageLoader.loadImage("/store/" + soldiersSources.get(currentSoldier) + ".png");
 						repaint();
 					}
 				}
+				
 				if (NextButton != null) {
-					Point me = e.getPoint();
-					Rectangle bounds = new Rectangle(prevButtonPosition.x + prevAndNextButtonDimensionsX + 10,
+					
+					final Point me = e.getPoint();
+					
+					final Rectangle bounds = new Rectangle(prevButtonPosition.x + prevAndNextButtonDimensionsX + 10,
 							prevButtonPosition.y, prevAndNextButtonDimensionsX, prevAndNextButtonDimensionsY);
+					
 					if (bounds.contains(me)) {
+						
 						currentSoldier++;
 						currentSoldier = currentSoldier % numberOfSoldiers;
-						URL resourceSoldiersBK = getClass()
-								.getResource("/store/" + soldiersSources.get(currentSoldier) + ".png");
-						try {
-							SoldiersBKIMG = ImageIO.read(resourceSoldiersBK);
-						} catch (IOException ex) {
-							ex.printStackTrace();
-						}
+						
+						SoldiersBKIMG = ImageLoader.loadImage("/store/" + soldiersSources.get(currentSoldier) + ".png");
 						repaint();
 					}
 				}
+				
 				if (buyButton != null) {
-					Point me = e.getPoint();
-					Rectangle bounds = new Rectangle(
+					
+					final Point me = e.getPoint();
+					final Rectangle bounds = new Rectangle(
 							buyButtonPosition.x, buyButtonPosition.y, buyButtonDimensionsX,
 									buyButtonDimensionsY);
 					if (bounds.contains(me)) {
@@ -326,17 +318,6 @@ public class Store extends JPanel {
 		costImg = ImageLoader.loadImage("/store/Gold_pile.png");
 		buyButton = ImageLoader.loadImage("/store/buyButton.png");
 		cashImg = ImageLoader.loadImage("/store/cash-icon.png");
-	}
-	
-	public static void updateInformations(ArrayList<Integer> soldiersHealthInput, 
-							              ArrayList<Integer> soldiersArmourInput,
-							              ArrayList<Integer> soldiersAttackInput,
-							              ArrayList<Integer> soldiersUpgradeCostInput,
-							              ArrayList<Integer> soldiersPurchaseCostInput) {
-		soldiersHealth = soldiersHealthInput;
-		soldiersArmour = soldiersArmourInput;
-		soldiersAttack = soldiersAttackInput;
-		soldiersPurchaseCost = soldiersPurchaseCostInput;
 	}
 
 	private void buy() {

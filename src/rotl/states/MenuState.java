@@ -9,11 +9,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
-
-import javax.imageio.ImageIO;
-
 import rotl.menu.HallOfFame;
 import rotl.menu.Instructions;
 import rotl.menu.Options;
@@ -62,7 +57,7 @@ public class MenuState extends State {
 		addHandlers();
 	}
 
-	public void addHandlers() {
+	private void addHandlers() {
 
 		handler.getGame().getDisplay().getCanvas().addMouseMotionListener(new MouseMotionListener() {
 

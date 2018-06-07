@@ -14,7 +14,7 @@ import rotl.entities.Warrior;
 import rotl.simulate.SoldierInfoArena;
 import rotl.statusBar.StatusBar;
 
-public class Player {
+public final class Player {
 
 	private static final int GOLD = 100000000;
 	private static Player _player = null;

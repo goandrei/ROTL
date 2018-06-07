@@ -11,16 +11,14 @@ import rotl.entities.Soldier;
 import rotl.entities.SoldierType;
 import rotl.entities.SoldiersInfo;
 import rotl.entities.SoldiersInfo.S_Info;
-import rotl.entities.Tower;
-import rotl.entities.TowersInfo;
 import rotl.entities.Warrior;
 
-public class UpgradeUnit implements GameUnit {
+final class UpgradeUnit implements GameUnit {
 
 	private UpgradeUnit() {
 	}
 
-	public static int upgradeEntity(Soldier soldier, UnitOp unit) {
+	static int upgradeEntity(Soldier soldier, UnitOp unit) {
 
 		try {
 
@@ -84,63 +82,6 @@ public class UpgradeUnit implements GameUnit {
 				soldier.setMissRate(newStats.get(3));
 				soldier.setDodgeRate(newStats.get(4));
 				soldier.setCriticalRate(newStats.get(5));
-				return 0;
-			default:
-				return 0;
-			}
-
-		} catch (Exception ex) {
-
-			ex.printStackTrace();
-			return 0;
-		}
-	}
-
-	public static int upgradeEntity(Tower tower, UnitOp unit) {
-
-		try {
-
-			if (unit == null)
-				unit = UnitOp.FEE;
-
-			if (tower == null)
-				throw new EntitiesException("Invalid tower !");
-
-			TowersInfo tInfo = TowersInfo.getInstance();
-
-			List<Pair<Integer, Double>> stats = new ArrayList<>();
-
-			stats.add(new Pair<>(tInfo.getBArmor(), tInfo.getUArmor()));
-			stats.add(new Pair<>(tInfo.getBAttack(), tInfo.getUAttack()));
-			stats.add(new Pair<>(tInfo.getBGold(), tInfo.getUGold()));
-
-			int level = tower.getLevel();
-
-			stats.forEach((pair) -> {
-
-				if (pair.getKey() == TowersInfo.ERROR_CODE || pair.getValue() == TowersInfo.ERROR_CODE)
-					throw new EntitiesException("Invalid tower info !!");
-			});
-
-			List<Integer> newStats = new ArrayList<>();
-
-			stats.forEach((pair) -> {
-
-				int buy = pair.getKey();
-				double upgrade = pair.getValue();
-				double value = buy * GameUnit.pow(upgrade, level);
-				int maxStat = ((value > Integer.MAX_VALUE * 1.0) ? Integer.MAX_VALUE : (int) value);
-				newStats.add(maxStat);
-			});
-
-			switch (unit) {
-
-			case FEE:
-				return newStats.get(newStats.size() - 1);
-			case DO:
-				tower.setLevel(level + 1);
-				tower.setArmor(newStats.get(0));
-				tower.setAttack(newStats.get(1));
 				return 0;
 			default:
 				return 0;

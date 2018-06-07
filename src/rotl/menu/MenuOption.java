@@ -2,13 +2,11 @@ package rotl.menu;
 
 import java.awt.Graphics;
 
-public interface MenuOption {
+interface MenuOption {
 
-	static final Integer fontSize = 25;
-	static final Integer titleFontSize = 100;
+	int fontSize = 25;
+	int titleFontSize = 100;
 
-	void Init();
-
-	public void paintComponent(Graphics g);
-
+	void init();
+	void paintComponent(Graphics g);
 }

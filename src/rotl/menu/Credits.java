@@ -2,10 +2,10 @@ package rotl.menu;
 
 import java.awt.Graphics;
 
-public class Credits implements MenuOption {
+public final class Credits implements MenuOption {
 
 	@Override
-	public void Init() {
+	public void init() {
 		// TODO Auto-generated method stub
 
 	}
@@ -15,5 +15,4 @@ public class Credits implements MenuOption {
 		// TODO Auto-generated method stub
 
 	}
-
 }
