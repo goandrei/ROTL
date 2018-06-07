@@ -1,27 +1,28 @@
 package rotl.states;
 
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+
 import rotl.buttons.ExitButton;
+import rotl.gfx.SoldierAnimation;
 import rotl.gfx.Sounds;
 import rotl.managers.TileManager;
 import rotl.statusBar.StatusBar;
 import rotl.utilities.Handler;
 import rotl.utilities.XMLParser;
 
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
-
 public class GameState extends State {
 
 	private final int NO_OF_LAYERS;
-
 	private final int TILE_WIDTH = 64, TILE_HEIGHT = 32;
-
+	private final double OFFSET_AMOUNT = 0.01;
+	
 	private int width, height;
 
-	private Rectangle east, west, south, north, southEast, southWest, northWest, northEast;
-
-	private final double OFFSET_AMOUNT = 0.01;
+	private Rectangle east, west, south, north;
 
 	private float cameraXOffset = 0, cameraYOffset = 0;
 
@@ -29,17 +30,21 @@ public class GameState extends State {
 
 	private StatusBar statusBar;
 	
-	private int[][][] layers;
+	private SoldierAnimation soldierAnimation;
 
+	private int[][][] layers;
+			
 	public GameState(int width, int height, Handler handler) {
 		
 		super(handler);
 		
 		this.width = width;
 		this.height = height;
+
+		soldierAnimation = new SoldierAnimation();
 		
 		handler.getGame().getGameCamera().setOffsets(0, 0);
-		layers = XMLParser.loadXMLMaps("/maps/mapp.xml");
+		layers = XMLParser.loadXMLMaps("/maps/map2.xml");
 		NO_OF_LAYERS = XMLParser.getNoOfLayers();
 
 		exitButton = new ExitButton(handler, this);
@@ -63,10 +68,6 @@ public class GameState extends State {
 		south = new Rectangle(width / 4, (height / 4) * 3, width / 2, height / 4);
 		east = new Rectangle(0, height / 4, width / 4, height / 2);
 		west = new Rectangle((width / 4) * 3, height / 4, width / 4, height / 2);
-		/*northEast = new Rectangle(0, 0, width / 4, height / 4);
-		southEast = new Rectangle(0, (height / 4) * 3, width / 4, height / 4);
-		northWest = new Rectangle((width / 4) * 3, 0, width / 4, height / 4);
-		southWest = new Rectangle((width / 4) * 3, (height / 4) * 3, width / 4, height / 4);*/
 	}
 
 	private void addEventListeners() {
@@ -155,6 +156,8 @@ public class GameState extends State {
 		int startHeight = Math.max((int) (handler.getGame().getGameCamera().getYOffset() / (TILE_HEIGHT / 2)) - 1, 0);
 		int startWidth = Math.max((int) (handler.getGame().getGameCamera().getXOffset() / TILE_WIDTH) - 1, 0);
 
+		//System.out.println(handler.getGame().getGameCamera().getXOffset());
+		
 		for (int k = 0; k < NO_OF_LAYERS; ++k) {
 			for (int i = startHeight; i <= (startHeight + height / 16 + 2); ++i) {
 				for (int j = startWidth; j <= (startWidth + width / 64 + 2); ++j) {
@@ -164,6 +167,10 @@ public class GameState extends State {
 						offset = 0;
 					else
 						offset = 32;
+					
+					//if(k == 3) {
+					//	System.out.print(layers[i][j][k]);
+					//}
 					
 					TileManager.getInstance().render(g,
 							-32 + offset + (int) (j * TILE_WIDTH - handler.getGame().getGameCamera().getXOffset()),
@@ -176,21 +183,16 @@ public class GameState extends State {
 				}
 			}
 		}
-
+			
+		int startHeightt = (int)(startHeight + handler.getGame().getGameCamera().getYOffset());
+		int finalHeightt = startHeightt + height / 16 + 2;
+		
+		int startWidthh = (int)(startWidth + handler.getGame().getGameCamera().getXOffset());
+		int finalWidthh = startWidthh + width / 64 + 2;
+		
+		
 		exitButton.render(g);
-
-		/*
-		 * if(n) { g.fillRect(width / 4, 0, width / 2, height / 4); }else {
-		 * g.drawRect(width / 4, 0, width / 2, height / 4); }
-		 *
-		 * if(s) { g.fillRect(width / 4, (height / 4) * 3, width / 2, height / 4); }else
-		 * { g.drawRect(width / 4, (height / 4) * 3, width / 2, height / 4); }
-		 *
-		 * if(w) { g.fillRect((width / 4) * 3, height / 4, width / 4, height / 2); }else
-		 * { g.drawRect((width / 4) * 3, height / 4, width / 4, height / 2); }
-		 *
-		 * if(e) { g.fillRect(0, height / 4, width / 4, height / 2); }else {
-		 * g.drawRect(0, height / 4, width / 4, height / 2); }
-		 */
+		soldierAnimation.render(g, startHeightt, finalHeightt, 
+								   startWidthh, finalWidthh);
 	}
 }

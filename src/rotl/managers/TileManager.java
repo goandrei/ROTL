@@ -27,6 +27,9 @@ public final class TileManager {
 			break;
 		case 2:
 			g.drawImage(Assets.getInstance().getBuildingTiles()[Math.max(0, index - 320)], x, y, 64, 32, null);
+			break;
+		case 3:
+			g.drawImage(Assets.getInstance().getSoldierFrames()[Math.max(0, index - 1232)], x, y, 32, 64, null);
 		}
 	}
 }

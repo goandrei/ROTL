@@ -12,11 +12,21 @@ public final class Animation {
 	private long now;
 	private boolean started = false;
 
+	private Animable animator = null;
+	
 	public Animation(BufferedImage[] frames, Integer[] delays) {
 		
 		this.frames = frames;
 		this.delays = delays;
 		this.limit = delays.length;
+	}
+	
+	public Animation(BufferedImage[] frames, Integer[] delays, Animable animator) {
+		
+		this.frames = frames;
+		this.delays = delays;
+		this.limit = delays.length;
+		this.animator = animator;
 	}
 
 	public void start() {
@@ -28,18 +38,42 @@ public final class Animation {
 	public boolean hasStarted() {
 		return started;
 	}
+	
+	public void stop() {
+		index = 0;
+		started = false;
+	}
 
 	public BufferedImage getFrame() {
 
 		now = System.currentTimeMillis();
-
+			
 		if ((now - last) >= delays[index]) {
 			++index;
 			last = now;
+			if(animator != null) {
+				animator.updatePosition();
+			}
 		}
 
-		if (index == limit)
+		if (index == limit) {
 			return null;
+		}
+
+		return frames[index];
+	}
+	
+	public BufferedImage getPeriodFrame() {
+
+		now = System.currentTimeMillis();
+			
+		if ((now - last) >= delays[index]) {
+			index = (index + 1) % 3;
+			last = now;
+			if(animator != null) {
+				animator.updatePosition();
+			}
+		}
 
 		return frames[index];
 	}
