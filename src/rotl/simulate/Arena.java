@@ -239,8 +239,8 @@ public final class Arena extends JPanel {
 				
 				if (closeImg != null) {
 					
-					Point me = e.getPoint();
-					Rectangle bounds = new Rectangle(closeImgPosition.x, closeImgPosition.y, closeImgDimensionsX,
+					final Point me = e.getPoint();
+					final Rectangle bounds = new Rectangle(closeImgPosition.x, closeImgPosition.y, closeImgDimensionsX,
 							closeImgDimensionsY);
 					
 					if (bounds.contains(me)) {
@@ -269,8 +269,8 @@ public final class Arena extends JPanel {
 				
 				if (prevButton != null) {
 					
-					Point me = e.getPoint();
-					Rectangle bounds = new Rectangle(prevButtonPosition.x, prevButtonPosition.y,
+					final Point me = e.getPoint();
+					final Rectangle bounds = new Rectangle(prevButtonPosition.x, prevButtonPosition.y,
 							prevAndNextButtonDimensionsX, prevAndNextButtonDimensionsY);
 					
 					if (bounds.contains(me)) {
@@ -286,8 +286,8 @@ public final class Arena extends JPanel {
 				
 				if (nextButton != null) {
 					
-					Point me = e.getPoint();
-					Rectangle bounds = new Rectangle(prevButtonPosition.x + prevAndNextButtonDimensionsX + 10,
+					final Point me = e.getPoint();
+					final Rectangle bounds = new Rectangle(prevButtonPosition.x + prevAndNextButtonDimensionsX + 10,
 							prevButtonPosition.y, prevAndNextButtonDimensionsX, prevAndNextButtonDimensionsY);
 					
 					if (bounds.contains(me)) {
@@ -304,8 +304,8 @@ public final class Arena extends JPanel {
 				
 				if (upgradeButton != null) {
 					
-					Point me = e.getPoint();
-					Rectangle bounds = new Rectangle(upgradeButtonPosition.x, upgradeButtonPosition.y,
+					final Point me = e.getPoint();
+					final Rectangle bounds = new Rectangle(upgradeButtonPosition.x, upgradeButtonPosition.y,
 							upgradeButtonDimensionsX, upgradeButtonDimensionsY);
 					
 					if (bounds.contains(me)) {
@@ -315,8 +315,8 @@ public final class Arena extends JPanel {
 				
 				if (sellButton != null) {
 					
-					Point me = e.getPoint();
-					Rectangle bounds = new Rectangle(sellButtonPosition.x, sellButtonPosition.y,
+					final Point me = e.getPoint();
+					final Rectangle bounds = new Rectangle(sellButtonPosition.x, sellButtonPosition.y,
 							sellButtonDimensionsX, sellButtonDimensionsY);
 					
 					if (bounds.contains(me)) {
@@ -326,8 +326,8 @@ public final class Arena extends JPanel {
 				
 				if (useForFightButton != null) {
 					
-					Point me = e.getPoint();
-					Rectangle bounds = new Rectangle(useForFightButtonPosition.x, useForFightButtonPosition.y,
+					final Point me = e.getPoint();
+					final Rectangle bounds = new Rectangle(useForFightButtonPosition.x, useForFightButtonPosition.y,
 							useForFightButtonDimensionsX, useForFightButtonDimensionsY);
 					
 					if (bounds.contains(me)) {
@@ -336,8 +336,9 @@ public final class Arena extends JPanel {
 				}
 				
 				if (fight != null) {
-					Point me = e.getPoint();
-					Rectangle bounds = new Rectangle(fightPosition.x, fightPosition.y,
+					
+					final Point me = e.getPoint();
+					final Rectangle bounds = new Rectangle(fightPosition.x, fightPosition.y,
 							fightDimensionsX, fightDimensionsY);
 					if (bounds.contains(me)) {
 						fight();

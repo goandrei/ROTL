@@ -370,7 +370,7 @@ public final class Fight extends JPanel {
 					}
 				}
 				
-				if (pauseContinueButton != null) {
+				if (pauseContinueButton != null && pauseContinueButtonPause != null) {
 					
 					final Point me = e.getPoint();
 					final Rectangle bounds = new Rectangle(pauseContinueButtonPosition.x, pauseContinueButtonPosition.y, pauseContinueButtonDimensionsX,
@@ -505,7 +505,10 @@ public final class Fight extends JPanel {
 		info = String.format("%s/%s", secondArmor, secondMaxArmor);
 		g.drawString(info, armorSoldier2Position.x + (int)(armorSoldier2DimensionsX / 2) - 10 - 6 * info.length(), armorSoldier2Position.y + 20);
 		
-		g.drawImage(pauseContinueButton, pauseContinueButtonPosition.x, pauseContinueButtonPosition.y,  pauseContinueButtonDimensionsX,  pauseContinueButtonDimensionsY, this);
+		if (isActive)
+			g.drawImage(pauseContinueButton, pauseContinueButtonPosition.x, pauseContinueButtonPosition.y,  pauseContinueButtonDimensionsX,  pauseContinueButtonDimensionsY, this);
+		else
+			g.drawImage(pauseContinueButtonPause, pauseContinueButtonPosition.x, pauseContinueButtonPosition.y,  pauseContinueButtonDimensionsX,  pauseContinueButtonDimensionsY, this);
 		
 		g.drawImage(cashImg, screenWidth - (int) (screenWidth * 8 / 100),
 				screenHeight - (int) (screenHeight * 11 / 100), (int) (screenWidth * 6 / 100),

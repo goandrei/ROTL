@@ -39,7 +39,7 @@ public final class Animation {
 		return started;
 	}
 	
-	public void stop() {
+	void stop() {
 		index = 0;
 		started = false;
 	}

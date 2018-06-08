@@ -1,7 +1,5 @@
 package rotl.menu;
 
-import static java.lang.Math.min;
-
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -18,14 +16,11 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javafx.util.Pair;
 import rotl.utilities.Handler;
 import rotl.utilities.ImageLoader;
 

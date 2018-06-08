@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import rotl.gfx.Animation;
 import rotl.gfx.Assets;
-import rotl.gfx.Sounds;
 import rotl.utilities.Handler;
 
 public class IntroState extends State {
@@ -42,6 +41,4 @@ public class IntroState extends State {
 
 		g.drawImage(animation.getFrame(), 0, 0, screenWidth, screenHeight, null);
 	}
-
-
 }

@@ -4,13 +4,14 @@ import rotl.entities.GameEntity;
 import rotl.player.Player;
 import java.util.Random;
 
-public final class CombatUnit implements Runnable {
+final class CombatUnit implements Runnable {
 	
 	private final GameEntity firstFighter;
 	private final GameEntity secondFighter;
 	private final Random turn = new Random();
+	private static final int TIME_TO_SLEEP = 250;
 	
-	public CombatUnit(int firstFighter, int secondFighter) {
+	CombatUnit(int firstFighter, int secondFighter) {
 		
 		final Player player = Player.getInstance();
 		this.firstFighter = player.getFighter(firstFighter);
@@ -42,7 +43,7 @@ public final class CombatUnit implements Runnable {
 			/** Sleep time **/
 			try {
 				
-				Thread.sleep(200);
+				Thread.sleep(TIME_TO_SLEEP);
 			
 			} catch (InterruptedException ex) {
 				break;

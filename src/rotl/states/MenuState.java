@@ -31,7 +31,6 @@ public class MenuState extends State {
 	private boolean start, options, instructions, highScores, exit;
 	private static int xMenu, yMenu;
 	private static int screenWidth, screenHeight;
-	private final int textSize = 48;
 	
 	private GameState gameState = null;
 	
@@ -77,12 +76,15 @@ public class MenuState extends State {
 
 			@Override
 			public void mouseMoved(MouseEvent event) {
-				Point mousePosition = event.getPoint();
+				
+				final Point mousePosition = event.getPoint();
 
 				if (playButton != null) {
-					Rectangle bounds = new Rectangle(xMenu + (int) (screenWidth * 2 / 100),
+					
+					final Rectangle bounds = new Rectangle(xMenu + (int) (screenWidth * 2 / 100),
 							yMenu + (int) (screenHeight * 1 / 100), MenuDimensionX - 2 * (int) (screenWidth * 2 / 100),
 							(int) (MenuDimensionY / 6));
+					
 					if (bounds.contains(mousePosition)) {
 						start = true;
 						
@@ -92,9 +94,11 @@ public class MenuState extends State {
 				}
 
 				if (optionsButton != null) {
-					Rectangle bounds = new Rectangle(xMenu + (int) (screenWidth * 2 / 100),
+					
+					final Rectangle bounds = new Rectangle(xMenu + (int) (screenWidth * 2 / 100),
 							yMenu + 2 * (int) (screenHeight * 1 / 100) + (int) (MenuDimensionY / 6),
 							MenuDimensionX - 2 * (int) (screenWidth * 2 / 100), (int) (MenuDimensionY / 6));
+					
 					if (bounds.contains(mousePosition)) {
 						options = true;
 					} else {
@@ -103,9 +107,11 @@ public class MenuState extends State {
 				}
 
 				if (instructionButton != null) {
-					Rectangle bounds = new Rectangle(xMenu + (int) (screenWidth * 2 / 100),
+					
+					final Rectangle bounds = new Rectangle(xMenu + (int) (screenWidth * 2 / 100),
 							yMenu + 3 * (int) (screenHeight * 1 / 100) + 2 * (int) (MenuDimensionY / 6),
 							MenuDimensionX - 2 * (int) (screenWidth * 2 / 100), (int) (MenuDimensionY / 6));
+					
 					if (bounds.contains(mousePosition)) {
 						instructions = true;
 					} else {
@@ -114,9 +120,11 @@ public class MenuState extends State {
 				}
 
 				if (highScoreButton != null) {
-					Rectangle bounds = new Rectangle(xMenu + (int) (screenWidth * 2 / 100),
+					
+					final Rectangle bounds = new Rectangle(xMenu + (int) (screenWidth * 2 / 100),
 							yMenu + 4 * (int) (screenHeight * 1 / 100) + 3 * (int) (MenuDimensionY / 6),
 							MenuDimensionX - 2 * (int) (screenWidth * 2 / 100), (int) (MenuDimensionY / 6));
+					
 					if (bounds.contains(mousePosition)) {
 						highScores = true;
 					} else {
@@ -126,9 +134,10 @@ public class MenuState extends State {
 
 				if (exitButton != null) {
 					
-					Rectangle bounds = new Rectangle(xMenu + (int) (screenWidth * 2 / 100),
+					final Rectangle bounds = new Rectangle(xMenu + (int) (screenWidth * 2 / 100),
 							yMenu + 5 * (int) (screenHeight * 1 / 100) + 4 * (int) (MenuDimensionY / 6),
 							MenuDimensionX - 2 * (int) (screenWidth * 2 / 100), (int) (MenuDimensionY / 6));
+					
 					if (bounds.contains(mousePosition)) {
 						exit = true;
 					} else {

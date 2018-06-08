@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-
 import rotl.gfx.Sounds;
 import rotl.utilities.Handler;
 import rotl.utilities.ImageLoader;
@@ -41,7 +40,6 @@ public final class Settings extends JPanel implements MenuOption {
 	private static Handler handler;
 	private static JDialog frame = new JDialog();
 	private static Settings single_instance = null;
-	private static String content = "";
 
 	private static int screenWidth, screenHeight;
 
