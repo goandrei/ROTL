@@ -129,9 +129,9 @@ public final class Settings extends JPanel implements MenuOption {
 			g.drawImage(muteIcon, volumeIconPosX.get(1), volumeIconPosY.get(1), volumeIconDimensionsX, volumeIconDimensionsY, this);
 		
 		if (!sounds.isBattleMusicMuted())
-			g.drawImage(volumeIcon, volumeIconPosX.get(2), volumeIconPosY.get(2), volumeIconDimensionsX, volumeIconDimensionsY, this);
+			g.drawImage(volumeIcon, volumeIconPosX.get(2) + 10, volumeIconPosY.get(2), volumeIconDimensionsX, volumeIconDimensionsY, this);
 		else
-			g.drawImage(muteIcon, volumeIconPosX.get(2), volumeIconPosY.get(2), volumeIconDimensionsX, volumeIconDimensionsY, this);
+			g.drawImage(muteIcon, volumeIconPosX.get(2) + 10, volumeIconPosY.get(2), volumeIconDimensionsX, volumeIconDimensionsY, this);
 		
 		g.drawImage(closeImg, closeImgPosition.x, closeImgPosition.y, closeImgDimensionsX, closeImgDimensionsY, this);
 	}

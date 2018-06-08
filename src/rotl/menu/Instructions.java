@@ -131,7 +131,7 @@ public final class Instructions extends JPanel implements MenuOption {
 		g.drawImage(closeImg, closeImgPosition.x, closeImgPosition.y, closeImgDimensionsX, closeImgDimensionsY, this);
 		
 		g.setFont(new Font("Neuropol X", Font.BOLD, fontSize));
-		drawString(g, content.toString(), (int) (screenWidth * 10 / 100), (int) (screenHeight * 25 / 100));
+		drawString(g, content.toString(), (int) (screenWidth * 5 / 100), (int) (screenHeight * 20 / 100));
 	}
 
 	private void setInstructions() {
